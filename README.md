@@ -55,4 +55,7 @@ After the testing of the branch is complete.
 
 Before merging PLEASE test that there is no bugs on your branch.
 
+#### Bug Tracking
+If you have found a bug, use the Issue Tracker (Click Issues at the top). The page is pretty self-explanatory, just remember to use labels. If there is a feature you would like to add we you can use the enhancement label. Later on we can use milestones to make it look more professional.
+
 *This readme was written in Markdown, please continue to use this format for this file.
