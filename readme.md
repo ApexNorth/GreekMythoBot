@@ -1,4 +1,3 @@
-
 # Greek Mythology Bot
 Chat with a Greek God and learn about their life and their secrets.
 ## Instructions
@@ -6,16 +5,30 @@ If you have never used git before :
 ### Installation
 1. Download Git. https://git-scm.com/install/windows
 ### Cloning the repo
-1. Click the green <> Code button in the top right corner of this page. 
-2. Under clone, click "HTTPS"
-3. Open terminal or command prompt and navigate to a folder of your choice or open terminal/cmd from a directory within file explorer.
-4. Type the following `git clone copiedlink` press enter.
-5. Open this folder, this will be the working directory.
+#### Option 1 - Using HTTPS:
+1. Click on your profile picture->Settings->Developer Settings->Personal Access Tokens->Tokens(Classic)->Genereate New Token (Classic)
+2. Keep the token safe once you leave the page it will disappear
+3. Click the green <> Code button in the top right corner of this page. 
+4. Under clone, click "HTTPS"
+5. Open terminal or command prompt and navigate to a folder of your choice or open terminal/cmd from a directory within file explorer.
+6. Type the following `git clone copiedlink` press enter.
+7. Enter you git username.
+8. Enter your git password.
+9. Open this folder, this will be the working directory.
+
+#### Option 2 - Using SSH
+After this setup you will not have to enter your user/password each time.
+1. Follow these instructions here page: https://docs.github.com/en/authentication/connecting-to-github-with-ssh
+2. Click the green <> Code button in the top right corner of this page. 
+3. Under Clone click "SSH"
+4. Open terminal or command prompt and navigate to a folder of your choice or open terminal/cmd from a directory within file explorer.
+5. Type the following `git clone copiedlink` press enter.
+6. Open this folder, this will be the working directory.
+
 
 ### Creating a branch
 To avoid pushing buggy code to the main branch, you should work on a seperate branch instead.
 
-If you have just started by cloning the repo you can skip this step.
 #### Check you have the latest code
 1. Switch to the main branch `git checkout main`
 2. Pull the latest code `git pull origin main`
@@ -42,5 +55,5 @@ After the testing of the branch is complete.
 
 Before merging PLEASE test that there is no bugs on your branch.
 
-This readme was written in Markdown, please continue to use this format.
+*This readme was written in Markdown, please continue to use this format for this file.
 
