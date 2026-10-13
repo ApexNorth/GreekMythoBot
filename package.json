@@ -1,0 +1,23 @@
+{
+  "name": "greekmythobot",
+  "version": "1.0.0",
+  "description": "Chat with a Greek God and learn about their life and their secrets.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ApexNorth/GreekMythoBot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ApexNorth/GreekMythoBot/issues"
+  },
+  "homepage": "https://github.com/ApexNorth/GreekMythoBot#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
