@@ -58,4 +58,32 @@ Before merging PLEASE test that there is no bugs on your branch.
 ## Bug Tracking
 If you have found a bug, use the Issue Tracker (Click Issues at the top). The page is pretty self-explanatory, just remember to use labels. If there is a feature you would like to add we you can use the enhancement label. Later on we can use milestones to make it look more professional.
 
-*This readme was written in Markdown, please continue to use this format for this file.
+## How to Run
+To run the site you will need to setup a couple of things.
+
+### Setting up
+1. Install NodeJS on your machine, you can get it from here:
+   https://nodejs.org/en/download
+2. Clone the repo (If you followed the instructions above, you can skip this step)
+3. Open terminal/cmd within the folder you cloned (or navigate there)
+4. Type the following `npm install` to install the backend.
+5. Navigate to the `frontend` folder and open terminal.
+6. Type `npm install`
+
+
+### Option 1: Running the app with two terminals
+Running the app will require the use of two terminals.
+1. Navigate and open a terminal inside the repo root folder (the folder with `server.js` inside).
+2. Type `node server.js` To start the server.
+3. Navigate and open a terminal/cmd inside the `frontend` folder.
+4. Type `npm run dev` To start Vite.
+5. Open your web browser and navigate to `http://localhost:5173/`
+
+### Option 2: Running the app with a single terminal.
+You can streamline the process by entering the following command from terminal/cmd within the root folder.
+`npm run dev`
+Then navigate to:`http://localhost:5173/`
+
+Because React is well, Reactive. You don't need to restart the server when working with anything on the frontend all changes should display as soon as they saved.
+
+**This readme was written in Markdown, please continue to use this format for this file.*
