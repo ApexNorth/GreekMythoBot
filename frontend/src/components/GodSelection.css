@@ -1,0 +1,25 @@
+
+.god-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.god-card {
+    width: 180px;
+    height: 220px;
+    padding: 20px;
+    border: 2px solid #b59b65;
+    border-radius: 12px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.god-card.selected {
+    border-color: #918542;
+    outline: 3px solid #918542;
+    outline-offset: 3px;
+}
