@@ -12,7 +12,7 @@ export async function playSound(sound_to_play, bLoop = false) {
   /// Plays the desired sound or warns if the sound cannot be played.
   // param sound_to_play: Sound filename.
   // param bLoop: Should the sound loop?
-
+  sound_to_play = sound_to_play.toLowerCase();
   if (!(sound_to_play in sound_lib)) {
     console.warn('AUDIO: Key does not exist');
     return;
