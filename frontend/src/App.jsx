@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
-import Home from './pages/Home.jsx';
-import Chat from './pages/Chat.jsx';
+import Home from './routes/Home.jsx';
+import Chat from './routes/Chat.jsx';
 import './App.css';
 
 function App() {
