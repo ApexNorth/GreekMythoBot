@@ -42,7 +42,12 @@ function checkRelationship(){
 }
 
 function  Chat(){
+  //Sets and gets the relationship status bar
   const [progress, setProgress] = useState(tGod.relationship);
+  //Used to store messages
+  const [messages, setMessages] = useState([
+    {sender: 'God', text: "This is a test"}
+  ])
 
   const setNewProgress = (value) => {
     setProgress(value);
@@ -113,6 +118,9 @@ function  Chat(){
       alert("Please, enter a message");
     } else {
       checkWords(text);
+      const newMessages = [...messages, {sender: 'User', text}];
+      setMessages(newMessages);
+      console.log(newMessages);
     }
   }
 
