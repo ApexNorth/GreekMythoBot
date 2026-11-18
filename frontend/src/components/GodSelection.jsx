@@ -1,7 +1,13 @@
 
 import { useState } from 'react';
 import './GodSelection.css';
-import zeusImage from '../assets/zeus.png';
+
+
+const imageFiles = import.meta.glob('../assets/gods/*.png', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+});
 
 function GodSelection() {
     const gods = [
@@ -47,6 +53,13 @@ function GodSelection() {
 
     const [selectedGod, setSelectedGod] = useState(null);
 
+    const godImages = Object.fromEntries(
+      gods.map((god) => [
+        god,
+        imageFiles[`../assets/gods/${god.toLowerCase()}.png`]
+      ])
+    );
+
   return (
     <div>
       <h2>Choose a Greek God</h2>
@@ -64,10 +77,10 @@ function GodSelection() {
                   className={`god-card ${selectedGod === god ? 'selected' : ''}`}
                   onClick={() => setSelectedGod(god)}
                   >
-                    {god === 'Zeus' && (
+                    {godImages[god] && (
                       <img
-                      src={zeusImage}
-                      alt="Zeus holding a lightning bolt"
+                      src={godImages[god]}
+                      alt={`Illustration of ${god}`}
                       className="god-card-image"
                       />
                     )}
