@@ -1,25 +1,26 @@
-import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useParams, Link } from 'react-router-dom';
 import './App.css';
 import GodSelection from './components/GodSelection.jsx';
 
-
-function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    fetch('/api')
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message))
-      .catch((err) => console.error('Error fetching data:', err));
-  }, []);
+function ChatPlaceholder() {
+  const { god } = useParams();
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>React + Vite + Express</h1>
-      <p>{message ? message : 'If you see this then everything works!'}</p>
-     
-      <GodSelection />
+    <div>
+      <h2>Chat with {god}</h2>
+      <Link to="/">Back to God Selection</Link>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<GodSelection />} />
+        <Route path="/chat/:god" element={<ChatPlaceholder />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

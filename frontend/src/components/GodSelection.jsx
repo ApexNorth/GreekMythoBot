@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import './GodSelection.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const imageFiles = import.meta.glob('../assets/gods/*.png', {
@@ -60,8 +61,10 @@ function GodSelection() {
       ])
     );
 
+    const navigate = useNavigate();
+
   return (
-    <div>
+    <div className="god-selection-page">
       <h2>Choose a Greek God</h2>
       <p>Select a god to begin your journey.</p>
 
@@ -75,7 +78,10 @@ function GodSelection() {
                 <button
                   type="button"
                   className={`god-card ${selectedGod === god ? 'selected' : ''}`}
-                  onClick={() => setSelectedGod(god)}
+                  onClick={() => {
+                    setSelectedGod(god);
+                    navigate(`/chat/${god.toLowerCase()}`);
+                  }}
                   >
                     {godImages[god] && (
                       <img
