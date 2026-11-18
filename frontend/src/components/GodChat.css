@@ -1,0 +1,99 @@
+
+.god-chat-preview {
+    min-height: 100vh;
+    padding: 40px 20px;
+    box-sizing: border-box;
+
+    background-color: #f2e6d0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: #25201a;
+}
+
+.zeus-chat-preview {
+    background-image: url('../assets/backgrounds/zeus-olympus.png');
+}
+
+.athena-chat-preview {
+    background-image: url('../assets/backgrounds/athena-background.png');
+}
+
+.god-chat-preview a {
+    color: #25201a;
+}
+
+.god-chat-panel {
+  width: 480px;
+  max-width: 100%;
+  min-height: 650px;
+
+  margin-top: 30px;
+  padding: 20px;
+
+  background-color: #f2e6d0;
+  border: 3px solid #2b211b;
+  border-radius: 15px;
+  box-shadow: 6px 6px 0 #2b211b;
+
+  color: #2b211b;
+  text-align: left;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.god-message {
+  margin-top: 24px;
+  padding: 16px;
+
+  background-color: #fffaf2;
+  border: 2px solid #2b211b;
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 #e2b13c;
+
+  line-height: 1.5;
+}
+
+.god-chat-input {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.god-chat-input input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+
+  background-color: #fffaf2;
+  border: 2px solid #2b211b;
+  border-radius: 10px;
+
+  font-size: 14px;
+  color: #2b211b;
+}
+
+.god-chat-input button {
+  padding: 12px 16px;
+
+  background-color: #e2b13c;
+  border: 2px solid #2b211b;
+  border-radius: 10px;
+
+  color: #2b211b;
+  font-weight: bold;
+}
+
+.user-message {
+    align-self: flex-end;
+    max-width: 80%;
+    background-color: #f6d78c;
+    overflow-wrap: anywhere;
+
+    padding: 8px 14px;
+    margin-top: 12px;
+}
