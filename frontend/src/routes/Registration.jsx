@@ -56,6 +56,7 @@ function Registration(){
   const [agreed, setAgreed] = useState(false);
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
 
   // Runs when Register is clicked (or Enter is pressed): checks every field and shows any problems.
   const handleSubmit = (e) => {
@@ -79,13 +80,15 @@ function Registration(){
     }
 
     // TODO BACKEND: POST /api/register { email, username, password, captcha }
-    // The server replies if the captcha is wrong or the email is already used;
-    // otherwise go to the Travel screen.
-    setMessage('Everything looks good! (The server is not connected yet.)');
+    // The server replies if the captcha is wrong or the email is already used.
+    // Until then we pretend it worked and open the clouds.
+    setMessage('');
+    setIsOpen(true);
+    // TODO: go to the Travel screen after the clouds open (that page isn't built yet).
   };
 
   return (
-    <CloudGate>
+    <CloudGate isOpen={isOpen}>
       <div className="registration-page">
         <h1>The Descent</h1>
 

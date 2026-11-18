@@ -9,6 +9,27 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 18 November 2026: Registration page, step 6 (George)
+
+**Added**
+- The clouds now open after a successful sign-up: the form fades, the cloud
+  walls slide off to each side and Mount Olympus is revealed (FE-06). Done with
+  plain CSS, switched on by a new `isOpen` setting on `CloudGate`, so Login can
+  use the same effect.
+- When "reduce motion" is turned on, the clouds disappear without sliding (NFR-04).
+- Once the form has faded, it can't be reached with the Tab key, so keyboard
+  users don't get lost in invisible boxes.
+
+**Changed**
+- Until the server is connected, a valid form opens the clouds straight away.
+  `TODO` notes mark where the server reply and the move to the Travel screen go.
+
+**Fixed**
+- The Olympus picture was compressed too much and the sky looked stripy once it
+  was fully visible. Re-exported at higher quality (10 KB to 39 KB).
+
+---
+
 ## 18 November 2026: Registration page, step 5 (George)
 
 **Added**
