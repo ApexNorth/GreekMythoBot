@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import SingleInput from '../components/SingleInput.jsx';
+import './Registration.css';
 
 const charsToCheck = [".", ",", ";", ":", "!", "?"];
 // TODO BACKEND: GET /api/captcha should give us the captcha. Fake code until then.

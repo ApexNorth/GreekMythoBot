@@ -9,6 +9,27 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 18 November 2026: Registration page, step 3 (George)
+
+**Added**
+- Greek pottery styling for the Registration page: a cream card with a thick
+  black outline and a thin terracotta line inside, pill-shaped inputs, and a
+  black Register button that turns terracotta on hover. Matches the team's
+  agreed colours and the UI element art.
+- `SingleInput.css`, so every page that uses `SingleInput` (e.g. Login) gets the
+  same input style.
+- Clear focus rings on inputs, the checkbox and the button, so keyboard users
+  can see where they are (NFR-03).
+- Mobile layout below 600px. Tested at 360, 390 and 768px with no sideways
+  scrolling (NFR-01).
+- Button animations switch off when the device is set to reduce motion (NFR-04).
+
+**Fixed**
+- In dark mode the checkbox showed as a dark square on the cream card. The page
+  now always uses light form controls.
+
+---
+
 ## 18 November 2026: Registration page, step 2 (George)
 
 **Added**
