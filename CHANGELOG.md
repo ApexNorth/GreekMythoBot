@@ -9,6 +9,30 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 18 November 2026: Registration page, step 2 (George)
+
+**Added**
+- Confirm password field, so a typo in the password is caught before the
+  account is made.
+- "I agree to the Terms and Privacy Policy" checkbox, which must be ticked to
+  register, because we store personal details (email).
+- Results now show as a message on the page instead of a pop-up, and screen
+  readers read it out (`role="alert"`).
+- `TODO BACKEND` markers where the captcha and the register request will connect
+  to the server.
+
+**Changed**
+- Fields now follow the agreed list and the Figma wireframe: Email, Username,
+  Password, Confirm password, Captcha, terms checkbox, Register button.
+- The fields are now a real `<form>`, so pressing Enter submits it (keyboard use).
+- Page heading is "The Descent" with a "Register" card title, as in the wireframe.
+
+**Fixed**
+- The captcha check was called without the typed code, so it always failed.
+- Removed `alert()` pop-ups and `console.log` debugging.
+
+---
+
 ## 18 November 2026: Registration page, step 1 (George)
 
 **Added**
