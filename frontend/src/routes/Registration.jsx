@@ -59,10 +59,10 @@ function Registration(){
   return(
     <div>
     <h1>Registration</h1>
-    <SingleInput placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-    <SingleInput placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-    <SingleInput placeholder="Username" value={user} onChange={(e) => setUser(e.target.value)}/>
-    <SingleInput placeholder="CAPATCHA" value={cap} onChange={(e) => setCap(e.target.value)}/>
+    <SingleInput id="email" label="Email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+    <SingleInput id="password" label="Password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+    <SingleInput id="username" label="Username" placeholder="Username" value={user} onChange={(e) => setUser(e.target.value)}/>
+    <SingleInput id="captcha" label="Captcha" placeholder="Captcha" value={cap} onChange={(e) => setCap(e.target.value)}/>
     <button onClick={handleOK}>OK</button>
   </div>
   )
