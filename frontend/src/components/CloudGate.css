@@ -14,6 +14,11 @@
   border-inline: none;
 }
 
+/* Pale sky behind the pictures, so text stays readable if they don't load (and in dark mode) */
+:root:has(.cloud-gate) {
+  background: #cfdcf2;
+}
+
 /* Content (the form) sits on top of the clouds */
 .cloud-gate-content {
   position: relative;
@@ -35,6 +40,27 @@
 
 .cloud-gate.open .cloud-right {
   transform: translateX(100%);
+}
+
+/* Front clouds: sit a little further out, and move faster when opening (gives depth) */
+.cloud-front {
+  transition-duration: 1.3s;
+}
+
+.cloud-front.cloud-left {
+  transform: translateX(-8%);
+}
+
+.cloud-front.cloud-right {
+  transform: translateX(8%);
+}
+
+.cloud-gate.open .cloud-front.cloud-left {
+  transform: translateX(-110%);
+}
+
+.cloud-gate.open .cloud-front.cloud-right {
+  transform: translateX(110%);
 }
 
 .cloud-gate.open .cloud-frame {

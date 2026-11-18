@@ -3,6 +3,8 @@ import olympus from '../assets/clouds/olympus.webp';
 import cloudFrame from '../assets/clouds/cloud-frame.webp';
 import cloudLeft from '../assets/clouds/cloud-left.webp';
 import cloudRight from '../assets/clouds/cloud-right.webp';
+import cloudLeftFront from '../assets/clouds/cloud-left-front.webp';
+import cloudRightFront from '../assets/clouds/cloud-right-front.webp';
 
 /**
  * Full-screen cloud wall with Mount Olympus behind it. Whatever you put inside (e.g. a form) sits on top.
@@ -17,6 +19,8 @@ function CloudGate({isOpen = false, openMessage, children}){
       <img className="cloud-layer cloud-frame" src={cloudFrame} alt=""/>
       <img className="cloud-layer cloud-left" src={cloudLeft} alt=""/>
       <img className="cloud-layer cloud-right" src={cloudRight} alt=""/>
+      <img className="cloud-layer cloud-front cloud-left" src={cloudLeftFront} alt=""/>
+      <img className="cloud-layer cloud-front cloud-right" src={cloudRightFront} alt=""/>
 
       {/* inert stops keyboard users tabbing into the form once it has faded away */}
       <div className="cloud-gate-content" inert={isOpen}>{children}</div>

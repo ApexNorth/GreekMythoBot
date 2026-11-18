@@ -9,6 +9,27 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 18 November 2026: Registration page, step 8 (George)
+
+**Added**
+- Two more cloud layers in front. When closed they sit a little further out so
+  the clouds look layered, and when opening they slide away faster than the back
+  clouds, which gives the reveal some depth.
+- A pale sky colour behind the cloud pictures, so the title and form stay
+  readable if the pictures don't load (and in dark mode).
+
+**Changed**
+- The page's outer box is now a `<main>` element, so screen-reader users can jump
+  straight to the form.
+
+**Tested**
+- No sideways scrolling and the card fits at 360, 768, 1440 and 1920px wide.
+- Lighthouse on phone and desktop: Accessibility 95, Best Practices 100. The
+  only accessibility issue left is the Home / Chat / Registration links in the
+  shared nav (`App.jsx`), which are hard to read on the light sky.
+
+---
+
 ## 18 November 2026: Registration page, step 7 (George)
 
 **Added**

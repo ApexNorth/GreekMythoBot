@@ -139,7 +139,7 @@ function Registration(){
 
   return (
     <CloudGate isOpen={isOpen} openMessage={`Welcome, ${username}!`}>
-      <div className="registration-page">
+      <main className="registration-page">
         <h1>The Descent</h1>
 
         {/* Registration form: same fields and order as the Figma wireframe */}
@@ -165,7 +165,7 @@ function Registration(){
 
           {message && <p className="form-message" role="alert">{message}</p>}
         </form>
-      </div>
+      </main>
     </CloudGate>
   );
 }
