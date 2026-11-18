@@ -26,6 +26,19 @@
   color: #6b5a4a;
 }
 
+/* Box with a problem: red border and a red message underneath */
+.single-input input[aria-invalid="true"] {
+  border-color: #a0281e;
+}
+
+.input-error {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #a0281e;
+}
+
 /* Clear ring when the box is reached with the keyboard */
 .single-input input:focus-visible {
   outline: 3px solid #1a1412;

@@ -1,7 +1,9 @@
 import './SingleInput.css';
 
-/** One labelled input box. Pass a unique id; type defaults to 'text'. */
-function SingleInput({id, label, type = 'text', placeholder, value, onChange}){
+/** One labelled input box. Pass a unique id; type defaults to 'text'. Shows `error` under the box if given. */
+function SingleInput({id, label, type = 'text', placeholder, value, onChange, error}){
+  const errorId = id + '-error';
+
   return (
     <div className="single-input">
       <label htmlFor={id}>{label}</label>
@@ -12,7 +14,10 @@ function SingleInput({id, label, type = 'text', placeholder, value, onChange}){
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        aria-invalid={error ? 'true' : 'false'}
+        aria-describedby={error ? errorId : undefined}
       />
+      {error && <p id={errorId} className="input-error">{error}</p>}
     </div>
   );
 }

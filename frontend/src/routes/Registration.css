@@ -55,6 +55,11 @@
   accent-color: #d9774a;
 }
 
+.terms-error {
+  margin: -12px 0 16px;
+  padding-left: 0;
+}
+
 /* Register button: black pill that turns terracotta on hover */
 .registration-card button {
   width: 100%;

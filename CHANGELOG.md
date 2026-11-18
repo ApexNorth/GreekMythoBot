@@ -9,6 +9,28 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 18 November 2026: Registration page, step 4 (George)
+
+**Added**
+- A clear message under each field that says exactly what is wrong (for
+  example "Add at least one capital letter"), instead of one message for the
+  whole form. The box with the problem gets a red border, and the cursor jumps
+  to the first one. Our users are 12-16, so the messages use plain words (FE-03).
+- Screen readers read each field's message (`aria-invalid` and
+  `aria-describedby`), so the errors are not shown by colour alone.
+- `SingleInput` takes an `error` prop, so Login can show messages the same way.
+
+**Changed**
+- Each check now returns a message instead of true/false. The rules build on
+  Alex's original checks: email must look like `name@example.com`; username is
+  3-20 letters, numbers or `_`; password needs 8+ characters, a capital, a
+  small letter and any symbol (before, only `. , ; : ! ?` counted).
+- The password placeholder now shows the password rules up front.
+- Turned off the browser's own email pop-up (`noValidate`), so only our
+  friendly messages appear.
+
+---
+
 ## 18 November 2026: Registration page, step 3 (George)
 
 **Added**
