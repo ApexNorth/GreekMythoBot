@@ -6,6 +6,9 @@ import './Registration.css';
 // TODO BACKEND: GET /api/captcha should give us the captcha. Fake code until then.
 const tempCap = '2s1';
 
+// TODO BACKEND: set this to false once POST /api/register works on the server.
+const USE_FAKE_SERVER = true;
+
 /** Returns an error message for the email, or '' if it's fine. */
 function checkEmail(value){
   if (value.trim() === '') {return 'Please enter your email.';}
@@ -39,11 +42,42 @@ function checkConfirmPassword(password, confirmPassword){
   return '';
 }
 
-/** Returns an error message for the captcha, or '' if it's right. */
+/** Returns an error message if the captcha is empty, or ''. The server checks if it's right. */
 function checkCaptcha(value){
   if (value.trim() === '') {return 'Please type the code you see above.';}
-  if (value.trim() !== tempCap) {return "That code isn't right. Check it and try again.";}
   return '';
+}
+
+/**
+ * Sends the new account to the server. The server replies with
+ * {ok: true}, or {ok: false, error: 'captcha'} / {ok: false, error: 'email-taken'}.
+ * Throws an error if the server can't be reached.
+ */
+async function sendRegistration(details){
+  if (USE_FAKE_SERVER) {return fakeServer(details);}
+
+  const response = await fetch('/api/register', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(details),
+  });
+  return response.json();
+}
+
+/**
+ * Pretend server, only used until the real one is ready. Waits 1 second, then replies.
+ * To test the error messages: use taken@example.com (email already used)
+ * or offline@example.com (server can't be reached).
+ */
+function fakeServer(details){
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (details.email === 'offline@example.com') {reject(new Error('Server offline'));}
+      else if (details.captcha.trim() !== tempCap) {resolve({ok: false, error: 'captcha'});}
+      else if (details.email === 'taken@example.com') {resolve({ok: false, error: 'email-taken'});}
+      else {resolve({ok: true});}
+    }, 1000);
+  });
 }
 
 /** Registration page: the form a new user fills in to create an account. */
@@ -57,9 +91,10 @@ function Registration(){
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   // Runs when Register is clicked (or Enter is pressed): checks every field and shows any problems.
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {
       email: checkEmail(email),
@@ -79,16 +114,31 @@ function Registration(){
       return;
     }
 
-    // TODO BACKEND: POST /api/register { email, username, password, captcha }
-    // The server replies if the captcha is wrong or the email is already used.
-    // Until then we pretend it worked and open the clouds.
+    // Send to the server, then open the clouds or show what went wrong
     setMessage('');
-    setIsOpen(true);
-    // TODO: go to the Travel screen after the clouds open (that page isn't built yet).
+    setIsSending(true);
+    try {
+      const reply = await sendRegistration({email, username, password, captcha});
+      if (reply.ok){
+        setIsOpen(true);
+        // TODO: go to the Travel screen after the clouds open (that page isn't built yet).
+      } else if (reply.error === 'captcha'){
+        setErrors({captcha: "That code isn't right. Check it and try again."});
+        document.getElementById('captcha').focus();
+      } else if (reply.error === 'email-taken'){
+        setErrors({email: 'That email already has an account. Try logging in instead.'});
+        document.getElementById('email').focus();
+      } else {
+        setMessage('Something went wrong. Please try again.');
+      }
+    } catch {
+      setMessage("We can't reach the server right now. Please try again in a moment.");
+    }
+    setIsSending(false);
   };
 
   return (
-    <CloudGate isOpen={isOpen}>
+    <CloudGate isOpen={isOpen} openMessage={`Welcome, ${username}!`}>
       <div className="registration-page">
         <h1>The Descent</h1>
 
@@ -111,7 +161,7 @@ function Registration(){
           </div>
           {errors.terms && <p id="terms-error" className="input-error terms-error">{errors.terms}</p>}
 
-          <button type="submit">Register</button>
+          <button type="submit" disabled={isSending}>{isSending ? 'Registering...' : 'Register'}</button>
 
           {message && <p className="form-message" role="alert">{message}</p>}
         </form>

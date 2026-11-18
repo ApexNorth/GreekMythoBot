@@ -7,8 +7,9 @@ import cloudRight from '../assets/clouds/cloud-right.webp';
 /**
  * Full-screen cloud wall with Mount Olympus behind it. Whatever you put inside (e.g. a form) sits on top.
  * Set isOpen to true to fade the content and slide the clouds apart to reveal Olympus.
+ * openMessage (e.g. "Welcome, Hermes!") appears over Olympus once the clouds have opened.
  */
-function CloudGate({isOpen = false, children}){
+function CloudGate({isOpen = false, openMessage, children}){
   return (
     <div className={isOpen ? 'cloud-gate open' : 'cloud-gate'}>
       {/* Picture layers, back to front. alt="" because they are only decoration */}
@@ -19,6 +20,9 @@ function CloudGate({isOpen = false, children}){
 
       {/* inert stops keyboard users tabbing into the form once it has faded away */}
       <div className="cloud-gate-content" inert={isOpen}>{children}</div>
+
+      {/* role="status" makes screen readers read the message out */}
+      {isOpen && openMessage && <p className="cloud-gate-message" role="status">{openMessage}</p>}
     </div>
   );
 }

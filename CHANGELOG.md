@@ -9,6 +9,28 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 18 November 2026: Registration page, step 7 (George)
+
+**Added**
+- The form is now sent to the server through one function, `sendRegistration`,
+  which already has the real `fetch('/api/register')` code in it. Until the
+  backend is ready, a switch (`USE_FAKE_SERVER = true`) uses a pretend server so
+  the page can be demoed and tested. Set it to `false` to use the real one.
+- The server should reply `{ok: true}`, or `{ok: false, error: 'captcha'}` /
+  `{ok: false, error: 'email-taken'}`, as in the Registration flowchart.
+- Messages for each way sign-up can fail: wrong captcha (under the captcha box),
+  email already used (under Email), and server can't be reached (under the
+  button), so the page never just breaks (FE-03, NFR-06, NFR-12).
+- The button says "Registering..." and can't be clicked again while sending.
+- "Welcome, [username]!" appears over Olympus once the clouds open, using a new
+  `openMessage` setting on `CloudGate`. Screen readers read it out.
+
+**Changed**
+- The page now only checks that the captcha isn't empty. Whether it's right is
+  checked by the server, because only the server will know the real code.
+
+---
+
 ## 18 November 2026: Registration page, step 6 (George)
 
 **Added**
