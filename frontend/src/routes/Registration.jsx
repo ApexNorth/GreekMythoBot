@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import SingleInput from '../components/SingleInput.jsx';
+import CloudGate from '../components/CloudGate.jsx';
 import './Registration.css';
 
 // TODO BACKEND: GET /api/captcha should give us the captcha. Fake code until then.
@@ -84,33 +85,35 @@ function Registration(){
   };
 
   return (
-    <div className="registration-page">
-      <h1>The Descent</h1>
+    <CloudGate>
+      <div className="registration-page">
+        <h1>The Descent</h1>
 
-      {/* Registration form: same fields and order as the Figma wireframe */}
-      <form className="registration-card" onSubmit={handleSubmit} noValidate>
-        <h2>Register</h2>
-        <SingleInput id="email" label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email}/>
-        <SingleInput id="username" label="Username" placeholder="Pick a name the gods will call you" value={username} onChange={(e) => setUsername(e.target.value)} error={errors.username}/>
-        <SingleInput id="password" label="Password" type="password" placeholder="8+ characters, A-Z, a-z and a symbol" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password}/>
-        <SingleInput id="confirm-password" label="Confirm password" type="password" placeholder="Type your password again" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} error={errors['confirm-password']}/>
+        {/* Registration form: same fields and order as the Figma wireframe */}
+        <form className="registration-card" onSubmit={handleSubmit} noValidate>
+          <h2>Register</h2>
+          <SingleInput id="email" label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email}/>
+          <SingleInput id="username" label="Username" placeholder="Pick a name the gods will call you" value={username} onChange={(e) => setUsername(e.target.value)} error={errors.username}/>
+          <SingleInput id="password" label="Password" type="password" placeholder="8+ characters, A-Z, a-z and a symbol" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password}/>
+          <SingleInput id="confirm-password" label="Confirm password" type="password" placeholder="Type your password again" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} error={errors['confirm-password']}/>
 
-        {/* Captcha: shows the code to copy. Becomes an image from the backend later. */}
-        <p className="captcha-code">Captcha code: <strong>{tempCap}</strong></p>
-        <SingleInput id="captcha" label="Enter captcha" placeholder="Type the code above" value={captcha} onChange={(e) => setCaptcha(e.target.value)} error={errors.captcha}/>
+          {/* Captcha: shows the code to copy. Becomes an image from the backend later. */}
+          <p className="captcha-code">Captcha code: <strong>{tempCap}</strong></p>
+          <SingleInput id="captcha" label="Enter captcha" placeholder="Type the code above" value={captcha} onChange={(e) => setCaptcha(e.target.value)} error={errors.captcha}/>
 
-        <div className="terms">
-          <input id="terms" type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)}
-            aria-invalid={errors.terms ? 'true' : 'false'} aria-describedby={errors.terms ? 'terms-error' : undefined}/>
-          <label htmlFor="terms">I agree to the Terms and Privacy Policy</label>
-        </div>
-        {errors.terms && <p id="terms-error" className="input-error terms-error">{errors.terms}</p>}
+          <div className="terms">
+            <input id="terms" type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)}
+              aria-invalid={errors.terms ? 'true' : 'false'} aria-describedby={errors.terms ? 'terms-error' : undefined}/>
+            <label htmlFor="terms">I agree to the Terms and Privacy Policy</label>
+          </div>
+          {errors.terms && <p id="terms-error" className="input-error terms-error">{errors.terms}</p>}
 
-        <button type="submit">Register</button>
+          <button type="submit">Register</button>
 
-        {message && <p className="form-message" role="alert">{message}</p>}
-      </form>
-    </div>
+          {message && <p className="form-message" role="alert">{message}</p>}
+        </form>
+      </div>
+    </CloudGate>
   );
 }
 

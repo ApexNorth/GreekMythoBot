@@ -9,6 +9,24 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 18 November 2026: Registration page, step 5 (George)
+
+**Added**
+- `CloudGate`, a reusable component that puts a full-screen wall of clouds,
+  with Mount Olympus behind it, under whatever is inside it. The Registration
+  form now sits on the closed clouds. This is the first step towards the clouds
+  opening to reveal Olympus after sign-up (FE-06). Login can reuse it.
+- Four cloud pictures from `Assets/12. Login Screen Background`, converted to
+  WebP with `cwebp -q 80`. They went from 4.9 MB to 140 KB, so the page loads
+  quickly and the repo stays small.
+
+**Changed**
+- The plain sky colour behind the form is gone; the clouds replace it.
+- On pages that use `CloudGate`, the side borders from `index.css` are hidden,
+  because they showed as black lines over the clouds. Other pages are unchanged.
+
+---
+
 ## 18 November 2026: Registration page, step 4 (George)
 
 **Added**

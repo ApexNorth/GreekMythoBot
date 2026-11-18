@@ -1,0 +1,20 @@
+/* Each picture fills the whole screen and stays still while the page scrolls */
+.cloud-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Hide the side borders from index.css, which would show as lines over the clouds */
+#root:has(.cloud-gate) {
+  border-inline: none;
+}
+
+/* Content (the form) sits on top of the clouds */
+.cloud-gate-content {
+  position: relative;
+}
