@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Link} from 'react-router-dom';
 import SingleInput from '../components/SingleInput.jsx';
 import CloudGate from '../components/CloudGate.jsx';
 import FormCard from '../components/FormCard.jsx';
@@ -174,6 +175,8 @@ function Registration(){
         <button type="submit" disabled={isSending}>{isSending ? 'Registering...' : 'Register'}</button>
 
         {message && <p className="form-message" role="alert">{message}</p>}
+
+        <p className="form-switch">Already have an account? <Link to="/login">Log in</Link></p>
       </FormCard>
     </CloudGate>
   );

@@ -11,6 +11,13 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ## 19 November 2026: Login page, step 1 (George)
 
+**Added**
+- A Log in page at `/login` with Email and Password boxes, on the same cloud wall
+  as Register (FE-02). It shows a message under a box that's empty or has an
+  email that doesn't look right. Sending to the server comes in the next step.
+- Links between the two forms: "New here? Create an account" on Log in and
+  "Already have an account? Log in" on Register, so nobody gets stuck.
+
 **Changed**
 - The cream card, page layout and big black button moved out of `Registration.css`
   into a reusable `FormCard` component, so Register and Log in share one look

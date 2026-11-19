@@ -78,6 +78,30 @@
   border-radius: 6px;
 }
 
+/* Link to the other form at the bottom ("New here? Create an account") */
+.form-switch {
+  margin: 20px 0 0;
+  text-align: center;
+}
+
+.form-switch a {
+  font-weight: 700;
+  color: #1a1412;
+  text-decoration-color: #d9774a;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.form-switch a:hover {
+  text-decoration-thickness: 4px;
+}
+
+.form-switch a:focus-visible {
+  outline: 3px solid #1a1412;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 /* Mobile Screens */
 @media (max-width: 600px) {
   .form-page {
