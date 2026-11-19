@@ -1,0 +1,29 @@
+/* Registration-only bits. The card, button and page layout are in FormCard.css */
+.captcha-code {
+  margin: 8px 0;
+}
+
+/* Terms checkbox row */
+.terms {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 20px;
+}
+
+.terms input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  accent-color: #d9774a;
+}
+
+.terms input:focus-visible {
+  outline: 3px solid #1a1412;
+  outline-offset: 3px;
+}
+
+.terms-error {
+  margin: -12px 0 16px;
+  padding-left: 0;
+}

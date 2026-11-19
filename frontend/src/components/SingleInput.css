@@ -1,0 +1,47 @@
+/* One labelled input: label above a cream, pill-shaped box (Greek pottery style) */
+.single-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.single-input label {
+  font-weight: 600;
+  color: #1a1412;
+}
+
+.single-input input {
+  min-width: 0;
+  padding: 10px 16px;
+  font: inherit;
+  color: #1a1412;
+  background: #fffaf0;
+  border: 2px solid #1a1412;
+  border-radius: 999px;
+}
+
+.single-input input::placeholder {
+  color: #6b5a4a;
+}
+
+/* Box with a problem: red border and a red message underneath */
+.single-input input[aria-invalid="true"] {
+  border-color: #a0281e;
+}
+
+.input-error {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #a0281e;
+}
+
+/* Clear ring when the box is reached with the keyboard */
+.single-input input:focus-visible {
+  outline: 3px solid #1a1412;
+  outline-offset: 2px;
+  border-color: #d9774a;
+}
