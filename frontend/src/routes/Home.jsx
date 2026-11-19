@@ -136,6 +136,44 @@ function Home(){
           </div>
         </div>
       </section>
+
+      {/* For parents: what the game is, who it's for and what we ask for (NFR-13) */}
+      <section className="home-section home-parents" aria-labelledby="parents-title">
+        <h2 id="parents-title">For parents and carers</h2>
+        <p className="home-section-intro">
+          The Descent is a learning game about Greek mythology. Players chat with characters
+          based on the Greek gods and find out about their stories along the way.
+        </p>
+        {/* role="list" keeps it a list for screen readers in Safari (the bullets are hidden) */}
+        <ul className="parent-points" role="list">
+          <li>
+            <strong>Ages 13 and up.</strong> Everyone gives their date of birth when they sign up,
+            and younger children can't create an account.
+          </li>
+          <li>
+            <strong>Only what we need.</strong> We ask for an email, a username, a date of birth and
+            a password. Nothing else.
+          </li>
+          <li>
+            <strong>Real myths, made simple.</strong> Players learn the stories of the Greek gods by
+            asking questions, instead of reading long pages of text.
+          </li>
+        </ul>
+      </section>
+
+      {/* Begin your descent: the one big sign-up push, at the very end of the page */}
+      <section className="home-signup" aria-labelledby="signup-title">
+        <div className="home-section">
+          <h2 id="signup-title">Begin your descent</h2>
+          <p className="home-section-intro">
+            The gods of Olympus are waiting. Create a free account to start chatting with them.
+          </p>
+          <Link to="/registration" className="home-button home-button-signup">Create your free account</Link>
+          <p className="home-login">
+            Already have one? <Link to="/login">Log in</Link>
+          </p>
+        </div>
+      </section>
     </main>
   );
 }

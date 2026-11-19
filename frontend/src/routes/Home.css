@@ -9,6 +9,8 @@
 }
 
 .home-page {
+  /* Gold Greek key pattern, used for the borders of the coloured bands below */
+  --greek-key: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M0 21H24M18 21V3H4V17H14V9H9V13' fill='none' stroke='%23e8b830' stroke-width='2.5'/%3E%3C/svg%3E");
   color: #1a1412;
   background: #f2e6d0;
   color-scheme: light;
@@ -204,7 +206,6 @@
 
 /* What you can do: a terracotta band (like a red-figure vase) with a gold Greek key border top and bottom */
 .home-features {
-  --greek-key: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M0 21H24M18 21V3H4V17H14V9H9V13' fill='none' stroke='%23e8b830' stroke-width='2.5'/%3E%3C/svg%3E");
   background: #d9774a;
   border-block: 3px solid #1a1412;
 }
@@ -338,6 +339,99 @@
   object-fit: cover;
   border: 3px solid #1a1412;
   border-radius: 50%;
+}
+
+/* For parents: three short points in a cream box, each with a gold tick */
+.parent-points {
+  display: grid;
+  gap: 16px;
+  max-width: 640px;
+  margin: 32px auto 0;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: left;
+  list-style: none;
+  background: #fffaf0;
+  border: 3px solid #1a1412;
+  border-radius: 24px;
+}
+
+.parent-points li {
+  position: relative;
+  padding-left: 40px;
+  line-height: 1.5;
+  color: #1a1412;
+}
+
+.parent-points li::before {
+  content: '✓';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  font-weight: 700;
+  color: #1a1412;
+  background: #e8b830;
+  border: 2px solid #1a1412;
+  border-radius: 50%;
+}
+
+/* Begin your descent: a black band (like black-figure pottery) with a gold Greek key on top */
+.home-signup {
+  color: #f2e6d0;
+  background: #1a1412;
+}
+
+.home-signup::before {
+  content: '';
+  display: block;
+  height: 24px;
+  background: #1a1412 var(--greek-key) repeat-x center;
+  border-bottom: 3px solid #e8b830;
+}
+
+.home-signup h2,
+.home-signup .home-section-intro {
+  color: #f2e6d0;
+}
+
+/* Big terracotta button that turns gold on hover */
+.home-button-signup {
+  margin-top: 28px;
+  min-height: 56px;
+  padding: 0 32px;
+  font-size: 1.15rem;
+  color: #1a1412;
+  background: #d9774a;
+  border-color: #f2e6d0;
+}
+
+.home-button-signup:hover {
+  background: #e8b830;
+}
+
+.home-signup .home-button:focus-visible {
+  outline-color: #f2e6d0;
+}
+
+.home-login {
+  margin: 20px 0 0;
+  color: #f2e6d0;
+}
+
+.home-login a {
+  font-weight: 700;
+  color: #e8b830;
+  text-underline-offset: 4px;
+}
+
+.home-login a:focus-visible {
+  outline: 3px solid #f2e6d0;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* Explore scrolls smoothly, but only for people who haven't turned on "reduce motion" */
