@@ -1,4 +1,5 @@
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Navbar from './components/Navbar.jsx';
 import Home from './routes/Home.jsx';
 import Chat from './routes/Chat.jsx';
 import './App.css';
@@ -6,10 +7,8 @@ import './App.css';
 function App() {
   return (
     <BrowserRouter>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/chat">Chat</Link>
-      </nav>
+      <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/chat" element={<Chat />} />

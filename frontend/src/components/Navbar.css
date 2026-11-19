@@ -1,0 +1,110 @@
+/* Bar: cream strip with a thick black line and a thin terracotta line underneath */
+.navbar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 24px 14px;
+  text-align: left;
+  color: #1a1412;
+  color-scheme: light;
+  background: #f2e6d0;
+  border-bottom: 3px solid #1a1412;
+  box-shadow: inset 0 -4px 0 #f2e6d0, inset 0 -6px 0 #d9774a;
+}
+
+.navbar-logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a1412;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Links: pill shaped so they're easy to tap (at least 44px tall) */
+.navbar-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 0 16px;
+  font-weight: 600;
+  color: #1a1412;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.navbar-link:hover {
+  border-color: #d9774a;
+}
+
+/* The page you're on gets a terracotta underline */
+.navbar-link.active {
+  text-decoration: underline;
+  text-decoration-color: #d9774a;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+/* Register: black pill that turns terracotta on hover (same as the Register button) */
+.navbar-button {
+  color: #f2e6d0;
+  background: #1a1412;
+  border-color: #1a1412;
+}
+
+.navbar-button:hover,
+.navbar-button.active {
+  color: #1a1412;
+  background: #d9774a;
+  border-color: #1a1412;
+  text-decoration: none;
+}
+
+.navbar-logo:focus-visible,
+.navbar-link:focus-visible {
+  outline: 3px solid #1a1412;
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+/* Mobile Screens: smaller gaps so everything fits on one line at 360px */
+@media (max-width: 600px) {
+  .navbar {
+    padding: 8px 12px 12px;
+    gap: 8px;
+  }
+
+  .navbar-logo {
+    font-size: 1.1rem;
+  }
+
+  .navbar-links {
+    gap: 4px;
+  }
+
+  .navbar-link {
+    padding: 0 12px;
+  }
+}
+
+/* No movement for people who turn on "reduce motion" */
+@media (prefers-reduced-motion: reduce) {
+  .navbar-link {
+    transition: none;
+  }
+}
