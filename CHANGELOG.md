@@ -9,6 +9,24 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 19 November 2026: Navbar step 3: tidy up (George)
+
+**Changed**
+- On the cloud pages (Log in, Register, Forgot / Reset password) the navbar now
+  stretches across the whole screen instead of sitting in a 1126px box.
+- The page fills exactly the space under the navbar, so Log in no longer scrolls
+  a little on bigger screens.
+- The card's title ("Log in", "Register" ...) is now the page's main heading.
+
+**Removed**
+- The big "The Descent" heading above the card, because the navbar already shows
+  the name and it appeared twice.
+
+**Tested**
+- No sideways scrolling and the navbar stays on one line at 360, 768, 1440 and
+  1920px, logged in and logged out. Lighthouse (phone): Accessibility 100, Best
+  Practices 100. The old nav-link contrast problem is gone.
+
 ## 19 November 2026: Registration page, minimum age 13 (George)
 
 **Added**

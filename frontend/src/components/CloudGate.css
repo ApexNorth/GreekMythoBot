@@ -9,9 +9,17 @@
   pointer-events: none;
 }
 
-/* Hide the side borders from index.css, which would show as lines over the clouds */
+/* Full width (so the navbar spans the screen) and no side borders from index.css over the clouds */
 #root:has(.cloud-gate) {
+  width: 100%;
   border-inline: none;
+}
+
+/* Fill the space under the navbar, so the page is exactly one screen tall */
+.cloud-gate {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Pale sky behind the pictures, so text stays readable if they don't load (and in dark mode) */
@@ -22,6 +30,9 @@
 /* Content (the form) sits on top of the clouds */
 .cloud-gate-content {
   position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   transition: opacity 0.5s ease;
 }
 

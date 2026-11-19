@@ -4,11 +4,10 @@ import './FormCard.css';
 function FormCard({title, onSubmit, children}){
   return (
     <main className="form-page">
-      <h1>The Descent</h1>
-
       {/* noValidate: we show our own friendly messages instead of the browser's pop-ups */}
       <form className="form-card" onSubmit={onSubmit} noValidate>
-        <h2>{title}</h2>
+        {/* The card's title is the page's main heading (the navbar already shows "The Descent") */}
+        <h1>{title}</h1>
         {children}
       </form>
     </main>

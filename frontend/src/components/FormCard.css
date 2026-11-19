@@ -1,6 +1,6 @@
-/* Page: the card in the middle, on top of the clouds (CloudGate) */
+/* Page: the card in the middle, on top of the clouds (CloudGate). flex: 1 fills the space under the navbar */
 .form-page {
-  min-height: 100svh;
+  flex: 1;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -9,11 +9,6 @@
   padding: 32px 16px;
   color: #1a1412;
   color-scheme: light;
-}
-
-.form-page h1 {
-  margin: 0 0 20px;
-  color: #1a1412;
 }
 
 /* Card: cream panel, thick black outline, thin terracotta line inside */
@@ -29,8 +24,12 @@
   box-shadow: inset 0 0 0 6px #f2e6d0, inset 0 0 0 8px #d9774a;
 }
 
-.form-card h2 {
+/* Card title ("Log in", "Register"): sized like a heading inside the card, not a giant page title */
+.form-card h1 {
   margin: 0 0 20px;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: normal;
   text-align: center;
   color: #1a1412;
 }
