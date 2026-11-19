@@ -9,6 +9,21 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 19 November 2026: Login page, step 4: Forgot password (George)
+
+**Added**
+- A "Forgot your password?" link under the Password box on Log in, so players who
+  forget their password aren't locked out.
+- A Forgot password page at `/forgot-password`: type your email and the server
+  (`POST /api/forgot-password`) sends a link to choose a new password. It always
+  gives the same answer ("If that email has an account, we've sent it a link"), so
+  nobody can use it to find out which emails have accounts. Uses a pretend server
+  until the backend is ready, with the same "can't reach the server" message.
+
+**Changed**
+- The bold, terracotta-underlined link style now applies to every link in a form
+  card, not only the one at the bottom, so all the form links look the same.
+
 ## 19 November 2026: Login page, step 2 (George)
 
 **Added**

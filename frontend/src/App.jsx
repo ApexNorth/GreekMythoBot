@@ -3,6 +3,7 @@ import Home from './routes/Home.jsx';
 import Chat from './routes/Chat.jsx';
 import Registration from './routes/Registration.jsx';
 import Login from './routes/Login.jsx';
+import ForgotPassword from './routes/ForgotPassword.jsx';
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   );

@@ -99,6 +99,7 @@ function Login(){
       <FormCard title="Log in" onSubmit={handleSubmit}>
         <SingleInput id="email" label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email}/>
         <SingleInput id="password" label="Password" type="password" placeholder="Your password" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password}/>
+        <p className="forgot-link"><Link to="/forgot-password">Forgot your password?</Link></p>
 
         <button type="submit" disabled={isSending}>{isSending ? 'Logging in...' : 'Log in'}</button>
 

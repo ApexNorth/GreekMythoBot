@@ -35,6 +35,23 @@
   color: #1a1412;
 }
 
+/* Short explanation under the heading */
+.form-hint {
+  margin: 0 0 16px;
+}
+
+/* "Forgot your password?" link, centred under the password box */
+.forgot-link {
+  margin: -8px 0 12px;
+  text-align: center;
+}
+
+/* Taller so it's easy to tap (at least 24px) */
+.forgot-link a {
+  display: inline-block;
+  padding: 4px 0;
+}
+
 /* Submit button: black pill that turns terracotta on hover */
 .form-card button {
   width: 100%;
@@ -84,7 +101,8 @@
   text-align: center;
 }
 
-.form-switch a {
+/* Every link in a card: bold with a terracotta underline */
+.form-card a {
   font-weight: 700;
   color: #1a1412;
   text-decoration-color: #d9774a;
@@ -92,11 +110,11 @@
   text-underline-offset: 4px;
 }
 
-.form-switch a:hover {
+.form-card a:hover {
   text-decoration-thickness: 4px;
 }
 
-.form-switch a:focus-visible {
+.form-card a:focus-visible {
   outline: 3px solid #1a1412;
   outline-offset: 3px;
   border-radius: 4px;
