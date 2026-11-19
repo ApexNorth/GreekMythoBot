@@ -9,6 +9,21 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 19 November 2026: Login page, step 5: Reset password (George)
+
+**Added**
+- A "Choose a new password" page at `/reset-password`. It's the page the emailed
+  reset link opens (`/reset-password?token=...`). It sends the token and the new
+  password to the server (`POST /api/reset-password`), then says the password has
+  changed with a link to log in. Uses a pretend server until the backend is ready.
+- If the link has expired, was already used or is missing its token, the page
+  says so and links back to ask for a new one, instead of showing a broken form.
+
+**Changed**
+- The password strength rules and the "passwords match" check moved into
+  `utils/checks.js` (as `checkNewPassword` and `checkConfirmPassword`), so Register
+  and Reset password use exactly the same rules.
+
 ## 19 November 2026: Login page, step 4: Forgot password (George)
 
 **Added**

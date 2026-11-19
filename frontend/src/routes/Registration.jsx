@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import SingleInput from '../components/SingleInput.jsx';
 import CloudGate from '../components/CloudGate.jsx';
 import FormCard from '../components/FormCard.jsx';
-import {checkEmail} from '../utils/checks.js';
+import {checkEmail, checkNewPassword, checkConfirmPassword} from '../utils/checks.js';
 import './Registration.css';
 
 // TODO BACKEND: GET /api/captcha should give us the captcha. Fake code until then.
@@ -36,22 +36,6 @@ function checkDateOfBirth(value){
   return '';
 }
 
-/** Returns an error message for the password, or '' if it's fine. */
-function checkPassword(value){
-  if (value === '') {return 'Please choose a password.';}
-  if (value.length < 8) {return 'Your password needs at least 8 characters.';}
-  if (!/[A-Z]/.test(value)) {return 'Add at least one capital letter (A-Z).';}
-  if (!/[a-z]/.test(value)) {return 'Add at least one small letter (a-z).';}
-  if (!/[^A-Za-z0-9]/.test(value)) {return 'Add at least one symbol, like ! ? . or #.';}
-  return '';
-}
-
-/** Returns an error message if the two passwords are different, or '' if they match. */
-function checkConfirmPassword(password, confirmPassword){
-  if (confirmPassword === '') {return 'Please type your password again.';}
-  if (password !== confirmPassword) {return "The passwords don't match.";}
-  return '';
-}
 
 /** Returns an error message if the captcha is empty, or ''. The server checks if it's right. */
 function checkCaptcha(value){
@@ -112,7 +96,7 @@ function Registration(){
       email: checkEmail(email),
       username: checkUsername(username),
       'date-of-birth': checkDateOfBirth(dateOfBirth),
-      password: checkPassword(password),
+      password: checkNewPassword(password),
       'confirm-password': checkConfirmPassword(password, confirmPassword),
       captcha: checkCaptcha(captcha),
       terms: agreed ? '' : 'Please tick the box to agree before you register.',
