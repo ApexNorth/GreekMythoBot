@@ -9,6 +9,15 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 19 November 2026: Registration page, minimum age 13 (George)
+
+**Added**
+- Register now checks the player is 13 or older and, if not, says "Sorry, you need
+  to be 13 or older to join The Descent." The team decided to aim the game at
+  13 and up: under UK data protection rules (UK GDPR Article 8 and the ICO
+  Children's Code), under-13s would need a parent's consent, which would make
+  sign-up much more complicated. The server should check this again.
+
 ## 19 November 2026: Navbar step 2: connected to Log in and Register (George)
 
 **Added**

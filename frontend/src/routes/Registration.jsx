@@ -33,6 +33,10 @@ function checkDateOfBirth(value){
   if (value === '') {return 'Please enter your date of birth.';}
   if (value > todayAsText()) {return 'That date is in the future. Check it and try again.';}
   if (value < '1900-01-01') {return 'Please check the year you were born.';}
+  // Players must be 13 or older (team decision, so we don't need a parent's consent under UK rules)
+  const today = todayAsText();
+  const thirteenYearsAgo = (Number(today.slice(0, 4)) - 13) + today.slice(4);
+  if (value > thirteenYearsAgo) {return 'Sorry, you need to be 13 or older to join The Descent.';}
   return '';
 }
 
