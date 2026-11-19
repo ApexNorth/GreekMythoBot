@@ -140,67 +140,118 @@
   color: #1a1412;
 }
 
-/* Meet the gods: one centred column on phones and tablets, three side by side on bigger screens */
-.god-family-cards {
-  display: grid;
-  grid-template-columns: 1fr;
+/* Meet the gods: one big screen per age, with its own world behind it.
+   Phones: the god above the card. Bigger screens: side by side, swapping sides each time. */
+.god-era {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 24px;
-  max-width: 420px;
-  margin: 40px auto 0;
+  min-height: 100svh;
+  padding: 48px 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-top: 3px solid #1a1412;
 }
 
 @media (min-width: 900px) {
-  .god-family-cards {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: none;
+  .god-era {
+    flex-direction: row;
+    gap: 64px;
+    padding: 64px 32px;
+  }
+
+  .god-era-titans {
+    flex-direction: row-reverse;
   }
 }
 
-/* Each family: a light card with a black outline, the god standing on a soft sky */
-.god-family-card {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+/* Background layers fill the whole screen behind the god and the card */
+.god-era-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The god: big, with a soft shadow so they stand out from the background */
+.god-era-god {
+  position: relative;
+  width: min(70vw, 300px);
+  height: auto;
+  filter: drop-shadow(0 8px 16px rgba(26, 20, 18, 0.35));
+}
+
+@media (min-width: 900px) {
+  .god-era-god {
+    width: min(34vw, 420px);
+  }
+}
+
+/* Cream card with the story (same look as the welcome card) */
+.god-era-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: 28px;
+  box-sizing: border-box;
   text-align: left;
-  background: #fffaf0;
+  background: #f2e6d0;
   border: 3px solid #1a1412;
   border-radius: 24px;
+  box-shadow: inset 0 0 0 6px #f2e6d0, inset 0 0 0 8px #d9774a;
 }
 
-.god-family-card img {
-  width: 100%;
-  height: 300px;
-  object-fit: contain;
-  padding: 16px 16px 0;
-  box-sizing: border-box;
-  background: linear-gradient(#cfdcf2, #fffaf0);
-  border-bottom: 3px solid #1a1412;
-}
-
-.god-family-card h3 {
-  margin: 16px 20px 6px;
-  font-size: 1.4rem;
+.god-era-card h3 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.1;
   color: #1a1412;
 }
 
-.god-family-card p {
-  margin: 0 20px 12px;
-  line-height: 1.5;
+.god-era-card p {
+  margin: 0;
+  line-height: 1.55;
   color: #1a1412;
 }
 
-.god-family-gods {
-  font-weight: 700;
-}
-
-/* Small note about the art style, pushed to the bottom of the card */
-.god-family-card .god-family-style {
-  margin-top: auto;
-  padding: 10px 20px;
-  margin-inline: 0;
-  margin-bottom: 0;
+/* Small label above the title, in dark terracotta (5:1 contrast on cream) */
+.god-era-card .god-era-family {
+  margin-bottom: 4px;
   font-size: 0.9rem;
-  background: #f2e6d0;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a4a26;
+}
+
+/* The six gods as little pill labels */
+.god-era-names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.god-era-names li {
+  padding: 4px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1412;
+  background: #fffaf0;
+  border: 2px solid #1a1412;
+  border-radius: 999px;
+}
+
+.god-era-card .god-era-style {
+  margin-top: 16px;
+  padding-top: 10px;
+  font-size: 0.9rem;
   border-top: 2px solid #d9774a;
 }
 

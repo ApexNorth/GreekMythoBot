@@ -2,38 +2,53 @@ import {Link} from 'react-router-dom';
 import olympusTemples from '../assets/home/olympus-temples.webp';
 import zeus from '../assets/home/zeus.webp';
 import kronos from '../assets/home/kronos.webp';
-import nyx from '../assets/home/nyx.webp';
+import chaos from '../assets/home/chaos.webp';
+import olympusSky from '../assets/home/olympus-sky.webp';
+import olympusMountains from '../assets/home/olympus-mountains.webp';
+import olympusCliffs from '../assets/home/olympus-cliffs.webp';
+import titansRuins from '../assets/home/titans-ruins.webp';
+import primordialsNight from '../assets/home/primordials-night.webp';
 import giftApples from '../assets/home/gift-apples.webp';
 import giftHoney from '../assets/home/gift-honey.webp';
 import giftPomegranate from '../assets/home/gift-pomegranate.webp';
 import oakWreath from '../assets/home/oak-wreath.webp';
 import './Home.css';
 
-// The three families of gods shown under "Meet the gods" (same gods as the god selection page)
-const godFamilies = [
+// The three ages of the gods under "Meet the gods", each with its own world behind it
+// (same gods and pictures as the god selection page)
+const godEras = [
   {
-    name: 'The Olympians',
-    picture: zeus,
-    pictureText: 'Zeus holding lightning bolts, with an eagle on his shoulder',
-    about: 'The gods who rule the world from the top of Mount Olympus.',
+    id: 'olympians',
+    family: 'The Olympians',
+    title: 'Explore Olympus',
+    backgrounds: [olympusSky, olympusMountains, olympusCliffs],
+    god: zeus,
+    godText: 'Zeus holding lightning bolts, with an eagle on his shoulder',
+    story: 'High above the clouds, Zeus and the Olympian gods rule the world from their shining palaces on Mount Olympus. Each one looks after something different, from the sea to wisdom to love.',
+    gods: ['Zeus', 'Athena', 'Poseidon', 'Aphrodite', 'Ares', 'Hermes'],
     artStyle: 'red-figure pottery',
-    gods: 'Zeus, Athena, Poseidon, Aphrodite, Ares and Hermes',
   },
   {
-    name: 'The Titans',
-    picture: kronos,
-    pictureText: 'Kronos holding a scythe and an hourglass, with broken chains on his wrists',
-    about: 'The giant, ancient rulers who came before the Olympians.',
+    id: 'titans',
+    family: 'The Titans',
+    title: 'Meet the Titans',
+    backgrounds: [titansRuins],
+    god: kronos,
+    godText: 'Kronos holding a scythe and an hourglass, with broken chains on his wrists',
+    story: 'Before the Olympians, the giant Titans ruled the world. Their king, Kronos, ruled over a golden age, until his son Zeus rose up and fought him for the throne.',
+    gods: ['Kronos', 'Rhea', 'Atlas', 'Prometheus', 'Hyperion', 'Themis'],
     artStyle: 'black-figure pottery',
-    gods: 'Kronos, Rhea, Atlas, Prometheus, Hyperion and Themis',
   },
   {
-    name: 'The Primordials',
-    picture: nyx,
-    pictureText: 'Nyx, goddess of the night, holding up a cloak full of stars',
-    about: 'The very first gods, there at the start of everything.',
+    id: 'primordials',
+    family: 'The Primordials',
+    title: 'Where it all began',
+    backgrounds: [primordialsNight],
+    god: chaos,
+    godText: 'Chaos, a swirling figure in purple and gold holding a glowing orb',
+    story: 'Before the gods and the Titans, there was only Chaos. Then came the very first gods: Gaia the Earth, Nyx the Night and Tartarus, the deep, dark pit below the world.',
+    gods: ['Chaos', 'Gaia', 'Nyx', 'Uranus', 'Tartarus', 'Chronos'],
     artStyle: 'geometric patterns',
-    gods: 'Chaos, Gaia, Nyx, Uranus, Tartarus and Chronos',
   },
 ];
 
@@ -64,25 +79,36 @@ function Home(){
         </div>
       </section>
 
-      {/* Meet the gods: one card per family, just to look at (you need an account to chat) */}
-      <section id="meet-the-gods" className="home-section" aria-labelledby="gods-title">
-        <h2 id="gods-title">Meet the gods</h2>
-        <p className="home-section-intro">
-          Three families of gods, each from a different age of the Greek myths.
-          Who will you visit first?
-        </p>
-
-        <div className="god-family-cards">
-          {godFamilies.map((family) => (
-            <article key={family.name} className="god-family-card">
-              <img src={family.picture} alt={family.pictureText} width="400" height="600" loading="lazy"/>
-              <h3>{family.name}</h3>
-              <p>{family.about}</p>
-              <p className="god-family-gods">{family.gods}</p>
-              <p className="god-family-style">Art style: {family.artStyle}</p>
-            </article>
-          ))}
+      {/* Meet the gods: a short intro, then one big screen per age (just to look at, you need an account to chat) */}
+      <section id="meet-the-gods" aria-labelledby="gods-title">
+        <div className="home-section">
+          <h2 id="gods-title">Meet the gods</h2>
+          <p className="home-section-intro">
+            Three families of gods, each from a different age of the Greek myths.
+            Who will you visit first?
+          </p>
         </div>
+
+        {godEras.map((era) => (
+          <article key={era.id} className={`god-era god-era-${era.id}`} aria-labelledby={`${era.id}-title`}>
+            {/* The world behind the god: picture layers, back to front (decoration only) */}
+            {era.backgrounds.map((picture) => (
+              <img key={picture} className="god-era-background" src={picture} alt="" loading="lazy"/>
+            ))}
+
+            <img className="god-era-god" src={era.god} alt={era.godText} width="560" height="840" loading="lazy"/>
+
+            <div className="god-era-card">
+              <p className="god-era-family">{era.family}</p>
+              <h3 id={`${era.id}-title`}>{era.title}</h3>
+              <p>{era.story}</p>
+              <ul className="god-era-names" role="list">
+                {era.gods.map((name) => <li key={name}>{name}</li>)}
+              </ul>
+              <p className="god-era-style">Art style: {era.artStyle}</p>
+            </div>
+          </article>
+        ))}
       </section>
 
       {/* What you can do: describes the game's features (an advert only, nothing here is clickable) */}
