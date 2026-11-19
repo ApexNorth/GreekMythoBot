@@ -9,6 +9,15 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 19 November 2026: Registration page, date of birth (George)
+
+**Added**
+- A "Date of birth" box after Username (Alex's suggestion), using a date picker.
+  It shows a message under the box if it's empty, in the future or before 1900.
+  The date is sent to the server with the other details as `dateOfBirth`
+  ('YYYY-MM-DD'), so the database will need a column for it.
+- `SingleInput` takes an optional `max`, so the date picker can't go past today.
+
 ## 18 November 2026: Registration page, step 8 (George)
 
 **Added**

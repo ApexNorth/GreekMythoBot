@@ -25,6 +25,22 @@ function checkUsername(value){
   return '';
 }
 
+/** Returns today's date as 'YYYY-MM-DD' (the same format a date box gives us). */
+function todayAsText(){
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${now.getFullYear()}-${month}-${day}`;
+}
+
+/** Returns an error message for the date of birth ('YYYY-MM-DD'), or '' if it's fine. */
+function checkDateOfBirth(value){
+  if (value === '') {return 'Please enter your date of birth.';}
+  if (value > todayAsText()) {return 'That date is in the future. Check it and try again.';}
+  if (value < '1900-01-01') {return 'Please check the year you were born.';}
+  return '';
+}
+
 /** Returns an error message for the password, or '' if it's fine. */
 function checkPassword(value){
   if (value === '') {return 'Please choose a password.';}
@@ -84,6 +100,7 @@ function fakeServer(details){
 function Registration(){
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [captcha, setCaptcha] = useState('');
@@ -99,6 +116,7 @@ function Registration(){
     const newErrors = {
       email: checkEmail(email),
       username: checkUsername(username),
+      'date-of-birth': checkDateOfBirth(dateOfBirth),
       password: checkPassword(password),
       'confirm-password': checkConfirmPassword(password, confirmPassword),
       captcha: checkCaptcha(captcha),
@@ -118,7 +136,8 @@ function Registration(){
     setMessage('');
     setIsSending(true);
     try {
-      const reply = await sendRegistration({email, username, password, captcha});
+      // TODO BACKEND: POST /api/register also sends dateOfBirth as 'YYYY-MM-DD' (needs a date_of_birth column in USER)
+      const reply = await sendRegistration({email, username, dateOfBirth, password, captcha});
       if (reply.ok){
         setIsOpen(true);
         // TODO: go to the Travel screen after the clouds open (that page isn't built yet).
@@ -147,6 +166,7 @@ function Registration(){
           <h2>Register</h2>
           <SingleInput id="email" label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email}/>
           <SingleInput id="username" label="Username" placeholder="Pick a name the gods will call you" value={username} onChange={(e) => setUsername(e.target.value)} error={errors.username}/>
+          <SingleInput id="date-of-birth" label="Date of birth" type="date" max={todayAsText()} value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} error={errors['date-of-birth']}/>
           <SingleInput id="password" label="Password" type="password" placeholder="8+ characters, A-Z, a-z and a symbol" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password}/>
           <SingleInput id="confirm-password" label="Confirm password" type="password" placeholder="Type your password again" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} error={errors['confirm-password']}/>
 
