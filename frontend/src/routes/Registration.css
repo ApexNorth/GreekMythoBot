@@ -1,40 +1,4 @@
-/* Page: the card in the middle, on top of the clouds (CloudGate) */
-.registration-page {
-  min-height: 100svh;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 16px;
-  color: #1a1412;
-  color-scheme: light;
-}
-
-.registration-page h1 {
-  margin: 0 0 20px;
-  color: #1a1412;
-}
-
-/* Card: cream panel, thick black outline, thin terracotta line inside */
-.registration-card {
-  width: 100%;
-  max-width: 420px;
-  box-sizing: border-box;
-  padding: 32px;
-  text-align: left;
-  background: #f2e6d0;
-  border: 3px solid #1a1412;
-  border-radius: 24px;
-  box-shadow: inset 0 0 0 6px #f2e6d0, inset 0 0 0 8px #d9774a;
-}
-
-.registration-card h2 {
-  margin: 0 0 20px;
-  text-align: center;
-  color: #1a1412;
-}
-
+/* Registration-only bits. The card, button and page layout are in FormCard.css */
 .captcha-code {
   margin: 8px 0;
 }
@@ -54,74 +18,12 @@
   accent-color: #d9774a;
 }
 
-.terms-error {
-  margin: -12px 0 16px;
-  padding-left: 0;
-}
-
-/* Register button: black pill that turns terracotta on hover */
-.registration-card button {
-  width: 100%;
-  padding: 12px;
-  font: inherit;
-  font-weight: 700;
-  color: #f2e6d0;
-  background: #1a1412;
-  border: 3px solid #1a1412;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-
-.registration-card button:hover:not(:disabled) {
-  color: #1a1412;
-  background: #d9774a;
-}
-
-/* While sending: greyed out so it can't be clicked twice */
-.registration-card button:disabled {
-  opacity: 0.7;
-  cursor: wait;
-}
-
-.registration-card button:focus-visible,
 .terms input:focus-visible {
   outline: 3px solid #1a1412;
   outline-offset: 3px;
 }
 
-.registration-card button:active {
-  transform: translateY(2px);
-}
-
-/* Result message under the button */
-.form-message {
-  margin: 16px 0 0;
-  padding: 10px 12px;
-  background: #fffaf0;
-  border-left: 4px solid #d9774a;
-  border-radius: 6px;
-}
-
-/* Mobile Screens */
-@media (max-width: 600px) {
-  .registration-page {
-    justify-content: flex-start;
-    padding-top: 24px;
-  }
-
-  .registration-card {
-    padding: 24px 20px;
-  }
-}
-
-/* No movement for people who turn on "reduce motion" */
-@media (prefers-reduced-motion: reduce) {
-  .registration-card button {
-    transition: none;
-  }
-
-  .registration-card button:active {
-    transform: none;
-  }
+.terms-error {
+  margin: -12px 0 16px;
+  padding-left: 0;
 }

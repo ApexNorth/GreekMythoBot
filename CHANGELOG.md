@@ -9,6 +9,14 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 19 November 2026: Login page, step 1 (George)
+
+**Changed**
+- The cream card, page layout and big black button moved out of `Registration.css`
+  into a reusable `FormCard` component, so Register and Log in share one look
+  instead of copying the same CSS (NFR-07, NFR-08). Register looks the same as before.
+- The email check moved into `utils/checks.js` so both pages use the same rules.
+
 ## 19 November 2026: Registration page, date of birth (George)
 
 **Added**

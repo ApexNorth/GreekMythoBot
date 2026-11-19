@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import SingleInput from '../components/SingleInput.jsx';
 import CloudGate from '../components/CloudGate.jsx';
+import FormCard from '../components/FormCard.jsx';
+import {checkEmail} from '../utils/checks.js';
 import './Registration.css';
 
 // TODO BACKEND: GET /api/captcha should give us the captcha. Fake code until then.
@@ -8,14 +10,6 @@ const tempCap = '2s1';
 
 // TODO BACKEND: set this to false once POST /api/register works on the server.
 const USE_FAKE_SERVER = true;
-
-/** Returns an error message for the email, or '' if it's fine. */
-function checkEmail(value){
-  if (value.trim() === '') {return 'Please enter your email.';}
-  // Must look like name@place.domain with no spaces
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {return "That doesn't look like an email. Try something like name@example.com.";}
-  return '';
-}
 
 /** Returns an error message for the username, or '' if it's fine. */
 function checkUsername(value){
@@ -158,34 +152,29 @@ function Registration(){
 
   return (
     <CloudGate isOpen={isOpen} openMessage={`Welcome, ${username}!`}>
-      <main className="registration-page">
-        <h1>The Descent</h1>
+      {/* Registration form: same fields and order as the Figma wireframe */}
+      <FormCard title="Register" onSubmit={handleSubmit}>
+        <SingleInput id="email" label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email}/>
+        <SingleInput id="username" label="Username" placeholder="Pick a name the gods will call you" value={username} onChange={(e) => setUsername(e.target.value)} error={errors.username}/>
+        <SingleInput id="date-of-birth" label="Date of birth" type="date" max={todayAsText()} value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} error={errors['date-of-birth']}/>
+        <SingleInput id="password" label="Password" type="password" placeholder="8+ characters, A-Z, a-z and a symbol" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password}/>
+        <SingleInput id="confirm-password" label="Confirm password" type="password" placeholder="Type your password again" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} error={errors['confirm-password']}/>
 
-        {/* Registration form: same fields and order as the Figma wireframe */}
-        <form className="registration-card" onSubmit={handleSubmit} noValidate>
-          <h2>Register</h2>
-          <SingleInput id="email" label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email}/>
-          <SingleInput id="username" label="Username" placeholder="Pick a name the gods will call you" value={username} onChange={(e) => setUsername(e.target.value)} error={errors.username}/>
-          <SingleInput id="date-of-birth" label="Date of birth" type="date" max={todayAsText()} value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} error={errors['date-of-birth']}/>
-          <SingleInput id="password" label="Password" type="password" placeholder="8+ characters, A-Z, a-z and a symbol" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password}/>
-          <SingleInput id="confirm-password" label="Confirm password" type="password" placeholder="Type your password again" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} error={errors['confirm-password']}/>
+        {/* Captcha: shows the code to copy. Becomes an image from the backend later. */}
+        <p className="captcha-code">Captcha code: <strong>{tempCap}</strong></p>
+        <SingleInput id="captcha" label="Enter captcha" placeholder="Type the code above" value={captcha} onChange={(e) => setCaptcha(e.target.value)} error={errors.captcha}/>
 
-          {/* Captcha: shows the code to copy. Becomes an image from the backend later. */}
-          <p className="captcha-code">Captcha code: <strong>{tempCap}</strong></p>
-          <SingleInput id="captcha" label="Enter captcha" placeholder="Type the code above" value={captcha} onChange={(e) => setCaptcha(e.target.value)} error={errors.captcha}/>
+        <div className="terms">
+          <input id="terms" type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)}
+            aria-invalid={errors.terms ? 'true' : 'false'} aria-describedby={errors.terms ? 'terms-error' : undefined}/>
+          <label htmlFor="terms">I agree to the Terms and Privacy Policy</label>
+        </div>
+        {errors.terms && <p id="terms-error" className="input-error terms-error">{errors.terms}</p>}
 
-          <div className="terms">
-            <input id="terms" type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)}
-              aria-invalid={errors.terms ? 'true' : 'false'} aria-describedby={errors.terms ? 'terms-error' : undefined}/>
-            <label htmlFor="terms">I agree to the Terms and Privacy Policy</label>
-          </div>
-          {errors.terms && <p id="terms-error" className="input-error terms-error">{errors.terms}</p>}
+        <button type="submit" disabled={isSending}>{isSending ? 'Registering...' : 'Register'}</button>
 
-          <button type="submit" disabled={isSending}>{isSending ? 'Registering...' : 'Register'}</button>
-
-          {message && <p className="form-message" role="alert">{message}</p>}
-        </form>
-      </main>
+        {message && <p className="form-message" role="alert">{message}</p>}
+      </FormCard>
     </CloudGate>
   );
 }
