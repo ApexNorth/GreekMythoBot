@@ -3,6 +3,10 @@ import olympusTemples from '../assets/home/olympus-temples.webp';
 import zeus from '../assets/home/zeus.webp';
 import kronos from '../assets/home/kronos.webp';
 import nyx from '../assets/home/nyx.webp';
+import giftApples from '../assets/home/gift-apples.webp';
+import giftHoney from '../assets/home/gift-honey.webp';
+import giftPomegranate from '../assets/home/gift-pomegranate.webp';
+import oakWreath from '../assets/home/oak-wreath.webp';
 import './Home.css';
 
 // The three families of gods shown under "Meet the gods" (same gods as the god selection page)
@@ -78,6 +82,58 @@ function Home(){
               <p className="god-family-style">Art style: {family.artStyle}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* What you can do: describes the game's features (an advert only, nothing here is clickable) */}
+      <section className="home-features" aria-labelledby="features-title">
+        <div className="home-section">
+          <h2 id="features-title">What you can do</h2>
+          <p className="home-section-intro">
+            Every god has their own personality, their own stories and their own favourite gifts.
+          </p>
+
+          <div className="feature-cards">
+            <article className="feature-card">
+              {/* Little example chat; aria-hidden so screen readers only read the real text below */}
+              <div className="feature-picture feature-chat" aria-hidden="true">
+                <p className="chat-bubble chat-bubble-god">Who dares to climb Mount Olympus?</p>
+                <p className="chat-bubble chat-bubble-player">It's me! Why do you throw lightning?</p>
+              </div>
+              <h3>Talk to a god</h3>
+              <p>Ask them about their lives, their powers and their famous myths. Each god answers in their own way.</p>
+            </article>
+
+            <article className="feature-card">
+              <div className="feature-picture feature-gifts" aria-hidden="true">
+                <img src={giftApples} alt="" width="80" height="80" loading="lazy"/>
+                <img src={giftHoney} alt="" width="80" height="80" loading="lazy"/>
+                <img src={giftPomegranate} alt="" width="80" height="80" loading="lazy"/>
+              </div>
+              <h3>Give gifts</h3>
+              <p>Golden apples, honey, pomegranates... Every god loves different things. Choose the wrong gift and they won't be happy!</p>
+            </article>
+
+            <article className="feature-card">
+              <div className="feature-picture feature-favour" aria-hidden="true">
+                <img src={oakWreath} alt="" width="64" height="64" loading="lazy"/>
+                <div className="favour-meter">
+                  <span className="favour-meter-label">Zeus's favour</span>
+                  <span className="favour-meter-bar"><span className="favour-meter-fill"></span></span>
+                </div>
+              </div>
+              <h3>Win their favour</h3>
+              <p>Your friendship with each god grows with what you say and give. Annoy them too much and they'll stop talking to you!</p>
+            </article>
+
+            <article className="feature-card">
+              <div className="feature-picture feature-travel" aria-hidden="true">
+                <img src={olympusTemples} alt="" loading="lazy"/>
+              </div>
+              <h3>Travel between worlds</h3>
+              <p>The clouds part to carry you to each god's world, from sunny Mount Olympus to the oldest, darkest corners of the myths.</p>
+            </article>
+          </div>
         </div>
       </section>
     </main>
