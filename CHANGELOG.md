@@ -9,6 +9,18 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 19 November 2026: Login page, step 2 (George)
+
+**Added**
+- Log in now sends the email and password to the server (`POST /api/login`), with
+  the button greyed out ("Logging in...") so it can't be clicked twice. Until the
+  server is ready, a pretend server answers so the page can be tested.
+- Clear messages when the email or password is wrong (FE-03) and when the server
+  can't be reached (NFR-06). The wrong-details message doesn't say which one was
+  wrong, so nobody can use it to find out which emails have accounts.
+- When the details are right the clouds open with "Welcome back, <name>!"
+  (FE-06). An odd reply from the server shows a message instead of crashing (NFR-12).
+
 ## 19 November 2026: Login page, step 1 (George)
 
 **Added**
