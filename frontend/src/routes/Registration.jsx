@@ -75,8 +75,8 @@ function fakeServer(details){
   });
 }
 
-/** Registration page: the form a new user fills in to create an account. */
-function Registration(){
+/** Registration page: the form a new user fills in to create an account. onLogin runs when it works. */
+function Registration({onLogin = () => {}}){
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
@@ -119,6 +119,7 @@ function Registration(){
       const reply = await sendRegistration({email, username, dateOfBirth, password, captcha});
       if (reply.ok){
         setIsOpen(true);
+        onLogin();
         // TODO: go to the Travel screen after the clouds open (that page isn't built yet).
       } else if (reply.error === 'captcha'){
         setErrors({captcha: "That code isn't right. Check it and try again."});

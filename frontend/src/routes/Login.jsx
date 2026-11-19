@@ -46,8 +46,8 @@ function fakeServer(details){
   });
 }
 
-/** Login page: the form a player with an account fills in to log in (email + password). */
-function Login(){
+/** Login page: the form a player with an account fills in to log in (email + password). onLogin runs when it works. */
+function Login({onLogin = () => {}}){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
@@ -81,6 +81,7 @@ function Login(){
         // Only use the name if the server sent a real piece of text (NFR-12)
         setUsername(typeof reply.username === 'string' ? reply.username : '');
         setIsOpen(true);
+        onLogin();
         // TODO: go to the Travel screen after the clouds open (that page isn't built yet).
       } else if (reply.error === 'invalid'){
         // Don't say which one was wrong, so nobody can find out which emails have accounts

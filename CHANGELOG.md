@@ -9,6 +9,33 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 19 November 2026: Navbar step 2: connected to Log in and Register (George)
+
+**Added**
+- The navbar now knows if you're logged in. After logging in or registering it
+  shows **Gods** (back to picking a god), a round **profile** icon and **Log out**
+  (FE-04, FE-11, FE-31). Logging out takes you home and brings back Log in and Register.
+- `App.jsx` keeps track of whether you're logged in and passes it to the navbar.
+  Nothing is saved in the browser (NFR-14). Until the server can check for a login
+  session, refreshing the page logs you out (`TODO BACKEND` notes in `App.jsx`).
+
+**Changed**
+- Brought the Log in, Register, Forgot password and Reset password pages into the
+  navbar branch so they can be connected. The old plain links in `App.jsx` are
+  replaced by the navbar on every page.
+
+## 19 November 2026: Navbar step 1 (George)
+
+**Added**
+- One shared navbar for the top of every page (`components/Navbar.jsx`) in the
+  pottery style: "The Descent" on the left (goes home), "Log in", and "Register" as
+  a pill button. It replaces the plain Home / Chat links, which were too faint to
+  read on the light background (1.7:1 contrast, NFR-02). It highlights the page
+  you're on, works with the keyboard and fits on one line at 360px.
+
+**Removed**
+- The Chat link at the top, because you need to pick a god before you can chat.
+
 ## 19 November 2026: Login page, step 5: Reset password (George)
 
 **Added**
