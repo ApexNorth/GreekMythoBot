@@ -14,7 +14,7 @@
 /* Card: cream panel, thick black outline, thin terracotta line inside (same look as the form cards) */
 .profile-card {
   width: 100%;
-  max-width: 720px;
+  max-width: 960px;
   box-sizing: border-box;
   padding: 32px;
   text-align: center;
@@ -74,6 +74,150 @@
 .profile-button:focus-visible {
   outline: 3px solid #1a1412;
   outline-offset: 3px;
+}
+
+/* Links inside the card: bold with a terracotta underline (same as the form cards) */
+.profile-card a {
+  font-weight: 700;
+  color: #1a1412;
+  text-decoration-color: #d9774a;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.profile-card a:focus-visible {
+  outline: 3px solid #1a1412;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* "Relationships" heading between two lines, like the wireframe */
+.profile-section h2 {
+  margin: 24px 0 8px;
+  padding: 6px 0;
+  font-size: 1.5rem;
+  border-top: 3px solid #1a1412;
+  border-bottom: 3px solid #1a1412;
+}
+
+/* Group headings (Olympians, Titans, Primordials) */
+.god-group-block h3 {
+  margin: 20px 0 12px;
+  font-size: 1.25rem;
+}
+
+/* Gods: one column on phones, two side by side when there's room */
+.god-rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One god: picture | name, word and bar | Chat */
+.god-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  text-align: left;
+  background: #fffaf0;
+  border: 2px solid #1a1412;
+  border-radius: 16px;
+}
+
+.god-row-picture {
+  flex-shrink: 0;
+  background: #f2e6d0;
+  border: 3px solid #1a1412;
+  border-radius: 50%;
+}
+
+.god-row-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.god-row-info h4 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.god-row-word,
+.god-row-level {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0 0;
+}
+
+.god-row-word svg {
+  flex-shrink: 0;
+  fill: none;
+  stroke: #1a1412;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Happy gods get a terracotta feather; angry gods get dark red words */
+.god-row-like .god-row-word svg {
+  fill: #d9774a;
+}
+
+.god-row-angry {
+  border-color: #8a2b1a;
+}
+
+.god-row-angry .god-row-word {
+  font-weight: 700;
+  color: #8a2b1a;
+}
+
+/* Bar out of 100: black outline, terracotta fill */
+.god-row-level meter {
+  flex: 1;
+  height: 12px;
+  appearance: none;
+  background: #f2e6d0;
+  border: 2px solid #1a1412;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.god-row-level meter::-webkit-meter-bar {
+  background: #f2e6d0;
+  border: none;
+}
+
+.god-row-level meter::-webkit-meter-optimum-value {
+  background: #d9774a;
+}
+
+.god-row-level meter::-moz-meter-bar {
+  background: #d9774a;
+}
+
+.god-row-level span {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* Chat link: small black pill */
+.profile-card .god-row-chat {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  color: #f2e6d0;
+  text-decoration: none;
+  background: #1a1412;
+  border-radius: 999px;
+}
+
+.profile-card .god-row-chat:hover {
+  color: #1a1412;
+  background: #d9774a;
 }
 
 /* Mobile Screens */
