@@ -1,0 +1,99 @@
+/* Page: Mount Olympus behind a cream card. flex: 1 fills the space under the navbar */
+.profile-page {
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+  color: #1a1412;
+  color-scheme: light;
+  background: #f6d7b8 url('../assets/clouds/olympus.webp') center / cover;
+}
+
+/* Card: cream panel, thick black outline, thin terracotta line inside (same look as the form cards) */
+.profile-card {
+  width: 100%;
+  max-width: 720px;
+  box-sizing: border-box;
+  padding: 32px;
+  text-align: center;
+  background: #f2e6d0;
+  border: 3px solid #1a1412;
+  border-radius: 24px;
+  box-shadow: inset 0 0 0 6px #f2e6d0, inset 0 0 0 8px #d9774a;
+}
+
+.profile-card h1 {
+  margin: 0 0 12px;
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: #1a1412;
+}
+
+.profile-hello {
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.profile-note {
+  margin: 0;
+}
+
+/* Error box with a Try again button */
+.profile-error p {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  text-align: left;
+  background: #fffaf0;
+  border-left: 4px solid #d9774a;
+  border-radius: 6px;
+}
+
+/* Black pill button that turns terracotta on hover (same as the form buttons) */
+.profile-button {
+  min-height: 44px;
+  padding: 10px 28px;
+  font: inherit;
+  font-weight: 700;
+  color: #f2e6d0;
+  background: #1a1412;
+  border: 3px solid #1a1412;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.profile-button:hover {
+  color: #1a1412;
+  background: #d9774a;
+}
+
+.profile-button:focus-visible {
+  outline: 3px solid #1a1412;
+  outline-offset: 3px;
+}
+
+/* Mobile Screens */
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 24px 12px;
+  }
+
+  .profile-card {
+    padding: 24px 20px;
+  }
+
+  .profile-card h1 {
+    font-size: 1.6rem;
+  }
+}
+
+/* No movement for people who turn on "reduce motion" */
+@media (prefers-reduced-motion: reduce) {
+  .profile-button {
+    transition: none;
+  }
+}

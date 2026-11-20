@@ -1,6 +1,18 @@
 
 # Changelog
 
+## 20 November 2026: Profile page step 1 (George)
+
+**Added**
+- A Profile page at `/profile` (FE-31), opened from the round profile icon in the
+  navbar. Only logged-in players can open it; anyone else is sent to Log in, the same
+  as god selection and chat. Until now the icon led to an empty page.
+- It greets the player by name and shows a message while it loads. If the server
+  can't be reached or sends back something strange, it says so with a Try again button
+  instead of showing a blank page (NFR-06, NFR-12).
+- Until the server is ready, a pretend server answers (`TODO BACKEND: GET /api/profile`).
+  Its reply uses the names from our database plan (ERD) so the backend can match it.
+
 ## 20 November 2026
 
 ### Added
