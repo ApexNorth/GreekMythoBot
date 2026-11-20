@@ -6,10 +6,15 @@
 ### Added
 - Added initial parallax backgrounds for Ouranos, Chronos, Gaia, Nyx and Tartarus.
 - Added Chaos to the god selection assets.
+- Added login protection for God Selection and individual god chats.
 
 ### Changed
 - Updated Zeus's scene to use his complete character image.
 - Moved the background image imports and scene configurations into a separate `parallaxScenes.js` file to organise the code.
+- Connected God Selection and God Chat to the homepage, login and navbar.
+- Moved God Selection to `/travel` so the homepage can use `/`.
+- Updated login and registration to open God Selection after the cloud animation.
+- Updated the Back to God Selection link and logout navigation.
 
 ### Fixed
 - Fixed the React Fast Refresh lint error in `ParallaxScene.jsx`.

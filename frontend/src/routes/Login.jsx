@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import SingleInput from '../components/SingleInput.jsx';
 import CloudGate from '../components/CloudGate.jsx';
 import FormCard from '../components/FormCard.jsx';
@@ -55,6 +55,7 @@ function Login({onLogin = () => {}}){
   const [username, setUsername] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const navigate = useNavigate();
 
   // Runs when Log in is clicked (or Enter is pressed): checks both boxes, then sends them.
   const handleSubmit = async (e) => {
@@ -82,7 +83,9 @@ function Login({onLogin = () => {}}){
         setUsername(typeof reply.username === 'string' ? reply.username : '');
         setIsOpen(true);
         onLogin();
-        // TODO: go to the Travel screen after the clouds open (that page isn't built yet).
+        // Navigate to god selection after the cloud animation
+        const waitTime = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 1000 : 3000;
+        setTimeout(() => navigate('/travel'), waitTime);
       } else if (reply.error === 'invalid'){
         // Don't say which one was wrong, so nobody can find out which emails have accounts
         setMessage("That email or password isn't right. Check them and try again.");

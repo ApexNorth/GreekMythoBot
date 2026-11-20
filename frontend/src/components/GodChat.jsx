@@ -170,7 +170,7 @@ function GodChat() {
       <ParallaxScene god={god} />
 
       <h2>Chat with {selectedGod ? selectedGod.name : god}</h2>
-      <Link to="/">Back to God Selection</Link>
+      <Link to="/travel">Back to God Selection</Link>
 
       {selectedGod && (
         <div className="god-chat-panel">

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import SingleInput from '../components/SingleInput.jsx';
 import CloudGate from '../components/CloudGate.jsx';
 import FormCard from '../components/FormCard.jsx';
@@ -92,6 +92,7 @@ function Registration({onLogin = () => {}}){
   const [message, setMessage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const navigate = useNavigate();
 
   // Runs when Register is clicked (or Enter is pressed): checks every field and shows any problems.
   const handleSubmit = async (e) => {
@@ -124,7 +125,9 @@ function Registration({onLogin = () => {}}){
       if (reply.ok){
         setIsOpen(true);
         onLogin();
-        // TODO: go to the Travel screen after the clouds open (that page isn't built yet).
+        // Navigate to god selection after the cloud animation
+        const waitTime = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 1000 : 3000;
+        setTimeout(() => navigate('/travel'), waitTime);
       } else if (reply.error === 'captcha'){
         setErrors({captcha: "That code isn't right. Check it and try again."});
         document.getElementById('captcha').focus();

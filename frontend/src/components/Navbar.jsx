@@ -1,5 +1,6 @@
 import {NavLink, useNavigate} from 'react-router-dom';
 import './Navbar.css';
+import { startTransition } from 'react';
 
 // TODO: change this to the god selection page's address once that page is in main.
 const TRAVEL_PAGE = '/travel';
@@ -11,10 +12,10 @@ const TRAVEL_PAGE = '/travel';
 function Navbar({isLoggedIn, onLogout}){
   const navigate = useNavigate();
 
-  // Log out, then go back to the home page
+  // Navigate home before updating the login state
   const handleLogout = () => {
-    onLogout();
     navigate('/');
+    startTransition(() => onLogout());
   };
 
   return (
