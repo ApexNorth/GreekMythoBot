@@ -1,0 +1,117 @@
+/* Each picture fills the whole screen and stays still while the page scrolls */
+.cloud-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Full width (so the navbar spans the screen) and no side borders from index.css over the clouds */
+#root:has(.cloud-gate) {
+  width: 100%;
+  border-inline: none;
+}
+
+/* Fill the space under the navbar, so the page is exactly one screen tall */
+.cloud-gate {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pale sky behind the pictures, so text stays readable if they don't load (and in dark mode) */
+:root:has(.cloud-gate) {
+  background: #cfdcf2;
+}
+
+/* Content (the form) sits on top of the clouds */
+.cloud-gate-content {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.5s ease;
+}
+
+/* Opening: the form fades first, then the clouds move (0.4s later) */
+.cloud-layer {
+  transition: transform 1.8s ease-in-out 0.4s, opacity 1.8s ease-in-out 0.4s;
+}
+
+.cloud-gate.open .cloud-gate-content {
+  opacity: 0;
+}
+
+.cloud-gate.open .cloud-left {
+  transform: translateX(-100%);
+}
+
+.cloud-gate.open .cloud-right {
+  transform: translateX(100%);
+}
+
+/* Front clouds: sit a little further out, and move faster when opening (gives depth) */
+.cloud-front {
+  transition-duration: 1.3s;
+}
+
+.cloud-front.cloud-left {
+  transform: translateX(-8%);
+}
+
+.cloud-front.cloud-right {
+  transform: translateX(8%);
+}
+
+.cloud-gate.open .cloud-front.cloud-left {
+  transform: translateX(-110%);
+}
+
+.cloud-gate.open .cloud-front.cloud-right {
+  transform: translateX(110%);
+}
+
+.cloud-gate.open .cloud-frame {
+  opacity: 0;
+  transform: scale(1.3);
+}
+
+/* Message over Olympus (e.g. "Welcome, Hermes!"), fades in once the clouds have moved */
+.cloud-gate-message {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100% - 32px);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 12px 28px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1a1412;
+  background: #f2e6d0;
+  border: 3px solid #1a1412;
+  border-radius: 24px;
+  animation: cloud-gate-fade-in 1s ease 1.6s both;
+}
+
+@keyframes cloud-gate-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* "Reduce motion" turned on: no sliding, the clouds just disappear */
+@media (prefers-reduced-motion: reduce) {
+  .cloud-layer,
+  .cloud-gate-content {
+    transition: none;
+  }
+
+  .cloud-gate-message {
+    animation: none;
+  }
+}
