@@ -34,7 +34,7 @@ function GodSelection() {
       'Gaia',
       'Nyx',
       'Tartarus',
-      'Uranus'
+      'Ouranos'
     ];
 
     const godGroups = [

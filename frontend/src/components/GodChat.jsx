@@ -1,7 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import './GodChat.css';
-import ParallaxScene, { scenes } from './ParallaxScene.jsx';
+import ParallaxScene from './ParallaxScene.jsx';
+import { scenes } from './parallaxScenes.js';
 
 // Stores the information and opening message for each god
 
@@ -65,6 +66,36 @@ const godDetails = {
     name: 'Prometheus',
     description: 'Titan Who Gave Fire to Humanity',
     openingMessage: 'I gave humanity the gift of fire. What knowledge do you seek, mortal?',
+  },
+  ouranos: {
+    name: 'Ouranos',
+    description: 'Primordial God of the Sky',
+    openingMessage: 'I am Ouranos, the sky abova all creation. What would you like to discoer about the first gods?',
+  },
+  chronos: {
+    name: 'Chronos',
+    description: 'Primordial Personification of Time',
+    openingMessage: 'I am Chronos, and time flows through all things. What would you like to discover about eternity?'
+  },
+  gaia: {
+    name: 'Gaia',
+    description: 'Primordial Goddess of the Earth',
+    openingMessage: 'Welcome, young traveller. I am Gaia, the Earth itself. What would you like the discover about our world?',
+  },
+  nyx: {
+    name: 'Nyx',
+    description: 'Primordial Goddess of the Night',
+    openingMessage: 'Welcome to my realm, mortal. Even the mighty gods respect the darkness. What mysteries do you seek?',
+  },
+  tartarus: {
+    name: 'Tartarus',
+    description: 'Primordial God of the Deepest Abyss',
+    openingMessage: 'You have reached the deepest depths, mortal. Few dare to enter my realm. What brings you here?',
+  },
+  chaos: {
+    name: 'Chaos',
+    description: 'Primordial Being of the Void and Beginning of Creation',
+    openingMessage: 'Before the gods, there was only Chaos. From the endless void, creation began. What would you like to discover?',
   },
 };
 

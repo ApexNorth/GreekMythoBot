@@ -58,20 +58,6 @@
     transform: translate(var(--character-shift, 0px, 0px));
 }
 
-.parallax-lightning {
-    width: min(26vw, 320px);
-    height: auto;
-
-    position: absolute;
-    top: 6%;
-    right: 9%;
-
-    object-fit: contain;
-    opacity: 0.9;
-
-    transform: translate(var(--lightning-shift, 0px, 0px));
-}
-
 /* Athena parallax scene */
 
 .parallax-athena-sky {
@@ -622,10 +608,275 @@
     transform: translate(var(--prometheus-foreground-shift, 0px 0px));
 }
 
+/* Ouranos Parallax scene */
+
+.parallax-ouranos-sky {
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    object-fit: cover;
+    z-index: 1;
+    transform: translate(var(--ouranos-sky-shift, 0px 0px));
+}
+
+.parallax-ouranos-clouds {
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    object-fit: cover;
+    z-index: 2;
+    transform: translate(var(--ouranos-clouds-shift, 0px 0px));
+}
+
+
+.parallax-ouranos-pillars {
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    object-fit: cover;
+    z-index: 3;
+    transform: translate(var(--ouranos-pillars-shift, 0px 0px));
+}
+
+.parallax-ouranos-character {
+    width: 65%;
+    height: 100%;
+    bottom: -4%;
+    left: 17.5%;
+    object-fit: contain;
+    object-position: center bottom;
+    z-index: 4;
+    transform: translate(var(--ouranos-character-shift, 0px 0px));
+}
+
+.parallax-ouranos-foreground {
+    width: 110%;
+    height: 110%;
+    bottom: -5%;
+    left: -5%;
+    object-fit: cover;
+    z-index: 5;
+    transform: translate(var(--ouranos-foreground-shift, 0px 0px));
+}
+
+/* Chronos parallax scene */
+
+.parallax-chronos-sky {
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    object-fit: cover;
+    z-index: 1;
+    transform: translate(var(--chronos-sky-shift, 0px 0px));
+}
+
+.parallax-chronos-mandala {
+    width: 82%;
+    height: 86%;
+    top: 2%;
+    left: 9%;
+    object-fit: contain;
+    z-index: 2;
+    transform: translate(var(--chronos-mandala-shift, 0px 0px));
+}
+
+.parallax-chronos-dunes {
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    object-fit: cover;
+    z-index: 3;
+    transform: translate(var(--chronos-dunes-shift, 0px 0px));
+}
+
+.parallax-chronos-character {
+    width: 64%;
+    height: 100%;
+    bottom: -3%;
+    left: 18%;
+    object-fit: contain;
+    object-position: center bottom;
+    z-index: 4;
+    transform: translate(var(--chronos-character-shift, 0px 0px));
+}
+
+.parallax-chronos-foreground {
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    object-fit: cover;
+    z-index: 5;
+    transform: translate(var(--chronos-foreground-shift, 0px 0px));
+}
+
+/* Gaia */
+
+.parallax-gaia-sky {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 1;
+  transform: translate(var(--gaia-sky-shift, 0px 0px));
+}
+
+.parallax-gaia-mountains {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 2;
+  transform: translate(var(--gaia-mountains-shift, 0px 0px));
+}
+
+.parallax-gaia-valley {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 3;
+  transform: translate(var(--gaia-valley-shift, 0px 0px));
+}
+
+.parallax-gaia-character {
+  width: 64%;
+  height: 100%;
+  bottom: -3%;
+  left: 18%;
+  object-fit: contain;
+  object-position: center bottom;
+  z-index: 4;
+  transform: translate(var(--gaia-character-shift, 0px 0px));
+}
+
+.parallax-gaia-foreground {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 5;
+  transform: translate(var(--gaia-foreground-shift, 0px 0px));
+}
+
+/* Nyx */
+
+.parallax-nyx-sky {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 1;
+  transform: translate(var(--nyx-sky-shift, 0px 0px));
+}
+
+.parallax-nyx-mountains {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 2;
+  transform: translate(var(--nyx-mountains-shift, 0px 0px));
+}
+
+.parallax-nyx-palace {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 3;
+  transform: translate(var(--nyx-palace-shift, 0px 0px));
+}
+
+.parallax-nyx-character {
+  width: 64%;
+  height: 100%;
+  bottom: -3%;
+  left: 12%;
+  object-fit: contain;
+  object-position: center bottom;
+  z-index: 4;
+  transform: translate(var(--nyx-character-shift, 0px 0px));
+}
+
+.parallax-nyx-foreground {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 5;
+  transform: translate(var(--nyx-foreground-shift, 0px 0px));
+}
+/* Tartarus */
+
+.parallax-tartarus-sky {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 1;
+  transform: translate(var(--tartarus-sky-shift, 0px 0px));
+}
+
+.parallax-tartarus-mountains {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 2;
+  transform: translate(var(--tartarus-mountains-shift, 0px 0px));
+}
+
+.parallax-tartarus-fortress {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 3;
+  transform: translate(var(--tartarus-fortress-shift, 0px 0px));
+}
+
+.parallax-tartarus-character {
+  width: 68%;
+  height: 100%;
+  bottom: -3%;
+  left: 16%;
+  object-fit: contain;
+  object-position: center bottom;
+  z-index: 4;
+  transform: translate(var(--tartarus-character-shift, 0px 0px));
+}
+
+.parallax-tartarus-foreground {
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  object-fit: cover;
+  z-index: 5;
+  transform: translate(var(--tartarus-foreground-shift, 0px 0px));
+}
+
 /* Reduce movement for users who prefer fewer animations */
 @media (prefers-reduced-motion: reduce) {
-  .parallax-scene .parallax-layer {
-    transform: none;
-    transition: none;
-  }
+    .parallax-scene .parallax-layer {
+        transform: none;
+        transition: none;
+    }
 }
