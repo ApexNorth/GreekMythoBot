@@ -1,5 +1,9 @@
 import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import giftApples from '../assets/home/gift-apples.webp';
+import giftHoney from '../assets/home/gift-honey.webp';
+import giftPomegranate from '../assets/home/gift-pomegranate.webp';
+import oakWreath from '../assets/home/oak-wreath.webp';
 import './Profile.css';
 
 // TODO BACKEND: set this to false once GET /api/profile works on the server.
@@ -14,6 +18,14 @@ const godGroups = [
   {name: 'Titans', gods: ['Atlas', 'Hyperion', 'Kronos', 'Prometheus', 'Rhea', 'Themis']},
   {name: 'Primordials', gods: ['Chaos', 'Chronos', 'Gaia', 'Nyx', 'Tartarus', 'Ouranos']},
 ];
+
+// Pictures for the gifts we have art for, by gift_name. Other gifts get a gift box icon.
+const giftPictures = {
+  'golden apples': giftApples,
+  'honey': giftHoney,
+  'pomegranate': giftPomegranate,
+  'oak wreath': oakWreath,
+};
 
 /**
  * Turns a relationship level (0-100 in the ERD) into the words shown on the page.
@@ -66,6 +78,8 @@ function fakeServer(){
           gifts: [
             {gift_name: 'Honey', gift_type: 'food'},
             {gift_name: 'Pomegranate', gift_type: 'food'},
+            {gift_name: 'Golden apples', gift_type: 'food'},
+            {gift_name: 'Olive branch', gift_type: 'plant'},
           ],
         });
       }
@@ -87,10 +101,40 @@ function readProfile(reply){
     });
   }
 
+  // Keep only gifts that have a name (gift_name and gift_type come from the ERD)
+  const gifts = Array.isArray(reply.gifts)
+    ? reply.gifts
+      .filter((gift) => gift && typeof gift.gift_name === 'string' && gift.gift_name !== '')
+      .map((gift) => ({name: gift.gift_name, type: typeof gift.gift_type === 'string' ? gift.gift_type : ''}))
+    : [];
+
   return {
     username: typeof reply.username === 'string' ? reply.username : '',
     levels,
+    gifts,
   };
+}
+
+/** One gift: its picture (or a gift box icon if we have no art for it), name and type. */
+function GiftItem({name, type}){
+  const picture = giftPictures[name.toLowerCase()];
+
+  return (
+    <li className="gift-item">
+      {/* Decorative: the gift's name is written right next to it */}
+      {picture ? (
+        <img className="gift-picture" src={picture} alt="" width="56" height="56"/>
+      ) : (
+        <svg className="gift-picture gift-box" viewBox="0 0 24 24" width="56" height="56" aria-hidden="true">
+          <path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-2-4-6-4-6-1s6 1 6 1c2-4 6-4 6-1s-6 1-6 1"/>
+        </svg>
+      )}
+      <div>
+        <p className="gift-name">{name}</p>
+        {type && <p className="gift-type">{type}</p>}
+      </div>
+    </li>
+  );
 }
 
 /** One god's row: picture, name, how they feel about you, a bar out of 100 and a Chat link. */
@@ -201,6 +245,20 @@ function Profile(){
                   </ul>
                 </div>
               ))}
+            </section>
+
+            {/* Gifts on the player's profile (PROFILE.gifts in the ERD, bottom row of the wireframe) */}
+            <section className="profile-section" aria-labelledby="gifts-heading">
+              <h2 id="gifts-heading">Gifts</h2>
+              {profile.gifts.length === 0 ? (
+                <p className="profile-note">No gifts yet.</p>
+              ) : (
+                <ul className="gift-list">
+                  {profile.gifts.map((gift, index) => (
+                    <GiftItem key={`${gift.name}-${index}`} name={gift.name} type={gift.type}/>
+                  ))}
+                </ul>
+              )}
             </section>
           </>
         )}

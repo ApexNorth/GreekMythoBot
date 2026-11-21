@@ -220,6 +220,57 @@
   background: #d9774a;
 }
 
+/* Gifts: equal-width cards, one per line on phones, up to four side by side on big screens */
+.gift-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gift-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 8px;
+  text-align: left;
+  background: #fffaf0;
+  border: 2px solid #1a1412;
+  border-radius: 999px;
+}
+
+.gift-picture {
+  flex-shrink: 0;
+  background: #f2e6d0;
+  border: 3px solid #1a1412;
+  border-radius: 50%;
+}
+
+/* Gift box icon for gifts we have no picture for */
+.gift-box {
+  box-sizing: border-box;
+  width: 62px;
+  height: 62px;
+  padding: 12px;
+  fill: none;
+  stroke: #1a1412;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.gift-name {
+  margin: 0;
+  font-weight: 700;
+}
+
+.gift-type {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #5c4a42;
+}
+
 /* Mobile Screens */
 @media (max-width: 600px) {
   .profile-page {

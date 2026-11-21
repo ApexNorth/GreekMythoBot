@@ -1,6 +1,17 @@
 
 # Changelog
 
+## 21 November 2026: Profile page step 3: gifts (George)
+
+**Added**
+- A Gifts section at the bottom of the Profile page, like the bottom row of the
+  Figma wireframe. It lists the gifts on the player's profile (PROFILE.gifts in the
+  ERD), each with its name and type (`gift_name`, `gift_type`).
+- Honey, pomegranate, golden apples and oak wreath reuse the small pictures from the
+  homepage. Any other gift gets a simple gift box icon, so a new gift from the server
+  never shows a broken picture.
+- Players with no gifts see "No gifts yet."
+
 ## 20 November 2026: Profile page step 2: relationships (George)
 
 **Added**
