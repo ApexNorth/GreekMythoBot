@@ -1,0 +1,287 @@
+/* Page: Mount Olympus behind a cream card. flex: 1 fills the space under the navbar */
+.profile-page {
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+  color: #1a1412;
+  color-scheme: light;
+  background: #f6d7b8 url('../assets/clouds/olympus.webp') center / cover;
+}
+
+/* Card: cream panel, thick black outline, thin terracotta line inside (same look as the form cards) */
+.profile-card {
+  width: 100%;
+  max-width: 960px;
+  box-sizing: border-box;
+  padding: 32px;
+  text-align: center;
+  background: #f2e6d0;
+  border: 3px solid #1a1412;
+  border-radius: 24px;
+  box-shadow: inset 0 0 0 6px #f2e6d0, inset 0 0 0 8px #d9774a;
+}
+
+.profile-card h1 {
+  margin: 0 0 12px;
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: #1a1412;
+}
+
+.profile-hello {
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.profile-note {
+  margin: 0;
+}
+
+/* Error box with a Try again button */
+.profile-error p {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  text-align: left;
+  background: #fffaf0;
+  border-left: 4px solid #d9774a;
+  border-radius: 6px;
+}
+
+/* Black pill button that turns terracotta on hover (same as the form buttons) */
+.profile-button {
+  min-height: 44px;
+  padding: 10px 28px;
+  font: inherit;
+  font-weight: 700;
+  color: #f2e6d0;
+  background: #1a1412;
+  border: 3px solid #1a1412;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.profile-button:hover {
+  color: #1a1412;
+  background: #d9774a;
+}
+
+.profile-button:focus-visible {
+  outline: 3px solid #1a1412;
+  outline-offset: 3px;
+}
+
+/* Links inside the card: bold with a terracotta underline (same as the form cards) */
+.profile-card a {
+  font-weight: 700;
+  color: #1a1412;
+  text-decoration-color: #d9774a;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.profile-card a:focus-visible {
+  outline: 3px solid #1a1412;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* "Relationships" heading between two lines, like the wireframe */
+.profile-section h2 {
+  margin: 24px 0 8px;
+  padding: 6px 0;
+  font-size: 1.5rem;
+  color: #1a1412;
+  border-top: 3px solid #1a1412;
+  border-bottom: 3px solid #1a1412;
+}
+
+/* Group headings (Olympians, Titans, Primordials) */
+.god-group-block h3 {
+  margin: 20px 0 12px;
+  font-size: 1.25rem;
+}
+
+/* Gods: one column on phones, two side by side when there's room */
+.god-rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One god: picture | name, word and bar */
+.god-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  text-align: left;
+  background: #fffaf0;
+  border: 2px solid #1a1412;
+  border-radius: 16px;
+}
+
+.god-row-picture {
+  flex-shrink: 0;
+  background: #f2e6d0;
+  border: 3px solid #1a1412;
+  border-radius: 50%;
+}
+
+.god-row-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.god-row-info h4 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.god-row-word,
+.god-row-level {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0 0;
+}
+
+.god-row-word svg {
+  flex-shrink: 0;
+  fill: none;
+  stroke: #1a1412;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Happy gods get a terracotta feather; angry gods get dark red words */
+.god-row-like .god-row-word svg {
+  fill: #d9774a;
+}
+
+.god-row-angry {
+  border-color: #8a2b1a;
+}
+
+.god-row-angry .god-row-word {
+  font-weight: 700;
+  color: #8a2b1a;
+}
+
+/* Bar out of 100: black outline, terracotta fill */
+.god-row-level meter {
+  flex: 1;
+  height: 12px;
+  appearance: none;
+  background: #f2e6d0;
+  border: 2px solid #1a1412;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.god-row-level meter::-webkit-meter-bar {
+  background: #f2e6d0;
+  border: none;
+}
+
+.god-row-level meter::-webkit-meter-optimum-value {
+  background: #d9774a;
+}
+
+.god-row-level meter::-moz-meter-bar {
+  background: #d9774a;
+}
+
+.god-row-level span {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* Log out at the bottom of the card, under a line like the section headings */
+.profile-logout {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 3px solid #1a1412;
+}
+
+/* Gifts: equal-width cards, one per line on phones, up to four side by side on big screens */
+.gift-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gift-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 8px;
+  text-align: left;
+  background: #fffaf0;
+  border: 2px solid #1a1412;
+  border-radius: 999px;
+}
+
+.gift-picture {
+  flex-shrink: 0;
+  background: #f2e6d0;
+  border: 3px solid #1a1412;
+  border-radius: 50%;
+}
+
+/* Gift box icon for gifts we have no picture for */
+.gift-box {
+  box-sizing: border-box;
+  width: 62px;
+  height: 62px;
+  padding: 12px;
+  fill: none;
+  stroke: #1a1412;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.gift-name {
+  margin: 0;
+  font-weight: 700;
+}
+
+.gift-type {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #5c4a42;
+}
+
+/* Mobile Screens */
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 24px 12px;
+  }
+
+  .profile-card {
+    padding: 24px 20px;
+  }
+
+  .profile-card h1 {
+    font-size: 1.6rem;
+  }
+}
+
+/* No movement for people who turn on "reduce motion" */
+@media (prefers-reduced-motion: reduce) {
+  .profile-button {
+    transition: none;
+  }
+}

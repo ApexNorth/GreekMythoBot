@@ -1,0 +1,163 @@
+/* Shared chat page styling */
+
+.god-chat-preview {
+  min-height: 100vh;
+  padding: 40px 20px;
+  box-sizing: border-box;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  background-color: #f2e6d0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: #25201a;
+}
+
+/* Individual backgrounds */
+
+.zeus-chat-preview {
+  background-image: url('../assets/backgrounds/zeus-olympus.png');
+}
+
+.athena-chat-preview {
+  background-image: url('../assets/backgrounds/athena-background.png');
+}
+
+/* Page heading and navigation */
+
+.god-chat-preview > h2 {
+  color: #2b211b;
+  text-shadow: 0 2px 8px rgba(255, 250, 242, 0.7);
+}
+
+.god-chat-preview > a {
+  display: inline-block;
+  padding: 8px 14px;
+
+  background-color: rgba(255, 250, 242, 0.9);
+  border: 2px solid #2b211b;
+  border-radius: 10px;
+
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.god-chat-preview a {
+  color: #25201a;
+}
+
+/* Keep content above parallax images */
+
+.god-chat-preview > h2,
+.god-chat-preview > a,
+.god-chat-panel {
+  position: relative;
+  z-index: 1;
+}
+
+/* Main conversation panel */
+
+.god-chat-panel {
+  width: 480px;
+  max-width: 100%;
+  height: 650px;
+
+  margin-top: 30px;
+  padding: 20px;
+
+  background-color: #f2e6d0;
+  border: 3px solid #2b211b;
+  border-radius: 15px;
+  box-shadow: 6px 6px 0 #2b211b;
+
+  color: #2b211b;
+  text-align: left;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Shared message styling */
+
+.god-message {
+  margin-top: 24px;
+  padding: 16px;
+
+  background-color: #fffaf2;
+  border: 2px solid #2b211b;
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 #e2b13c;
+
+  line-height: 1.5;
+}
+
+/* User messages */
+
+.user-message {
+  align-self: flex-end;
+  max-width: 80%;
+  background-color: #f6d78c;
+  overflow-wrap: anywhere;
+
+  padding: 8px 14px;
+  margin-top: 12px;
+}
+
+/* Scrollable conversation area */
+
+.god-chat-messages {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+
+  overflow-y: auto;
+  padding-right: 6px;
+
+  scrollbar-width: thin;
+  scrollbar-color: #b9a17b #f2e6d0;
+}
+
+/* Message input area */
+
+.god-chat-input {
+  display: flex;
+  gap: 10px;
+
+  margin-top: auto;
+  padding-top: 20px;
+  flex-shrink: 0;
+}
+
+/* Text input */
+
+.god-chat-input input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+
+  background-color: #fffaf2;
+  border: 2px solid #2b211b;
+  border-radius: 10px;
+
+  font-size: 14px;
+  color: #2b211b;
+}
+
+/* Send button */
+
+.god-chat-input button {
+  padding: 12px 16px;
+
+  background-color: #e2b13c;
+  border: 2px solid #2b211b;
+  border-radius: 10px;
+
+  color: #2b211b;
+  font-weight: bold;
+}

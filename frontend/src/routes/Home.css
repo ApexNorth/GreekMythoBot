@@ -1,0 +1,518 @@
+/* Homepage: full width, cream background, dark text (also in dark mode) */
+#root:has(.home-page) {
+  width: 100%;
+  border-inline: none;
+}
+
+:root:has(.home-page) {
+  background: #f2e6d0;
+}
+
+.home-page {
+  /* Gold Greek key pattern, used for the borders of the coloured bands below */
+  --greek-key: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M0 21H24M18 21V3H4V17H14V9H9V13' fill='none' stroke='%23e8b830' stroke-width='2.5'/%3E%3C/svg%3E");
+  color: #1a1412;
+  background: #f2e6d0;
+  color-scheme: light;
+}
+
+/* Welcome section: the Olympus picture fills it, the card sits in the middle */
+.home-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 85svh;
+  padding: 48px 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.home-hero-picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Cream card with a thick black outline and thin terracotta line (same as the form cards) */
+.home-hero-card {
+  position: relative;
+  max-width: 620px;
+  padding: 32px;
+  box-sizing: border-box;
+  background: #f2e6d0;
+  border: 3px solid #1a1412;
+  border-radius: 24px;
+  box-shadow: inset 0 0 0 6px #f2e6d0, inset 0 0 0 8px #d9774a;
+}
+
+.home-hero-card h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: #1a1412;
+}
+
+.home-tagline {
+  margin: 0 0 12px;
+  font-size: 1.3rem;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #1a1412;
+}
+
+.home-intro {
+  margin: 0 0 24px;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #1a1412;
+}
+
+/* Buttons: side by side on bigger screens, stacked on phones */
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.home-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-weight: 700;
+  color: #1a1412;
+  text-decoration: none;
+  background: #fffaf0;
+  border: 3px solid #1a1412;
+  border-radius: 999px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.home-button:hover {
+  background: #d9774a;
+}
+
+/* Main button: black pill that turns terracotta on hover (same as Register) */
+.home-button-main {
+  color: #f2e6d0;
+  background: #1a1412;
+}
+
+.home-button-main:hover {
+  color: #1a1412;
+  background: #d9774a;
+}
+
+.home-button:focus-visible {
+  outline: 3px solid #1a1412;
+  outline-offset: 3px;
+}
+
+/* Sections below the welcome: centred, with room to breathe */
+.home-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 16px;
+  box-sizing: border-box;
+}
+
+.home-section h2 {
+  margin: 0 0 12px;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  line-height: 1.15;
+  font-weight: 700;
+  color: #1a1412;
+}
+
+.home-section-intro {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #1a1412;
+}
+
+/* Meet the gods: one big screen per age, with its own world behind it.
+   Phones: the god above the card. Bigger screens: side by side, swapping sides each time. */
+.god-era {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 100svh;
+  padding: 48px 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-top: 3px solid #1a1412;
+}
+
+@media (min-width: 900px) {
+  .god-era {
+    flex-direction: row;
+    gap: 64px;
+    padding: 64px 32px;
+  }
+
+  .god-era-titans {
+    flex-direction: row-reverse;
+  }
+}
+
+/* Background layers fill the whole screen behind the god and the card */
+.god-era-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The god: big, with a soft shadow so they stand out from the background */
+.god-era-god {
+  position: relative;
+  width: min(70vw, 300px);
+  height: auto;
+  filter: drop-shadow(0 8px 16px rgba(26, 20, 18, 0.35));
+}
+
+@media (min-width: 900px) {
+  .god-era-god {
+    width: min(34vw, 420px);
+  }
+}
+
+/* Cream card with the story (same look as the welcome card) */
+.god-era-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: 28px;
+  box-sizing: border-box;
+  text-align: left;
+  background: #f2e6d0;
+  border: 3px solid #1a1412;
+  border-radius: 24px;
+  box-shadow: inset 0 0 0 6px #f2e6d0, inset 0 0 0 8px #d9774a;
+}
+
+.god-era-card h3 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.1;
+  color: #1a1412;
+}
+
+.god-era-card p {
+  margin: 0;
+  line-height: 1.55;
+  color: #1a1412;
+}
+
+/* Small label above the title, in dark terracotta (5:1 contrast on cream) */
+.god-era-card .god-era-family {
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a4a26;
+}
+
+/* The six gods as little pill labels */
+.god-era-names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.god-era-names li {
+  padding: 4px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1412;
+  background: #fffaf0;
+  border: 2px solid #1a1412;
+  border-radius: 999px;
+}
+
+.god-era-card .god-era-style {
+  margin-top: 16px;
+  padding-top: 10px;
+  font-size: 0.9rem;
+  border-top: 2px solid #d9774a;
+}
+
+/* What you can do: a terracotta band (like a red-figure vase) with a gold Greek key border top and bottom */
+.home-features {
+  background: #d9774a;
+  border-block: 3px solid #1a1412;
+}
+
+.home-features::before,
+.home-features::after {
+  content: '';
+  display: block;
+  height: 24px;
+  background: #1a1412 var(--greek-key) repeat-x center;
+}
+
+.feature-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 480px;
+  margin: 40px auto 0;
+}
+
+@media (min-width: 900px) {
+  .feature-cards {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: none;
+  }
+}
+
+.feature-card {
+  padding: 24px;
+  text-align: left;
+  background: #fffaf0;
+  border: 3px solid #1a1412;
+  border-radius: 24px;
+}
+
+.feature-card h3 {
+  margin: 16px 0 6px;
+  font-size: 1.3rem;
+  color: #1a1412;
+}
+
+.feature-card p {
+  margin: 0;
+  line-height: 1.5;
+  color: #1a1412;
+}
+
+/* The little picture at the top of each card */
+.feature-picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 160px;
+  padding: 16px;
+  box-sizing: border-box;
+  background: #f2e6d0;
+  border: 2px solid #1a1412;
+  border-radius: 16px;
+}
+
+/* Example chat: a cream bubble from the god, a terracotta one from the player */
+.feature-chat {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.feature-card .chat-bubble {
+  max-width: 85%;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  border: 2px solid #1a1412;
+  border-radius: 16px;
+}
+
+.chat-bubble-god {
+  align-self: flex-start;
+  background: #fffaf0;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-bubble-player {
+  align-self: flex-end;
+  background: #d9774a;
+  border-bottom-right-radius: 4px;
+}
+
+/* Gifts and the wreath: round plates */
+.feature-gifts img,
+.feature-favour img {
+  width: 84px;
+  height: 84px;
+  border: 2px solid #1a1412;
+  border-radius: 50%;
+}
+
+/* Favour meter: wreath next to a gold bar about two-thirds full */
+.favour-meter {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 6px;
+  max-width: 260px;
+}
+
+.favour-meter-label {
+  font-weight: 700;
+  color: #1a1412;
+}
+
+.favour-meter-bar {
+  height: 20px;
+  overflow: hidden;
+  background: #fffaf0;
+  border: 2px solid #1a1412;
+  border-radius: 999px;
+}
+
+.favour-meter-fill {
+  display: block;
+  width: 70%;
+  height: 100%;
+  background: #e8b830;
+  border-right: 2px solid #1a1412;
+}
+
+/* Travel: a peek at Olympus through a round window */
+.feature-travel img {
+  width: 116px;
+  height: 116px;
+  object-fit: cover;
+  border: 3px solid #1a1412;
+  border-radius: 50%;
+}
+
+/* For parents: three short points in a cream box, each with a gold tick */
+.parent-points {
+  display: grid;
+  gap: 16px;
+  max-width: 640px;
+  margin: 32px auto 0;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: left;
+  list-style: none;
+  background: #fffaf0;
+  border: 3px solid #1a1412;
+  border-radius: 24px;
+}
+
+.parent-points li {
+  position: relative;
+  padding-left: 40px;
+  line-height: 1.5;
+  color: #1a1412;
+}
+
+.parent-points li::before {
+  content: '✓';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  font-weight: 700;
+  color: #1a1412;
+  background: #e8b830;
+  border: 2px solid #1a1412;
+  border-radius: 50%;
+}
+
+/* Begin your descent: a black band (like black-figure pottery) with a gold Greek key on top */
+.home-signup {
+  color: #f2e6d0;
+  background: #1a1412;
+}
+
+.home-signup::before {
+  content: '';
+  display: block;
+  height: 24px;
+  background: #1a1412 var(--greek-key) repeat-x center;
+  border-bottom: 3px solid #e8b830;
+}
+
+.home-signup h2,
+.home-signup .home-section-intro {
+  color: #f2e6d0;
+}
+
+/* Big terracotta button that turns gold on hover */
+.home-button-signup {
+  margin-top: 28px;
+  min-height: 56px;
+  padding: 0 32px;
+  font-size: 1.15rem;
+  color: #1a1412;
+  background: #d9774a;
+  border-color: #f2e6d0;
+}
+
+.home-button-signup:hover {
+  background: #e8b830;
+}
+
+.home-signup .home-button:focus-visible {
+  outline-color: #f2e6d0;
+}
+
+.home-login {
+  margin: 20px 0 0;
+  color: #f2e6d0;
+}
+
+.home-login a {
+  font-weight: 700;
+  color: #e8b830;
+  text-underline-offset: 4px;
+}
+
+.home-login a:focus-visible {
+  outline: 3px solid #f2e6d0;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Explore scrolls smoothly, but only for people who haven't turned on "reduce motion" */
+@media (prefers-reduced-motion: no-preference) {
+  :root:has(.home-page) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Mobile Screens */
+@media (max-width: 600px) {
+  .home-hero-card {
+    padding: 24px 20px;
+  }
+
+  .home-button {
+    width: 100%;
+  }
+
+  /* Smaller plates so the three gifts fit side by side on a phone */
+  .feature-gifts img,
+  .feature-favour img {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* No movement for people who turn on "reduce motion" */
+@media (prefers-reduced-motion: reduce) {
+  .home-button {
+    transition: none;
+  }
+}
