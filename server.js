@@ -8,12 +8,14 @@ const PORT = process.env.PORT || 5000;
 const userRouter = require('./backend/routes/user.js');
 
 app.use(express.json());
-ap.use("/api/user", userRouter);
+//app.use("/api/user", userRouter);
 
 
 app.get('/api', (req, res) => {
   res.json({message: "If your seeing this message than everythig is working!"})
 });
+
+app.use("/api/user", userRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running at: http://localhost:${PORT}`);
