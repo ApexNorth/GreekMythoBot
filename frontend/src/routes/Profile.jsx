@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {useState, useEffect, startTransition} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import giftApples from '../assets/home/gift-apples.webp';
 import giftHoney from '../assets/home/gift-honey.webp';
 import giftPomegranate from '../assets/home/gift-pomegranate.webp';
@@ -137,7 +137,7 @@ function GiftItem({name, type}){
   );
 }
 
-/** One god's row: picture, name, how they feel about you, a bar out of 100 and a Chat link. */
+/** One god's row: picture, name, how they feel about you and a bar out of 100. */
 function GodRelationship({name, level}){
   const id = name.toLowerCase();
   const {word, mood} = describeRelationship(level);
@@ -163,20 +163,19 @@ function GodRelationship({name, level}){
           </p>
         )}
       </div>
-
-      {/* Angry gods won't talk, so there's no Chat link for them */}
-      {mood !== 'angry' && (
-        <Link to={`/chat/${id}`} className="god-row-chat" aria-label={`Chat with ${name}`}>Chat</Link>
-      )}
     </li>
   );
 }
 
-/** Profile page: shows the logged-in player's name and how they're getting on with the gods (FE-31, FE-32). */
-function Profile(){
+/**
+ * Profile page: shows the logged-in player's name, how they're getting on with the gods
+ * and their gifts (FE-31, FE-32). onLogout runs when Log out is clicked (FE-04).
+ */
+function Profile({onLogout = () => {}}){
   const [profile, setProfile] = useState(null);
   const [status, setStatus] = useState('loading');
   const [attempt, setAttempt] = useState(0);
+  const navigate = useNavigate();
 
   // Load the profile when the page opens, and again when "Try again" is clicked
   useEffect(() => {
@@ -199,6 +198,12 @@ function Profile(){
   const handleRetry = () => {
     setStatus('loading');
     setAttempt(attempt + 1);
+  };
+
+  // Log out the same way as the navbar: go home first, then forget the login
+  const handleLogout = () => {
+    navigate('/');
+    startTransition(() => onLogout());
   };
 
   return (
@@ -261,6 +266,13 @@ function Profile(){
               )}
             </section>
           </>
+        )}
+
+        {/* Log out is always here, even if the profile didn't load */}
+        {status !== 'loading' && (
+          <div className="profile-logout">
+            <button type="button" className="profile-button" onClick={handleLogout}>Log out</button>
+          </div>
         )}
       </section>
     </main>

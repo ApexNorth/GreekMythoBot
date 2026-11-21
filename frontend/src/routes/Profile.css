@@ -96,6 +96,7 @@
   margin: 24px 0 8px;
   padding: 6px 0;
   font-size: 1.5rem;
+  color: #1a1412;
   border-top: 3px solid #1a1412;
   border-bottom: 3px solid #1a1412;
 }
@@ -116,7 +117,7 @@
   list-style: none;
 }
 
-/* One god: picture | name, word and bar | Chat */
+/* One god: picture | name, word and bar */
 .god-row {
   display: flex;
   align-items: center;
@@ -205,19 +206,11 @@
   white-space: nowrap;
 }
 
-/* Chat link: small black pill */
-.profile-card .god-row-chat {
-  flex-shrink: 0;
-  padding: 8px 14px;
-  color: #f2e6d0;
-  text-decoration: none;
-  background: #1a1412;
-  border-radius: 999px;
-}
-
-.profile-card .god-row-chat:hover {
-  color: #1a1412;
-  background: #d9774a;
+/* Log out at the bottom of the card, under a line like the section headings */
+.profile-logout {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 3px solid #1a1412;
 }
 
 /* Gifts: equal-width cards, one per line on phones, up to four side by side on big screens */

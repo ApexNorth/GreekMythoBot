@@ -56,7 +56,7 @@ function App() {
 
         <Route
           path="/profile"
-          element={isLoggedIn ? <Profile /> : <Navigate to="/login" replace />}
+          element={isLoggedIn ? <Profile onLogout={handleLogout} /> : <Navigate to="/login" replace />}
         />
       </Routes>
     </BrowserRouter>

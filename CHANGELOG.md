@@ -1,6 +1,28 @@
 
 # Changelog
 
+## 21 November 2026: Profile page step 4: Log out and final checks (George)
+
+**Added**
+- A Log out button at the bottom of the Profile page (FE-04). It works the same as the
+  navbar's Log out: you go back to the homepage and the navbar shows Log in and Register
+  again. It also shows when the profile fails to load, so you can always log out.
+
+**Removed**
+- The Chat button on each god. Players should go to the gods page (the Gods link in the
+  navbar) to choose who to chat with, so the profile is only for seeing how you're
+  getting on with them.
+
+**Fixed**
+- The "Relationships" and "Gifts" headings were almost invisible in dark mode, because
+  the shared `index.css` makes headings light in dark mode. They now always use the
+  dark text colour (NFR-02).
+
+**Tested**
+- No sideways scrolling at 360, 390, 768, 1440 and 1920px. Usable with just a keyboard
+  (Tab to the profile icon, Enter, Tab to Log out) with a visible focus ring. Lighthouse
+  (phone, logged in): Accessibility 100, Best Practices 100.
+
 ## 21 November 2026: Profile page step 3: gifts (George)
 
 **Added**
