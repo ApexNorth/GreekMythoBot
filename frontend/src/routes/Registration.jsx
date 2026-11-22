@@ -2,6 +2,7 @@ import {useState} from 'react';
 import SingleInput from '../components/SingleInput.jsx';
 import CloudGate from '../components/CloudGate.jsx';
 import './Registration.css';
+import {addUser} from '../../../backend/dbquery.js';
 
 // TODO BACKEND: GET /api/captcha should give us the captcha. Fake code until then.
 function generateCaptcha(){
@@ -91,35 +92,11 @@ function checkCaptcha(value){
 
 /**
  * Sends the new account to the server. The server replies with
- * {ok: true}, or {ok: false, error: 'captcha'} / {ok: false, error: 'email-taken'}.
- * Throws an error if the server can't be reached.
  */
 async function sendRegistration(details){
-  if (USE_FAKE_SERVER) {return fakeServer(details);}
-
-  const response = await fetch('/api/register', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(details),
-  });
-  return response.json();
+  return await addUser(details)
 }
 
-/**
- * Pretend server, only used until the real one is ready. Waits 1 second, then replies.
- * To test the error messages: use taken@example.com (email already used)
- * or offline@example.com (server can't be reached).
- */
-function fakeServer(details){
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (details.email === 'offline@example.com') {reject(new Error('Server offline'));}
-      else if (details.captcha.trim() !== captchaCode) {resolve({ok: false, error: 'captcha'});}
-      else if (details.email === 'taken@example.com') {resolve({ok: false, error: 'email-taken'});}
-      else {resolve({ok: true});}
-    }, 1000);
-  });
-}
 
 /** Registration page: the form a new user fills in to create an account. */
 function Registration(){
@@ -162,23 +139,23 @@ function Registration(){
     setIsSending(true);
     try {
       // TODO BACKEND: POST /api/register also sends dateOfBirth as 'YYYY-MM-DD' (needs a date_of_birth column in USER)
-      const reply = await sendRegistration({email, username, dateOfBirth, password, captcha});
-      if (reply.ok){
+      const reply = await sendRegistration({ email, username, dateOfBirth, password, captcha });
+      if (reply) {
         setIsOpen(true);
         // TODO: go to the Travel screen after the clouds open (that page isn't built yet).
-      } else if (reply.error === 'captcha'){
-        setErrors({captcha: "That code isn't right. Check it and try again."});
-        document.getElementById('captcha').focus();
-      } else if (reply.error === 'email-taken'){
-        setErrors({email: 'That email already has an account. Try logging in instead.'});
-        document.getElementById('email').focus();
+      } else if (captcha != captchaCode) {
+        setErrors({ captcha: "That code isn't right. Check it and try again." });
+        document.getElementById('captcha')?.focus();
       } else {
-        setMessage('Something went wrong. Please try again.');
+        setErrors({ email: 'That email already has an account. Try logging in instead.' });
+        document.getElementById('email')?.focus();
       }
-    } catch {
+    } catch (error) {
+      console.error("Registration request failed:", error);
       setMessage("We can't reach the server right now. Please try again in a moment.");
+    } finally {
+      setIsSending(false);
     }
-    setIsSending(false);
   };
 
   return (

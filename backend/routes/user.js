@@ -20,20 +20,30 @@ router.get("/userInfo", (req, res) => {
 
 //Adds a user to the database.
 router.post("/addUser", (req, res) => {
-  try{
-    const {username, pass, email, dob} = req.body;
+  try {
+    const { username, pass, email, dob } = req.body;
     const result = user.addUser.run(username, pass, email, dob);
 
-    res.status(201).json({
+    return res.status(201).json({
+      inserted: result.changes > 0,
       id: result.lastInsertRowid,
       username,
-      pass,
       email,
       dob
     });
   } catch (error) {
+    if (error.code === "SQLITE_CONSTRAINT_UNIQUE") {
+      return res.status(409).json({
+        inserted: false,
+        error: "Duplicate entry: unique constraint violated"
+      });
+    }
+
     console.error("Insert failed", error);
-    res.status(500);
+    return res.status(500).json({
+      inserted: false,
+      error: error.message
+    });
   }
-})
+});
 module.exports = router;

@@ -15,23 +15,25 @@ export async function fetchUser(email, password){
   return await res.json();
 }
 
-export async function addUser(username, pass, email, dob){
-  //Adds a user to the database.
-  //param username: Username to add.
-  //param pass: Password to add.
-  //param email: Email to add.
-  //param dob: Date of Birth to add.
+export async function addUser(details) {
+  try {
+    const username = details.username;
+    const pass = details.password;
+    const email = details.email;
+    const dob = details.dateOfBirth;
 
-  try{
-    const res = await fetch('api/user/addUser', {
+    const res = await fetch('/api/user/addUser', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({username, pass, email, dob})})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, pass, email, dob })
+    });
 
-    if (!res.ok){throw new Error('Error adding user')};
-    return await res.json()
+    const data = await res.json().catch(() => ({}));
+    console.log('addUser response:', res.status, data);
 
-    }  catch (error) {
-    console.error("Error adding user", error);
+    return Boolean(data.inserted);
+  } catch (error) {
+    console.error('Error adding user', error);
+    return false;
   }
 }
