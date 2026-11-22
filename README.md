@@ -84,6 +84,10 @@ You can streamline the process by entering the following command from terminal/c
 `npm run dev`
 Then navigate to:`http://localhost:5173/`
 
+### *NEW*
+If you receive an error about SQLite. Run the following command:
+`npm install better-sqlite3`
+
 Because React is well, Reactive. You don't need to restart the server when working with anything on the frontend all changes should display as soon as they saved.
 
 **This readme was written in Markdown, please continue to use this format for this file.*
