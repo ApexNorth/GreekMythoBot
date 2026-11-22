@@ -3,7 +3,7 @@
 All Sounds MUST be in .mp3, use online/offline software to convert, don't just change the file extension!
 */
 
-// Create a key followed by the exact filename of the sound.
+// Create a key followed by the exact filename of the sound.  
 export const sound_lib = {
   "test": "test_sound.mp3"
 }
