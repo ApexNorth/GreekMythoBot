@@ -7,7 +7,12 @@ import Registration from './routes/Registration.jsx';
 import Login from './routes/Login.jsx';
 import ForgotPassword from './routes/ForgotPassword.jsx';
 import ResetPassword from './routes/ResetPassword.jsx';
+
 import './App.css';
+
+function test(test){
+  alert(test);
+}
 
 function App() {
   // TODO BACKEND: GET /api/me on start-up to check for a login session, so a page refresh doesn't log you out
