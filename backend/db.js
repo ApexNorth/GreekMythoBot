@@ -16,8 +16,8 @@ const user = {
 ) AS matched;
 `),
   addUser: db.prepare(`
-  INSERT INTO giftGroup (groupName) VALUES
-  (?)
+INSERT INTO user (username, userPassword, userEmail, dateOfBirth) VALUES
+(?, ?, ?, ?);
 `),
  getUserInfo(email, password) {return this.userInfo.all(email, password);}
 };
