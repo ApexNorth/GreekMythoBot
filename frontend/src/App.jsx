@@ -5,7 +5,12 @@ import Registration from './routes/Registration.jsx';
 import Login from './routes/Login.jsx';
 import ForgotPassword from './routes/ForgotPassword.jsx';
 import ResetPassword from './routes/ResetPassword.jsx';
+
 import './App.css';
+
+function test(test){
+  alert(test);
+}
 
 function App() {
   return (
