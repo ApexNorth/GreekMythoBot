@@ -25,6 +25,63 @@ Headings to use under each date: **Added** (new things), **Changed**
   Children's Code), under-13s would need a parent's consent, which would make
   sign-up much more complicated. The server should check this again.
 
+## 19 November 2026: Login page, step 5: Reset password (George)
+
+**Added**
+- A "Choose a new password" page at `/reset-password`. It's the page the emailed
+  reset link opens (`/reset-password?token=...`). It sends the token and the new
+  password to the server (`POST /api/reset-password`), then says the password has
+  changed with a link to log in. Uses a pretend server until the backend is ready.
+- If the link has expired, was already used or is missing its token, the page
+  says so and links back to ask for a new one, instead of showing a broken form.
+
+**Changed**
+- The password strength rules and the "passwords match" check moved into
+  `utils/checks.js` (as `checkNewPassword` and `checkConfirmPassword`), so Register
+  and Reset password use exactly the same rules.
+
+## 19 November 2026: Login page, step 4: Forgot password (George)
+
+**Added**
+- A "Forgot your password?" link under the Password box on Log in, so players who
+  forget their password aren't locked out.
+- A Forgot password page at `/forgot-password`: type your email and the server
+  (`POST /api/forgot-password`) sends a link to choose a new password. It always
+  gives the same answer ("If that email has an account, we've sent it a link"), so
+  nobody can use it to find out which emails have accounts. Uses a pretend server
+  until the backend is ready, with the same "can't reach the server" message.
+
+**Changed**
+- The bold, terracotta-underlined link style now applies to every link in a form
+  card, not only the one at the bottom, so all the form links look the same.
+
+## 19 November 2026: Login page, step 2 (George)
+
+**Added**
+- Log in now sends the email and password to the server (`POST /api/login`), with
+  the button greyed out ("Logging in...") so it can't be clicked twice. Until the
+  server is ready, a pretend server answers so the page can be tested.
+- Clear messages when the email or password is wrong (FE-03) and when the server
+  can't be reached (NFR-06). The wrong-details message doesn't say which one was
+  wrong, so nobody can use it to find out which emails have accounts.
+- When the details are right the clouds open with "Welcome back, <name>!"
+  (FE-06). An odd reply from the server shows a message instead of crashing (NFR-12).
+
+## 19 November 2026: Login page, step 1 (George)
+
+**Added**
+- A Log in page at `/login` with Email and Password boxes, on the same cloud wall
+  as Register (FE-02). It shows a message under a box that's empty or has an
+  email that doesn't look right. Sending to the server comes in the next step.
+- Links between the two forms: "New here? Create an account" on Log in and
+  "Already have an account? Log in" on Register, so nobody gets stuck.
+
+**Changed**
+- The cream card, page layout and big black button moved out of `Registration.css`
+  into a reusable `FormCard` component, so Register and Log in share one look
+  instead of copying the same CSS (NFR-07, NFR-08). Register looks the same as before.
+- The email check moved into `utils/checks.js` so both pages use the same rules.
+
 ## 19 November 2026: Registration page, date of birth (George)
 
 **Added**
