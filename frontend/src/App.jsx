@@ -2,7 +2,12 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import Home from './routes/Home.jsx';
 import Chat from './routes/Chat.jsx';
 import Registration from './routes/Registration.jsx';
+
 import './App.css';
+
+function test(test){
+  alert(test);
+}
 
 function App() {
   return (
