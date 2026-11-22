@@ -9,6 +9,13 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 22 November 2026: Registration page, captcha (Alex)
+
+**Added**
+- Captcha now uses a function to generate a 6-digit code that comprises of 
+  a random lowercase, uppercase and number. 
+
+
 ## 19 November 2026: Registration page, minimum age 13 (George)
 
 **Added**

@@ -4,7 +4,28 @@ import CloudGate from '../components/CloudGate.jsx';
 import './Registration.css';
 
 // TODO BACKEND: GET /api/captcha should give us the captcha. Fake code until then.
-const tempCap = '2s1';
+function generateCaptcha(){
+  let code = '';
+  const lowerAlphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(97 + i));
+  const upperAlphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+
+  const fullAlphabet = [...lowerAlphabet, ...upperAlphabet];
+
+  for (let i = 0; i < 6; ++i){
+    switch (Math.floor(Math.random() * 2)){
+      case 0:
+        code += fullAlphabet[Math.floor(Math.random() * fullAlphabet.length)];
+        break;
+      case 1:
+        code += Math.floor(Math.random() * 10).toString();
+        break;
+    }
+  }
+  
+  return code;
+}
+
+const captchaCode = generateCaptcha();
 
 // TODO BACKEND: set this to false once POST /api/register works on the server.
 const USE_FAKE_SERVER = true;
@@ -93,7 +114,7 @@ function fakeServer(details){
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (details.email === 'offline@example.com') {reject(new Error('Server offline'));}
-      else if (details.captcha.trim() !== tempCap) {resolve({ok: false, error: 'captcha'});}
+      else if (details.captcha.trim() !== captchaCode) {resolve({ok: false, error: 'captcha'});}
       else if (details.email === 'taken@example.com') {resolve({ok: false, error: 'email-taken'});}
       else {resolve({ok: true});}
     }, 1000);
@@ -175,7 +196,7 @@ function Registration(){
           <SingleInput id="confirm-password" label="Confirm password" type="password" placeholder="Type your password again" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} error={errors['confirm-password']}/>
 
           {/* Captcha: shows the code to copy. Becomes an image from the backend later. */}
-          <p className="captcha-code">Captcha code: <strong>{tempCap}</strong></p>
+          <p className="captcha-code">Captcha code: <strong>{captchaCode}</strong></p>
           <SingleInput id="captcha" label="Enter captcha" placeholder="Type the code above" value={captcha} onChange={(e) => setCaptcha(e.target.value)} error={errors.captcha}/>
 
           <div className="terms">
