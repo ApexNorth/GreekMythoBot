@@ -9,6 +9,15 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 22 November 2026: Testing log, batch 1 Registration (George)
+
+**Added**
+- `docs/testing/testing-log.md`, a record of how George's pages are tested
+  against the requirements (FE / NFR numbers), plus a screenshot. This first batch
+  covers the Registration page: 19 tests, all passed, 6 of them also checked by
+  hand. The other pages will be added in later batches, so the testing can be
+  followed step by step and each batch is tested on the day it goes up.
+
 ## 22 November 2026: Registration page, captcha (Alex)
 
 **Added**
