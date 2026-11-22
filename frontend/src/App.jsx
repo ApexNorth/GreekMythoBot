@@ -12,6 +12,10 @@ import GodSelection from './components/GodSelection.jsx';
 import GodChat from './components/GodChat.jsx';
 import './App.css';
 
+function test(test){
+  alert(test);
+}
+
 /** Defines the application's pages and login-only routes. */
 function App() {
   // TODO BACKEND: Check the user's login session when the app starts
