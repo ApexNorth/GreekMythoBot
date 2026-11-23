@@ -4,6 +4,7 @@ import SingleInput from '../components/SingleInput.jsx';
 import CloudGate from '../components/CloudGate.jsx';
 import FormCard from '../components/FormCard.jsx';
 import {checkEmail} from '../utils/checks.js';
+import {fetchEmail} from '../../../backend/dbquery.js';
 
 // TODO BACKEND: set this to false once POST /api/forgot-password works on the server.
 const USE_FAKE_SERVER = true;
@@ -13,26 +14,11 @@ const USE_FAKE_SERVER = true;
  * whether or not the email has an account. Throws an error if the server can't be reached.
  */
 async function sendResetRequest(email){
-  if (USE_FAKE_SERVER) {return fakeServer(email);}
-
-  // TODO BACKEND: POST /api/forgot-password { email }, emails a link to /reset-password?token=... if the account exists
-  const response = await fetch('/api/forgot-password', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({email}),
-  });
-  return response.json();
+  let res = await fetchEmail(email);
+  return res[0].matched;
 }
 
-/** Pretend server, only used until the real one is ready. offline@example.com = server can't be reached. */
-function fakeServer(email){
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (email === 'offline@example.com') {reject(new Error('Server offline'));}
-      else {resolve({ok: true});}
-    }, 1000);
-  });
-}
+
 
 /** Forgot password page: the player types their email and gets sent a link to choose a new password. */
 function ForgotPassword(){
@@ -56,7 +42,7 @@ function ForgotPassword(){
     setIsSending(true);
     try {
       const reply = await sendResetRequest(email);
-      if (reply.ok) {setIsSent(true);}
+      if (reply == 1) {setIsSent(true);}
       else {setMessage('Something went wrong. Please try again.');}
     } catch {
       setMessage("We can't reach the server right now. Please try again in a moment.");

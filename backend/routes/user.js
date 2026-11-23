@@ -4,6 +4,16 @@ const {user} = require('../db.js');
 
 /** Routes for all user queries*/
 
+router.get("/userEmail", (req, res) => {
+  try{
+    const {email} = req.query;
+    const rows = user.userEmail.all(email);
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json(`Error ${error.message}`);
+  }
+})
+
 //Checks if the requested username as password match.
 router.get("/userInfo", (req, res) => {
   try{
@@ -46,4 +56,6 @@ router.post("/addUser", (req, res) => {
     });
   }
 });
+
+
 module.exports = router;

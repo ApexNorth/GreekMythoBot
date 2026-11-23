@@ -10,6 +10,11 @@ const db = new Database(dbPath, { fileMustExist: true });
 console.log(dbPath);
 
 const user = {
+  userEmail: db.prepare(`
+  SELECT EXISTS(
+    SELECT 1 FROM user WHERE userEmail = ?
+) AS matched;
+`),
   userInfo: db.prepare(`
   SELECT EXISTS(
 	  SELECT 1 FROM user WHERE userEmail = ? AND userPassword = ?
@@ -19,6 +24,7 @@ const user = {
 INSERT INTO user (username, userPassword, userEmail, dateOfBirth) VALUES
 (?, ?, ?, ?);
 `),
+ getUserEmail(email) {return this.userEmail.all(email);},
  getUserInfo(email, password) {return this.userInfo.all(email, password);}
 };
 

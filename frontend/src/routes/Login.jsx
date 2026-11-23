@@ -4,6 +4,7 @@ import SingleInput from '../components/SingleInput.jsx';
 import CloudGate from '../components/CloudGate.jsx';
 import FormCard from '../components/FormCard.jsx';
 import {checkEmail} from '../utils/checks.js';
+import {fetchUser} from '../../../backend/dbquery.js';
 
 // TODO BACKEND: set this to false once POST /api/login works on the server.
 const USE_FAKE_SERVER = true;
@@ -20,15 +21,8 @@ function checkPassword(value){
  * Throws an error if the server can't be reached.
  */
 async function sendLogin(details){
-  if (USE_FAKE_SERVER) {return fakeServer(details);}
-
-  // TODO BACKEND: POST /api/login { email, password }, should also start the login session (cookie)
-  const response = await fetch('/api/login', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(details),
-  });
-  return response.json();
+  let res = await fetchUser(details.email, details.password);
+  return res[0].matched;
 }
 
 /**
@@ -36,15 +30,8 @@ async function sendLogin(details){
  * Any email and password log in, except wrong@example.com (wrong details)
  * and offline@example.com (server can't be reached).
  */
-function fakeServer(details){
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (details.email === 'offline@example.com') {reject(new Error('Server offline'));}
-      else if (details.email === 'wrong@example.com') {resolve({ok: false, error: 'invalid'});}
-      else {resolve({ok: true, username: details.email.split('@')[0]});}
-    }, 1000);
-  });
-}
+/*
+
 
 /** Login page: the form a player with an account fills in to log in (email + password). */
 function Login(){
@@ -77,16 +64,14 @@ function Login(){
     setIsSending(true);
     try {
       const reply = await sendLogin({email, password});
-      if (reply.ok){
+      if (reply == 1){
         // Only use the name if the server sent a real piece of text (NFR-12)
         setUsername(typeof reply.username === 'string' ? reply.username : '');
         setIsOpen(true);
         // TODO: go to the Travel screen after the clouds open (that page isn't built yet).
-      } else if (reply.error === 'invalid'){
+      } else{
         // Don't say which one was wrong, so nobody can find out which emails have accounts
         setMessage("That email or password isn't right. Check them and try again.");
-      } else {
-        setMessage('Something went wrong. Please try again.');
       }
     } catch {
       setMessage("We can't reach the server right now. Please try again in a moment.");
