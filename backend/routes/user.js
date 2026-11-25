@@ -57,5 +57,80 @@ router.post("/addUser", (req, res) => {
   }
 });
 
+router.get("/userRelationship", (req, res) => {
+  try{
+    const {userID, godID} = req.query;
+    console.log("Query params received:", { userID, godID });
+    const rows = user.userRelationship.all(userID, godID);
+    console.log("Rows returned:", rows);
+    res.json(rows);
+
+  } catch (error) {
+    res.status(500).json(`test ${error.message}`);
+  }
+})
+
+router.get("/userRelationships", (req, res) => {
+  try{
+    const {userID} = req.query;
+    console.log("Query params received:", { userID});
+    const rows = user.userRelationships.all(userID);
+    console.log("Rows returned:", rows);
+    res.json(rows);
+
+  } catch (error) {
+    res.status(500).json(`test ${error.message}`);
+  }
+})
+
+router.get("/userProfile", (req, res) => {
+  try{
+    const {userID} = req.query;
+    console.log("Query params received:", { userID});
+    const rows = user.userProfile.all(userID);
+    console.log("Rows returned:", rows);
+    res.json(rows);
+
+  } catch (error) {
+    res.status(500).json(`test ${error.message}`);
+  }
+})
+
+router.get("/userHistory", (req, res) => {
+  try{
+    const {userID, godID} = req.query;
+    console.log("Query params received:", { userID, godID});
+    const rows = user.userHistory.all(userID, godID);
+    console.log("Rows returned:", rows);
+    res.json(rows);
+
+  } catch (error) {
+    res.status(500).json(`test ${error.message}`);
+  }
+})
+
+router.post("/addMessage", (req, res) => {
+  try {
+    const { sender, message, timestamp, userID, godID } = req.body;
+    const result = user.addMessage.run(sender, message, timestamp, userID, godID);
+
+    return res.status(201).json({
+      inserted: result.changes > 0,
+      id: result.lastInsertRowid,
+      sender,
+      message,
+      timestamp,
+      userID,
+      godID
+    });
+
+  } catch (error) {
+    console.error("Insert failed", error);
+    return res.status(500).json({
+      inserted: false,
+      error: error.message
+    });
+  }
+});
 
 module.exports = router;

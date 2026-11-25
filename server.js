@@ -7,6 +7,8 @@ const Database = require('better-sqlite3');
 const PORT = process.env.PORT || 5000;
 
 const userRouter = require('./backend/routes/user.js');
+const godRouter = require('./backend/routes/god.js');
+const giftRouter = require('./backend/routes/gift.js')
 
 app.use(express.json());
 //app.use("/api/user", userRouter);
@@ -18,6 +20,8 @@ app.get('/api', (req, res) => {
 });
 
 app.use("/api/user", userRouter);
+app.use("/api/god", godRouter);
+app.use("/api/gift", giftRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running at: http://localhost:${PORT}`);
