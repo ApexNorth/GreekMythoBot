@@ -1,24 +1,232 @@
+/* Page layout and header */
 
 .god-selection-page {
-    padding-top: 40px;
+    padding-top: 0;
 }
+
+.god-selection-header {
+    background: url('../assets/selection/olympus-header.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 55px 20px 65px;
+    position: relative;
+    overflow: hidden;
+}
+
+.god-header-clouds {
+    position: absolute;
+    top: -30%;
+    left: -30%;
+    width: 160%;
+    height: 160%;
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(var(--frame-x, 0px),
+            var(--frame-y, 0px));
+    transition: transform 0.2s ease-out;
+}
+
+.god-selection-header h2,
+.god-selection-header p,
+.god-header-divider {
+    position: relative;
+    z-index: 2;
+}
+
+.god-selection-header h2,
+.god-selection-header p {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+
+.god-selection-header h2 {
+    font-size: clamp(32px, 4vw, 52px);
+    color: #24334e;
+    letter-spacing: 1px;
+    margin: 0 0 12px;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+
+}
+
+.god-selection-header p {
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 500;
+    color: #34425f;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.god-header-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 10px auto 12px;
+}
+
+.god-header-divider-line {
+    width: clamp(100px, 15vw, 190px);
+    height: 2px;
+    background: linear-gradient(to right, transparent, #aa8140);
+}
+
+.god-header-divider-line:last-child {
+    transform: rotate(180deg);
+}
+
+.god-header-divider-symbol {
+    color: #aa8140;
+    font-size: 30px;
+    line-height: 1;
+}
+
+/* Era selection */
+
+.god-group {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 55px;
+}
+
+.god-group--olympians {
+    padding-bottom: 70px;
+}
+
+.god-group--titans {
+    padding-top: 30px;
+}
+
+.god-group .era-heading,
+.god-group .god-list {
+    position: relative;
+    z-index: 2;
+}
+
+.god-group--olympians .era-heading,
+.god-group--titans .god-list {
+    z-index: 1;
+}
+
+/* Background transitions */
+
+.god-selection-header::after,
+.god-group--olympians::after,
+.god-group--titans::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.god-selection-header::after {
+    height: 85px;
+    background: linear-gradient(to bottom, transparent, #204b94);
+}
+
+.god-group--olympians::after,
+.god-group--titans::after {
+    height: 60px;
+    background-size: cover;
+    background-position: center top;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000000);
+    mask-image: linear-gradient(to bottom, transparent, #000000);
+    z-index: 2;
+}
+
+.god-group--olympians::after {
+    background-image: url('../assets/selection/titans-sky.png');
+}
+
+.god-group--titans::after {
+    background-image: url('../assets/selection/primordials-sky.png');
+}
+
+/* Era headings */
+
+.god-group .era-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin: 0 auto 25px;
+    text-align: center;
+    font-size: 30px;
+    color: #d4af35;
+}
+
+.god-group .era-heading>span {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    color: #e9c56b;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-shadow: 0 1px 2px rgba(35, 25, 20, 0.2);
+}
+
+.god-group--titans .era-heading>span {
+    color: #80502c;
+    text-shadow: none;
+}
+
+.god-group--primordials .era-heading>span {
+    color: #e6c990;
+    text-shadow: 0 1px 2px rgba(10, 15, 35, 0.3);
+    background: radial-gradient(ellipse at center,
+            rgba(16, 29, 65, 0.85) 0%,
+            rgba(16, 29, 65, 0.55) 45%,
+            transparent 75%);
+    padding: 10px 25px;
+    text-shadow: 0 2px 4px rgba(5, 10, 30, 0.7);
+}
+
+.era-divider {
+    display: block;
+    width: clamp(190px, 28vw, 400px);
+    height: clamp(55px, 5.5vw, 85px);
+    object-fit: cover;
+    object-position: center;
+    flex-shrink: 1;
+    filter: saturate(0.75) brightness(0.95) drop-shadow(0 2px 2px rgba(45, 32, 25, 0.35));
+}
+
+.era-divider-left {
+    transform: none;
+}
+
+.era-divider-right {
+    transform: scaleX(-1);
+}
+
+/* God cards */
 
 .god-list {
     list-style: none;
-    padding: 0;
+    padding: 0 24px;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
-    max-width: 720px;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 18px;
+    max-width: 1320px;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .god-card {
     width: 100%;
     aspect-ratio: 4 / 5;
     box-sizing: border-box;
-    height: 220px;
-    padding: 20px;
+    height: 270px;
+    padding: 12px 10px;
     border: 2px solid #b59b65;
     border-radius: 12px;
     font-size: 20px;
@@ -26,58 +234,173 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 6px;
+    background: #3b4961e0;
+    color: #f8eddb;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+    transition: transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-.god-card.selected {
-    border-color: #918542;
-    outline: 3px solid #918542;
-    outline-offset: 3px;
+.god-group--titans .god-card {
+    background: rgba(68, 54, 56, 0.92);
 }
 
-.god-group {
-    margin: 40px 0;
-    padding-top: 20px;
-    border-top: 1px solid #b59b65;
+.god-group--primordials .god-card {
+    background: rgba(43, 41, 73, 0.94);
 }
 
-.god-group h3 {
-    font-size: 26px;
-    margin-bottom: 25px;
-    color: #d4af37;
+.god-card:hover {
+    transform: translateY(-6px);
+    border-color: #f1ca70;
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.35);
 }
 
 .god-card-image {
     width: 100%;
-    max-height: 70%;
+    height: 165px;
+    max-height: 165px;
     object-fit: contain;
-    transform: translateY(12px) scale(1.4);
+    transform: none;
 }
 
-.god-card-image + span {
-    margin-top: 20px;
-    transform: translateY(12px);
+.god-card-image+span {
+    margin-top: 0;
+    transform: none;
 }
 
-/* Mobile Screens */
+/* Chat and quiz buttons */
+
+.god-card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.god-chat-button,
+.god-quiz-button {
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #d4af37;
+}
+
+.god-chat-button {
+    background: #e5b94c;
+    color: #1c2130;
+    cursor: pointer;
+}
+
+.god-quiz-button {
+    background: #151a2a;
+    color: #f8eddb;
+}
+
+.god-quiz-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.god-chat-button:hover,
+.god-chat-button:focus-visible {
+    background: #ffda77;
+}
+
+.god-card-actions button span {
+    font-size: 16px;
+    line-height: 1;
+    opacity: 0.7;
+}
+
+.god-chat-button span {
+    filter: grayscale(1) brightness(0);
+}
+
+.god-quiz-button span {
+    filter: grayscale(1) brightness(0) invert(1);
+}
+
+/* Responsive desing */
+
+@media (max-width: 1050px) {
+    .god-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 760px;
+    }
+}
+
 @media (max-width: 600px) {
-    .god-list{
+    .god-group .era-heading {
+        gap: 6px;
+    }
+
+    .god-group .era-heading>span {
+        font-size: clamp(24px, 6vw, 32px);
+    }
+
+    .era-divider {
+        width: clamp(48px, 17vw, 95px);
+        height: 26px;
+    }
+
+    .god-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
     }
 
     .god-card {
-        height: 210px;
-        padding: 10px;
+        height: auto;
+        min-height: 260px;
+        aspect-ratio: auto;
+        padding: 12px 8px;
         font-size: 16px;
+        gap: 8px;
         overflow-wrap: anywhere;
+    }
+
+    .god-card-image {
+        height: 145px;
+        max-height: 145px;
+    }
+
+    .god-card-actions {
+        gap: 6px;
     }
 }
 
-/* Very small screens */
+@media (prefers-reduced-motion: reduce) {
+    .god-card {
+        transition: none;
+    }
+
+    .god-card:hover {
+        transform: none;
+    }
+}
+
 @media (max-width: 340px) {
     .god-list {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Accessibility */
+
+@media(prefers-reduced-motion: reduce) {
+    .god-card {
+        transition: none;
+    }
+
+    .god-card:hover {
+        transition: none;
+    }
+
+    .god-header-clouds {
+        transform: none;
+        transition: none;
     }
 }

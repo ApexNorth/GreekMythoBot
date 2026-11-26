@@ -112,6 +112,12 @@ import tartarusFortress from '../assets/backgrounds/tartarus/fortress.png';
 import tartarusCharacter from '../assets/backgrounds/tartarus/tartarus.png';
 import tartarusForeground from '../assets/backgrounds/tartarus/foreground.png';
 
+// Chaos images
+import chaosSky from '../assets/backgrounds/chaos/chaos-sky.png';
+import chaosHalo from '../assets/backgrounds/chaos/chaos-halo.png';
+import chaosCharacter from '../assets/backgrounds/chaos/chaos-character.png';
+import chaosOrb from '../assets/backgrounds/chaos/chaos-orb.png';
+
 // Each god has image layers with different depths to create the parallax effect
 export const scenes = {
     zeus: [
@@ -550,100 +556,126 @@ export const scenes = {
             depth: 90,
         },
     ],
-      gaia: [
-    {
-      id: 'gaia-sky',
-      src: gaiaSky,
-      className: 'parallax-gaia-sky',
-      depth: 8,
-    },
-    {
-      id: 'gaia-mountains',
-      src: gaiaMountains,
-      className: 'parallax-gaia-mountains',
-      depth: 25,
-    },
-    {
-      id: 'gaia-valley',
-      src: gaiaValley,
-      className: 'parallax-gaia-valley',
-      depth: 55,
-    },
-    {
-      id: 'gaia-character',
-      src: gaiaCharacter,
-      className: 'parallax-gaia-character',
-      depth: 75,
-    },
-    {
-      id: 'gaia-foreground',
-      src: gaiaForeground,
-      className: 'parallax-gaia-foreground',
-      depth: 90,
-    },
-  ],
+    gaia: [
+        {
+            id: 'gaia-sky',
+            src: gaiaSky,
+            className: 'parallax-gaia-sky',
+            depth: 8,
+        },
+        {
+            id: 'gaia-mountains',
+            src: gaiaMountains,
+            className: 'parallax-gaia-mountains',
+            depth: 25,
+        },
+        {
+            id: 'gaia-valley',
+            src: gaiaValley,
+            className: 'parallax-gaia-valley',
+            depth: 55,
+        },
+        {
+            id: 'gaia-character',
+            src: gaiaCharacter,
+            className: 'parallax-gaia-character',
+            depth: 75,
+        },
+        {
+            id: 'gaia-foreground',
+            src: gaiaForeground,
+            className: 'parallax-gaia-foreground',
+            depth: 90,
+        },
+    ],
     nyx: [
-    {
-      id: 'nyx-sky',
-      src: nyxSky,
-      className: 'parallax-nyx-sky',
-      depth: 8,
-    },
-    {
-      id: 'nyx-mountains',
-      src: nyxMountains,
-      className: 'parallax-nyx-mountains',
-      depth: 25,
-    },
-    {
-      id: 'nyx-palace',
-      src: nyxPalace,
-      className: 'parallax-nyx-palace',
-      depth: 55,
-    },
-    {
-      id: 'nyx-character',
-      src: nyxCharacter,
-      className: 'parallax-nyx-character',
-      depth: 75,
-    },
-    {
-      id: 'nyx-foreground',
-      src: nyxForeground,
-      className: 'parallax-nyx-foreground',
-      depth: 90,
-    },
-  ],
+        {
+            id: 'nyx-sky',
+            src: nyxSky,
+            className: 'parallax-nyx-sky',
+            depth: 8,
+        },
+        {
+            id: 'nyx-mountains',
+            src: nyxMountains,
+            className: 'parallax-nyx-mountains',
+            depth: 25,
+        },
+        {
+            id: 'nyx-palace',
+            src: nyxPalace,
+            className: 'parallax-nyx-palace',
+            depth: 55,
+        },
+        {
+            id: 'nyx-character',
+            src: nyxCharacter,
+            className: 'parallax-nyx-character',
+            depth: 75,
+        },
+        {
+            id: 'nyx-foreground',
+            src: nyxForeground,
+            className: 'parallax-nyx-foreground',
+            depth: 90,
+        },
+    ],
     tartarus: [
-    {
-      id: 'tartarus-sky',
-      src: tartarusSky,
-      className: 'parallax-tartarus-sky',
-      depth: 8,
-    },
-    {
-      id: 'tartarus-mountains',
-      src: tartarusMountains,
-      className: 'parallax-tartarus-mountains',
-      depth: 25,
-    },
-    {
-      id: 'tartarus-fortress',
-      src: tartarusFortress,
-      className: 'parallax-tartarus-fortress',
-      depth: 55,
-    },
-    {
-      id: 'tartarus-character',
-      src: tartarusCharacter,
-      className: 'parallax-tartarus-character',
-      depth: 75,
-    },
-    {
-      id: 'tartarus-foreground',
-      src: tartarusForeground,
-      className: 'parallax-tartarus-foreground',
-      depth: 90,
-    },
-  ],
+        {
+            id: 'tartarus-sky',
+            src: tartarusSky,
+            className: 'parallax-tartarus-sky',
+            depth: 8,
+        },
+        {
+            id: 'tartarus-mountains',
+            src: tartarusMountains,
+            className: 'parallax-tartarus-mountains',
+            depth: 25,
+        },
+        {
+            id: 'tartarus-fortress',
+            src: tartarusFortress,
+            className: 'parallax-tartarus-fortress',
+            depth: 55,
+        },
+        {
+            id: 'tartarus-character',
+            src: tartarusCharacter,
+            className: 'parallax-tartarus-character',
+            depth: 75,
+        },
+        {
+            id: 'tartarus-foreground',
+            src: tartarusForeground,
+            className: 'parallax-tartarus-foreground',
+            depth: 90,
+        },
+    ],
+    chaos: [
+        {
+            id: 'chaos-sky',
+            src: chaosSky,
+            className: 'parallax-chaos-sky',
+            depth: 8,
+        },
+        {
+            id: 'chaos-halo',
+            src: chaosHalo,
+            className: 'parallax-chaos-halo',
+            depth: 25,
+        },
+        {
+            id: 'chaos-character',
+            src: chaosCharacter,
+            className: 'parallax-chaos-character',
+            depth: 75,
+        },
+        {
+            id: 'chaos-orb',
+            src: chaosOrb,
+            className: 'parallax-chaos-orb',
+            depth: 80,
+        },
+    ],
 };

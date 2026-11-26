@@ -1,0 +1,63 @@
+/* Background container for each selection area */
+.selection-parallax {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Shared styling for all background layers */
+.selection-parallax-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    left: 0;
+    top: 0;
+}
+
+/* Distant Olympus sky */
+.selection-parallax-sky {
+    z-index: 1;
+}
+
+/* Mountains move gently with the mouse */
+.selection-parallax-mountains {
+    z-index: 2;
+    object-position: center top;
+    transform: translate(var(--mountain-x, 0px),
+            var(--mountain-y, 0px));
+    transition: transform 0.2s ease-out;
+}
+
+/* Foreground moves slightly more to create depth */
+.selection-parallax-frame {
+    width: calc(100% + 32px);
+    left: -16px;
+    z-index: 3;
+    object-position: center;
+    transform: translate(var(--frame-x, 0px),
+            var(--frame-y, 0px));
+    transition: transform 0.2s ease-out;
+}
+/* Raise the Titans foreground slightly */
+.god-group--titans .selection-parallax-frame {
+    top: -30px;
+    height: calc(100% + 30px);
+}
+
+
+/* Position the Primordials rocky foreground */
+.god-group--primordials .selection-parallax-frame {
+    object-position: center bottom;
+}
+
+
+/* Disable parallax movement for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .selection-parallax-layer {
+        transform: none;
+        transition: none;
+    }
+}

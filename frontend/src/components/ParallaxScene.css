@@ -715,7 +715,7 @@
     transform: translate(var(--chronos-foreground-shift, 0px 0px));
 }
 
-/* Gaia */
+/* Gaia parallax scene */
 
 .parallax-gaia-sky {
   width: 110%;
@@ -768,7 +768,7 @@
   transform: translate(var(--gaia-foreground-shift, 0px 0px));
 }
 
-/* Nyx */
+/* Nyx parallax scene */
 
 .parallax-nyx-sky {
   width: 110%;
@@ -820,7 +820,7 @@
   z-index: 5;
   transform: translate(var(--nyx-foreground-shift, 0px 0px));
 }
-/* Tartarus */
+/* Tartarus parallax scene */
 
 .parallax-tartarus-sky {
   width: 110%;
@@ -871,6 +871,49 @@
   object-fit: cover;
   z-index: 5;
   transform: translate(var(--tartarus-foreground-shift, 0px 0px));
+}
+
+/* Chaos parallax scene */
+
+.parallax-chaos-sky {
+    width: 110%;
+    height: 110%;
+    top: -5%;
+    left: -5%;
+    object-fit: cover;
+    z-index: 1;
+    transform: translate(var(--chaos-sky-shift, 0px 0px));
+}
+
+.parallax-chaos-halo {
+    width: 75%;
+    height: 95%;
+    top: 2%;
+    left: 15%;
+    object-fit: contain;
+    z-index: 2;
+    transform: translate(var(--chaos-halo-shift, 0px 0px));
+}
+
+.parallax-chaos-character {
+    width: 64%;
+    height: 95%;
+    bottom: 2%;
+    left: 18%;
+    object-fit: contain;
+    object-position: center bottom;
+    z-index: 3;
+    transform: translate(var(--chaos-character-shift, 0px 0px));
+}
+
+.parallax-chaos-orb {
+    width: 18%;
+    height: 22%;
+    top: 42%;
+    left: 41%;
+    object-fit: contain;
+    z-index: 4;
+    transform: translate(var(--chaos-orb-shift, 0px 0px));
 }
 
 /* Reduce movement for users who prefer fewer animations */
