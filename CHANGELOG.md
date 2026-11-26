@@ -1,6 +1,25 @@
 
 # Changelog
 
+## 26 November 2026: Profile pictures step 2: changing your picture (George)
+
+**Added**
+- A "Change picture" button on Profile. It opens the 6 pictures with their names; the
+  player picks one and clicks "Save picture", or "Cancel" (or Escape) to leave it as it
+  was. The picked picture gets a tick and an outline, so it doesn't rely on colour alone.
+- Works with the keyboard: the arrow keys move between pictures, and the focus goes back
+  to "Change picture" when the picker closes (NFR-03).
+- Messages: "Picture changed to <name>.", "We couldn't save your picture. Please try
+  again." and "We can't reach the server right now..." (the picker stays open so the
+  player can try again). The button says "Saving..." and can't be clicked twice (NFR-09).
+- Pretend server saves the picture so it stays changed while you move around the site.
+  Where the real server goes: `TODO BACKEND: POST /api/user/avatar { avatar }`.
+
+**Tested**
+- Saving, Cancel and Escape; the two error messages (with `?test=offline` and
+  `?test=junk`); 3 pictures across on 360px phones and 6 on wide screens, no sideways
+  scrolling at 360 or 1920px.
+
 ## 26 November 2026: Profile pictures step 1: your picture on Profile (George)
 
 **Added**

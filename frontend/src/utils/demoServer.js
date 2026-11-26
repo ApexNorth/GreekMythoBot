@@ -5,7 +5,7 @@
  * TODO BACKEND: not needed once the real server works (USE_FAKE_SERVER in each page).
  */
 import quizzes from '../data/quizzes.js';
-import {DEFAULT_AVATAR} from '../data/avatars.js';
+import {DEFAULT_AVATAR, isAvatar} from '../data/avatars.js';
 
 // Quiz favour rules (George, 26 Nov): right answer +5, wrong answer -3, always 0-100
 const RIGHT_ANSWER_FAVOUR = 5;
@@ -74,4 +74,13 @@ export function getProfile(){
       : Object.entries(demo.favour).map(([godName, favor]) => ({godName, favor})),
     gifts: test === 'new' ? [] : [...demo.gifts],
   }));
+}
+
+/** Pretend POST /api/user/avatar: saves the player's profile picture if it's one of the 6. Replies {ok, avatar}. */
+export function saveAvatar(avatar){
+  return reply(() => {
+    if (!isAvatar(avatar)) {return {ok: false};}
+    demo.avatar = avatar;
+    return {ok: true, avatar};
+  }, 600);
 }

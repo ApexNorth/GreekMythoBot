@@ -51,6 +51,117 @@
   border-radius: 50%;
 }
 
+/* Light pill button (Change picture, Cancel): cream with a black outline */
+.profile-button.profile-button-light {
+  margin-top: 8px;
+  color: #1a1412;
+  background: #fffaf0;
+}
+
+/* Saved / couldn't save message under the picture (takes no space when empty) */
+.avatar-message {
+  margin: 8px 0 12px;
+  font-weight: 700;
+}
+
+.avatar-message:empty {
+  margin: 0 0 12px;
+}
+
+.avatar-message-error {
+  color: #9a2a12;
+}
+
+/* Picture picker: the 6 pictures in a grid (3 across on phones, 6 on wide screens) */
+.avatar-picker fieldset {
+  margin: 12px 0 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.avatar-picker legend {
+  margin: 0 auto 10px;
+  font-weight: 700;
+}
+
+.avatar-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+@media (min-width: 720px) {
+  .avatar-options {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.avatar-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  font-size: 0.95rem;
+  background: #fffaf0;
+  border: 3px solid transparent;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.avatar-option img {
+  width: 100%;
+  max-width: 88px;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* The radio button is hidden; the whole picture is the button */
+.avatar-option input {
+  position: absolute;
+  opacity: 0;
+}
+
+.avatar-option:hover {
+  border-color: #d9774a;
+}
+
+/* Picked picture: black outline and a tick, so it's not shown by colour alone */
+.avatar-option:has(input:checked) {
+  border-color: #1a1412;
+  background: #f6d7b8;
+}
+
+.avatar-option:has(input:checked) span::before {
+  content: '✓ ';
+}
+
+.avatar-option:has(input:focus-visible) {
+  outline: 3px solid #1a1412;
+  outline-offset: 3px;
+}
+
+.avatar-picker fieldset:disabled .avatar-option {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.avatar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.avatar-actions .profile-button.profile-button-light {
+  margin-top: 0;
+}
+
 /* Error box with a Try again button */
 .profile-error p {
   margin: 0 0 16px;
@@ -75,7 +186,8 @@
   transition: background 0.2s, color 0.2s;
 }
 
-.profile-button:hover {
+.profile-button:hover,
+.profile-button.profile-button-light:hover {
   color: #1a1412;
   background: #d9774a;
 }

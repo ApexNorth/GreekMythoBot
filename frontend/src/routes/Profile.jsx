@@ -1,11 +1,11 @@
-import {useState, useEffect, startTransition} from 'react';
+import {useState, useEffect, useRef, startTransition} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {getProfile} from '../utils/demoServer.js';
-import {DEFAULT_AVATAR, isAvatar, avatarPicture, avatarName} from '../data/avatars.js';
+import {getProfile, saveAvatar} from '../utils/demoServer.js';
+import {DEFAULT_AVATAR, avatars, isAvatar, avatarPicture, avatarName} from '../data/avatars.js';
 import {describeRelationship} from '../utils/relationship.js';
 import './Profile.css';
 
-// TODO BACKEND: set this to false once GET /api/profile works on the server.
+// TODO BACKEND: set this to false once GET /api/profile and POST /api/user/avatar work on the server.
 const USE_FAKE_SERVER = true;
 
 // Small round pictures of each god (assets/profile/zeus.webp ...), found by god id
@@ -38,6 +38,19 @@ async function loadProfile(){
   // TODO BACKEND: GET /api/profile for the logged-in player (uses the login session cookie),
   // built from Alex's userRelationships + userProfile queries
   const response = await fetch('/api/profile');
+  return response.json();
+}
+
+/** Saves the player's new profile picture (one of the 6 ids). The server replies {ok: true, avatar}. */
+async function savePicture(avatar){
+  if (USE_FAKE_SERVER) {return saveAvatar(avatar);}
+
+  // TODO BACKEND: POST /api/user/avatar { avatar } for the logged-in player (saved in the user table)
+  const response = await fetch('/api/user/avatar', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({avatar}),
+  });
   return response.json();
 }
 
@@ -92,6 +105,54 @@ function GiftItem({name, type}){
   );
 }
 
+/** Lets the player pick one of the 6 profile pictures. Escape or Cancel closes it without saving. */
+function AvatarPicker({current, isSaving, onSave, onCancel}){
+  const [picked, setPicked] = useState(current);
+  const checkedRef = useRef(null);
+
+  // Start on the picture the player has now, so arrow keys move between the pictures
+  useEffect(() => {
+    checkedRef.current?.focus();
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(picked);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape' && !isSaving) {onCancel();}
+  };
+
+  return (
+    <form className="avatar-picker" onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
+      <fieldset disabled={isSaving}>
+        <legend>Choose your picture</legend>
+        <div className="avatar-options">
+          {avatars.map((avatar) => (
+            <label key={avatar.id} className="avatar-option">
+              <input
+                type="radio"
+                name="avatar"
+                ref={avatar.id === current ? checkedRef : undefined}
+                checked={picked === avatar.id}
+                onChange={() => setPicked(avatar.id)}
+              />
+              {/* Decorative: the picture's name is written underneath */}
+              <img src={avatarPicture(avatar.id)} alt="" width="88" height="88"/>
+              <span>{avatar.name}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <div className="avatar-actions">
+        <button type="submit" className="profile-button" disabled={isSaving}>{isSaving ? 'Saving...' : 'Save picture'}</button>
+        <button type="button" className="profile-button profile-button-light" onClick={onCancel} disabled={isSaving}>Cancel</button>
+      </div>
+    </form>
+  );
+}
+
 /** One god's row: picture, name, how they feel about you and a bar out of 100. */
 function GodRelationship({name, level}){
   const id = name.toLowerCase();
@@ -130,6 +191,11 @@ function Profile({onLogout = () => {}}){
   const [profile, setProfile] = useState(null);
   const [status, setStatus] = useState('loading');
   const [attempt, setAttempt] = useState(0);
+  const [isPicking, setIsPicking] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [pictureMessage, setPictureMessage] = useState({text: '', isError: false});
+  const changeRef = useRef(null);
+  const wasPicking = useRef(false);
   const navigate = useNavigate();
 
   // Load the profile when the page opens, and again when "Try again" is clicked
@@ -149,10 +215,41 @@ function Profile({onLogout = () => {}}){
     return () => {isCurrent = false;};
   }, [attempt]);
 
+  // When the picture picker closes, put the keyboard focus back on "Change picture"
+  useEffect(() => {
+    if (!isPicking && wasPicking.current) {changeRef.current?.focus();}
+    wasPicking.current = isPicking;
+  }, [isPicking]);
+
   // "Try again" after an error: show the loading message and ask again
   const handleRetry = () => {
     setStatus('loading');
     setAttempt(attempt + 1);
+  };
+
+  // Open the picture picker
+  const handleChangePicture = () => {
+    setPictureMessage({text: '', isError: false});
+    setIsPicking(true);
+  };
+
+  // Save the picked picture, then close the picker (it stays open if saving didn't work)
+  const handleSavePicture = async (avatar) => {
+    setPictureMessage({text: '', isError: false});
+    setIsSaving(true);
+    try {
+      const reply = await savePicture(avatar);
+      if (reply && reply.ok === true && reply.avatar === avatar){
+        setProfile({...profile, avatar});
+        setIsPicking(false);
+        setPictureMessage({text: `Picture changed to ${avatarName(avatar)}.`, isError: false});
+      } else {
+        setPictureMessage({text: "We couldn't save your picture. Please try again.", isError: true});
+      }
+    } catch {
+      setPictureMessage({text: "We can't reach the server right now. Please try again in a moment.", isError: true});
+    }
+    setIsSaving(false);
   };
 
   // Log out the same way as the navbar: go home first, then forget the login
@@ -182,9 +279,20 @@ function Profile({onLogout = () => {}}){
 
         {status === 'ready' && (
           <>
-            {/* The player's profile picture */}
+            {/* The player's profile picture, with a button to pick a different one */}
             <img className="profile-avatar" src={avatarPicture(profile.avatar)} alt={`Your profile picture: ${avatarName(profile.avatar)}`} width="120" height="120"/>
             <p className="profile-hello">{profile.username ? `Hello, ${profile.username}!` : 'Hello!'}</p>
+            {isPicking ? (
+              <AvatarPicker
+                current={profile.avatar}
+                isSaving={isSaving}
+                onSave={handleSavePicture}
+                onCancel={() => setIsPicking(false)}
+              />
+            ) : (
+              <button type="button" ref={changeRef} className="profile-button profile-button-light" onClick={handleChangePicture}>Change picture</button>
+            )}
+            <p className={`avatar-message${pictureMessage.isError ? ' avatar-message-error' : ''}`} role="status">{pictureMessage.text}</p>
             <p className="profile-note">See how you're getting on with the gods of Olympus.</p>
 
             {/* Relationships with every god, in the same groups as God Selection (FE-32) */}
