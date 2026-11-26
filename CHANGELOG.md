@@ -1,6 +1,69 @@
 
 # Changelog
 
+## 21 November 2026: Profile page step 4: Log out and final checks (George)
+
+**Added**
+- A Log out button at the bottom of the Profile page (FE-04). It works the same as the
+  navbar's Log out: you go back to the homepage and the navbar shows Log in and Register
+  again. It also shows when the profile fails to load, so you can always log out.
+
+**Removed**
+- The Chat button on each god. Players should go to the gods page (the Gods link in the
+  navbar) to choose who to chat with, so the profile is only for seeing how you're
+  getting on with them.
+
+**Fixed**
+- The "Relationships" and "Gifts" headings were almost invisible in dark mode, because
+  the shared `index.css` makes headings light in dark mode. They now always use the
+  dark text colour (NFR-02).
+
+**Tested**
+- No sideways scrolling at 360, 390, 768, 1440 and 1920px. Usable with just a keyboard
+  (Tab to the profile icon, Enter, Tab to Log out) with a visible focus ring. Lighthouse
+  (phone, logged in): Accessibility 100, Best Practices 100.
+
+## 21 November 2026: Profile page step 3: gifts (George)
+
+**Added**
+- A Gifts section at the bottom of the Profile page, like the bottom row of the
+  Figma wireframe. It lists the gifts on the player's profile (PROFILE.gifts in the
+  ERD), each with its name and type (`gift_name`, `gift_type`).
+- Honey, pomegranate, golden apples and oak wreath reuse the small pictures from the
+  homepage. Any other gift gets a simple gift box icon, so a new gift from the server
+  never shows a broken picture.
+- Players with no gifts see "No gifts yet."
+
+## 20 November 2026: Profile page step 2: relationships (George)
+
+**Added**
+- The Profile page now shows how the player is getting on with every god (FE-32),
+  grouped into Olympians, Titans and Primordials in the same order as God Selection.
+- Each god has a round picture, their name, a feather icon with a word and a bar out
+  of 100: **Likes you** (67-100), **Neutral** (34-66), **Dislikes you** (1-33) or
+  **Angry: won't talk to you** (0, matching the Gifts flowchart). Gods the player
+  hasn't met yet say **Not met yet**. The word means it doesn't rely on colour alone.
+- A Chat button on each god opens their chat. Angry gods have no Chat button, because
+  they won't talk to you.
+- New players see "You haven't met any gods yet" with a link to choose a god.
+- 18 small round god pictures (128px WebP, 176 KB in total) made from the god
+  artwork, so the page doesn't load the 2 MB originals.
+
+**Changed**
+- The profile card is wider (960px) so the gods sit in two columns on big screens.
+
+## 20 November 2026: Profile page step 1 (George)
+
+**Added**
+- A Profile page at `/profile` (FE-31), opened from the round profile icon in the
+  navbar. Only logged-in players can open it; anyone else is sent to Log in, the same
+  as god selection and chat. Until now the icon led to an empty page.
+- It greets the player by name and shows a message while it loads. If the server
+  can't be reached or sends back something strange, it says so with a Try again button
+  instead of showing a blank page (NFR-06, NFR-12).
+- Until the server is ready, a pretend server answers (`TODO BACKEND: GET /api/profile`).
+  Its reply uses the names from our database plan (ERD) so the backend can match it.
+
 ## 20 November 2026
 
 ### Added

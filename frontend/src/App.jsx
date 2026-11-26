@@ -7,9 +7,14 @@ import Registration from './routes/Registration.jsx';
 import Login from './routes/Login.jsx';
 import ForgotPassword from './routes/ForgotPassword.jsx';
 import ResetPassword from './routes/ResetPassword.jsx';
+import Profile from './routes/Profile.jsx';
 import GodSelection from './components/GodSelection.jsx';
 import GodChat from './components/GodChat.jsx';
 import './App.css';
+
+function test(test){
+  alert(test);
+}
 
 /** Defines the application's pages and login-only routes. */
 function App() {
@@ -51,6 +56,11 @@ function App() {
         <Route
           path="/chat/:god"
           element={isLoggedIn ? <GodChat /> : <Navigate to="/login" replace />}
+        />
+
+        <Route
+          path="/profile"
+          element={isLoggedIn ? <Profile onLogout={handleLogout} /> : <Navigate to="/login" replace />}
         />
       </Routes>
     </BrowserRouter>
