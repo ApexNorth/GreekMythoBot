@@ -1,6 +1,25 @@
 
 # Changelog
 
+## 26 November 2026: Quiz step 1: Profile joins Nora's branch, one pretend server (George)
+
+**Changed**
+- The quiz is built on Nora's new Gods page (`feature/god-selection-redesign`), so the
+  Profile page was brought into that branch. It merged in with no clashes.
+- The Profile page's pretend server moved into `utils/demoServer.js`, which the Quiz will
+  share. That way, when a quiz changes a god's favour or gives you a gift, Profile shows
+  it straight away in the demo.
+- The pretend replies now use the same names as Alex's database (`godName`, `favor`,
+  `giftName`, `groupName`), so connecting the real server later needs fewer changes.
+- The demo starts with gods in every mood (Zeus nearly "Likes you", Ares angry) and four
+  gifts from Alex's gift list instead of the old made-up ones (honey, pomegranate...).
+- Gift pictures are now found by the gift's name (e.g. `assets/gifts/worn-copper-coin.webp`),
+  ready for the new gift art. Until then gifts show the gift box icon.
+
+**Tested**
+- Profile still shows the normal, new-player (`?test=new`), server-down (`?test=offline`)
+  and broken-reply (`?test=junk`) states, with no errors in the console.
+
 ## 21 November 2026: Profile page step 4: Log out and final checks (George)
 
 **Added**

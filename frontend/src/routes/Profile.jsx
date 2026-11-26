@@ -1,9 +1,6 @@
 import {useState, useEffect, startTransition} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import giftApples from '../assets/home/gift-apples.webp';
-import giftHoney from '../assets/home/gift-honey.webp';
-import giftPomegranate from '../assets/home/gift-pomegranate.webp';
-import oakWreath from '../assets/home/oak-wreath.webp';
+import {getProfile} from '../utils/demoServer.js';
 import './Profile.css';
 
 // TODO BACKEND: set this to false once GET /api/profile works on the server.
@@ -19,13 +16,13 @@ const godGroups = [
   {name: 'Primordials', gods: ['Chaos', 'Chronos', 'Gaia', 'Nyx', 'Tartarus', 'Ouranos']},
 ];
 
-// Pictures for the gifts we have art for, by gift_name. Other gifts get a gift box icon.
-const giftPictures = {
-  'golden apples': giftApples,
-  'honey': giftHoney,
-  'pomegranate': giftPomegranate,
-  'oak wreath': oakWreath,
-};
+// Gift pictures (assets/gifts/worn-copper-coin.webp ...). Gifts without one get a gift box icon.
+const giftPictures = import.meta.glob('../assets/gifts/*.webp', {eager: true, import: 'default'});
+
+/** Turns a gift name into its picture's file name, e.g. "Worn Copper Coin" -> "worn-copper-coin". */
+function toFileName(name){
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
 
 /**
  * Turns a relationship level (0-100 in the ERD) into the words shown on the page.
@@ -41,50 +38,17 @@ function describeRelationship(level){
 
 /**
  * Asks the server for the logged-in player's profile. The server replies with
- * {ok: true, username, relationships: [{god, relationshipStatus}], gifts: [{gift_name, gift_type}]}.
+ * {ok: true, username, relationships: [{godName, favor}], gifts: [{giftName, groupName}]}.
  * Throws an error if the server can't be reached.
  */
 async function loadProfile(){
-  if (USE_FAKE_SERVER) {return fakeServer();}
+  // Pretend server (utils/demoServer.js), shared with the Quiz page
+  if (USE_FAKE_SERVER) {return getProfile();}
 
-  // TODO BACKEND: GET /api/profile for the logged-in player (uses the login session cookie)
+  // TODO BACKEND: GET /api/profile for the logged-in player (uses the login session cookie),
+  // built from Alex's userRelationships + userProfile queries
   const response = await fetch('/api/profile');
   return response.json();
-}
-
-/**
- * Pretend server, only used until the real one is ready. Waits 1 second, then replies.
- * Add ?test=offline (server can't be reached), ?test=junk (broken reply) or ?test=new
- * (a player who hasn't met any gods) to the address to try them.
- */
-function fakeServer(){
-  const test = new URLSearchParams(window.location.search).get('test');
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (test === 'offline') {reject(new Error('Server offline'));}
-      else if (test === 'junk') {resolve('not a profile');}
-      else if (test === 'new') {resolve({ok: true, username: 'Hermes', relationships: [], gifts: []});}
-      else {
-        resolve({
-          ok: true,
-          username: 'Hermes',
-          relationships: [
-            {god: 'zeus', relationshipStatus: 72},
-            {god: 'athena', relationshipStatus: 50},
-            {god: 'ares', relationshipStatus: 20},
-            {god: 'kronos', relationshipStatus: 0},
-            {god: 'gaia', relationshipStatus: 90},
-          ],
-          gifts: [
-            {gift_name: 'Honey', gift_type: 'food'},
-            {gift_name: 'Pomegranate', gift_type: 'food'},
-            {gift_name: 'Golden apples', gift_type: 'food'},
-            {gift_name: 'Olive branch', gift_type: 'plant'},
-          ],
-        });
-      }
-    }, 1000);
-  });
 }
 
 /** Turns the server's reply into the profile the page shows, or null if the reply doesn't make sense (NFR-12). */
@@ -95,17 +59,17 @@ function readProfile(reply){
   const levels = {};
   if (Array.isArray(reply.relationships)){
     reply.relationships.forEach((item) => {
-      if (item && typeof item.god === 'string' && Number.isFinite(item.relationshipStatus)){
-        levels[item.god.toLowerCase()] = Math.min(100, Math.max(0, item.relationshipStatus));
+      if (item && typeof item.godName === 'string' && Number.isFinite(item.favor)){
+        levels[item.godName.toLowerCase()] = Math.min(100, Math.max(0, item.favor));
       }
     });
   }
 
-  // Keep only gifts that have a name (gift_name and gift_type come from the ERD)
+  // Keep only gifts that have a name (giftName and groupName come from the database)
   const gifts = Array.isArray(reply.gifts)
     ? reply.gifts
-      .filter((gift) => gift && typeof gift.gift_name === 'string' && gift.gift_name !== '')
-      .map((gift) => ({name: gift.gift_name, type: typeof gift.gift_type === 'string' ? gift.gift_type : ''}))
+      .filter((gift) => gift && typeof gift.giftName === 'string' && gift.giftName !== '')
+      .map((gift) => ({name: gift.giftName, type: typeof gift.groupName === 'string' ? gift.groupName : ''}))
     : [];
 
   return {
@@ -117,7 +81,7 @@ function readProfile(reply){
 
 /** One gift: its picture (or a gift box icon if we have no art for it), name and type. */
 function GiftItem({name, type}){
-  const picture = giftPictures[name.toLowerCase()];
+  const picture = giftPictures[`../assets/gifts/${toFileName(name)}.webp`];
 
   return (
     <li className="gift-item">
