@@ -1,6 +1,19 @@
 
 # Changelog
 
+## 26 November 2026: Profile pictures step 1: your picture on Profile (George)
+
+**Added**
+- 6 profile pictures for players to choose from (owl, pegasus, Cerberus pup, dolphin,
+  hero helmet and phoenix), in the site's Greek pottery style and on round medallions.
+  None of them are gods, and players can't upload their own photos, so we never handle
+  pictures of under-18s (ICO Children's Code, NFR-13). Only the picture's name (e.g.
+  "owl") is saved.
+- `data/avatars.js`: the list of pictures, with the owl as the starting picture for new
+  players. Anything else the server sends is ignored and the owl is shown (NFR-12).
+- Profile shows the player's picture above "Hello, <name>!". The pretend server sends it
+  with the rest of the profile.
+
 ## 26 November 2026: Pictures for all 43 gifts (George)
 
 **Added**

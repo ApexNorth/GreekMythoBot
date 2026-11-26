@@ -5,6 +5,7 @@
  * TODO BACKEND: not needed once the real server works (USE_FAKE_SERVER in each page).
  */
 import quizzes from '../data/quizzes.js';
+import {DEFAULT_AVATAR} from '../data/avatars.js';
 
 // Quiz favour rules (George, 26 Nov): right answer +5, wrong answer -3, always 0-100
 const RIGHT_ANSWER_FAVOUR = 5;
@@ -15,6 +16,7 @@ const NEW_GOD_FAVOUR = 50;
 // Demo starting point: gods in every mood (Zeus is close to "Likes you", Ares is angry)
 const demo = {
   username: 'Demo Player',
+  avatar: DEFAULT_AVATAR,
   favour: {Zeus: 64, Athena: 50, Hermes: 45, Ares: 0, Kronos: 20, Gaia: 90},
   gifts: [
     {giftName: 'Worn Copper Coin', groupName: 'Coins'},
@@ -66,6 +68,7 @@ export function getProfile(){
   return reply((test) => ({
     ok: true,
     username: demo.username,
+    avatar: test === 'new' ? DEFAULT_AVATAR : demo.avatar,
     relationships: test === 'new'
       ? []
       : Object.entries(demo.favour).map(([godName, favor]) => ({godName, favor})),

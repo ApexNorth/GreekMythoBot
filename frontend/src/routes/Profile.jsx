@@ -1,6 +1,7 @@
 import {useState, useEffect, startTransition} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {getProfile} from '../utils/demoServer.js';
+import {DEFAULT_AVATAR, isAvatar, avatarPicture, avatarName} from '../data/avatars.js';
 import {describeRelationship} from '../utils/relationship.js';
 import './Profile.css';
 
@@ -27,7 +28,7 @@ function toFileName(name){
 
 /**
  * Asks the server for the logged-in player's profile. The server replies with
- * {ok: true, username, relationships: [{godName, favor}], gifts: [{giftName, groupName}]}.
+ * {ok: true, username, avatar, relationships: [{godName, favor}], gifts: [{giftName, groupName}]}.
  * Throws an error if the server can't be reached.
  */
 async function loadProfile(){
@@ -63,6 +64,7 @@ function readProfile(reply){
 
   return {
     username: typeof reply.username === 'string' ? reply.username : '',
+    avatar: isAvatar(reply.avatar) ? reply.avatar : DEFAULT_AVATAR,
     levels,
     gifts,
   };
@@ -180,6 +182,8 @@ function Profile({onLogout = () => {}}){
 
         {status === 'ready' && (
           <>
+            {/* The player's profile picture */}
+            <img className="profile-avatar" src={avatarPicture(profile.avatar)} alt={`Your profile picture: ${avatarName(profile.avatar)}`} width="120" height="120"/>
             <p className="profile-hello">{profile.username ? `Hello, ${profile.username}!` : 'Hello!'}</p>
             <p className="profile-note">See how you're getting on with the gods of Olympus.</p>
 
