@@ -8,6 +8,7 @@ import Login from './routes/Login.jsx';
 import ForgotPassword from './routes/ForgotPassword.jsx';
 import ResetPassword from './routes/ResetPassword.jsx';
 import Profile from './routes/Profile.jsx';
+import Quiz from './routes/Quiz.jsx';
 import GodSelection from './components/GodSelection.jsx';
 import GodChat from './components/GodChat.jsx';
 import './App.css';
@@ -56,6 +57,11 @@ function App() {
         <Route
           path="/chat/:god"
           element={isLoggedIn ? <GodChat /> : <Navigate to="/login" replace />}
+        />
+
+        <Route
+          path="/quiz/:god"
+          element={isLoggedIn ? <Quiz /> : <Navigate to="/login" replace />}
         />
 
         <Route

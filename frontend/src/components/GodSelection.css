@@ -298,11 +298,13 @@
 .god-quiz-button {
     background: #151a2a;
     color: #f8eddb;
+    cursor: pointer;
 }
 
-.god-quiz-button:disabled {
-    opacity: 0.65;
-    cursor: not-allowed;
+.god-quiz-button:hover,
+.god-quiz-button:focus-visible {
+    background: #2b3350;
+    border-color: #ffda77;
 }
 
 .god-chat-button:hover,

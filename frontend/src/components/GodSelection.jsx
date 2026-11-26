@@ -130,8 +130,7 @@ function GodSelection() {
                       <button
                         type="button"
                         className="god-quiz-button"
-                        disabled
-                        title="Quiz coming soon"
+                        onClick={() => navigate(`/quiz/${god.toLowerCase()}`)}
                       >
                         <span aria-hidden="true">🎓</span> Quiz
                       </button>

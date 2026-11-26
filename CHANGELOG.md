@@ -1,6 +1,33 @@
 
 # Changelog
 
+## 26 November 2026: Quiz step 2b: the Quiz page (George)
+
+**Added**
+- A Quiz page for each god at `/quiz/<god>` (logged-in players only). It starts with the
+  god's picture, how much the god likes you and a Start button, then asks 4 questions
+  one at a time, each with 3 answers. After each answer it shows "Correct!" or "Not
+  quite.", marks the right answer (and yours, if it was wrong) and gives a short "Did
+  you know?" fact, so players learn something either way.
+- The god's favour is shown as a word ("Neutral", "Likes you"...), a bar out of 100 and
+  the number, and it changes straight after every answer (George asked for this). The
+  feedback says what happened, e.g. "+5 favour. Zeus now likes you!" or "Ares's favour
+  can't go any lower." The results show your score and how the favour changed overall.
+- Messages for when the favour can't load or an answer can't be sent, so the page never
+  breaks (NFR-06, NFR-12). "Check answer" says "Checking..." and can't be clicked twice.
+
+**Changed**
+- The Quiz button on each god card on the Gods page now opens that god's quiz (it was
+  greyed out). It also gets a hover and focus colour like the Chat button. Nora agreed.
+
+**Tested**
+- Zeus goes from 64 (Neutral) to 69 (Likes you) with one right answer; angry Ares stays
+  at 0 on a wrong answer and goes to 5 on a right one; Profile shows the new numbers.
+- Works with just a keyboard: Tab to an answer, arrow keys to change it, Enter to check,
+  and the focus moves to "Next question" and then to the next question's heading.
+  "Pick an answer first." shows if you check without choosing.
+- `?test=offline` shows the can't-reach-server messages. No errors in the console.
+
 ## 26 November 2026: Quiz step 2a: quiz questions and favour rules (George)
 
 **Added**
