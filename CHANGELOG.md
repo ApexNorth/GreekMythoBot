@@ -1,6 +1,20 @@
 
 # Changelog
 
+## 26 November 2026: Profile pictures step 3: your picture in the navbar (George)
+
+**Changed**
+- The navbar's Profile link now shows the player's own round picture instead of the
+  plain person icon. It changes as soon as a new picture is saved on Profile.
+- `App.jsx` (shared file, a few lines): remembers the player's picture next to
+  "logged in", asks for it after logging in or signing up, and goes back to the owl on
+  log out. Where the real server goes: `TODO BACKEND` (the login reply should send the
+  player's picture).
+
+**Tested**
+- The new picture shows in the navbar after saving, and is still there after logging out
+  and back in. Keyboard focus ring and the "Profile" name for screen readers unchanged.
+
 ## 26 November 2026: Profile pictures step 2: changing your picture (George)
 
 **Added**

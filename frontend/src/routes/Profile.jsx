@@ -183,11 +183,15 @@ function GodRelationship({name, level}){
   );
 }
 
+// Used when no onAvatarChange is passed (one shared function, so the page doesn't keep reloading)
+const doNothing = () => {};
+
 /**
  * Profile page: shows the logged-in player's name, how they're getting on with the gods
  * and their gifts (FE-31, FE-32). onLogout runs when Log out is clicked (FE-04).
+ * onAvatarChange tells the navbar which profile picture to show.
  */
-function Profile({onLogout = () => {}}){
+function Profile({onLogout = () => {}, onAvatarChange = doNothing}){
   const [profile, setProfile] = useState(null);
   const [status, setStatus] = useState('loading');
   const [attempt, setAttempt] = useState(0);
@@ -207,13 +211,14 @@ function Profile({onLogout = () => {}}){
         const newProfile = readProfile(reply);
         setProfile(newProfile);
         setStatus(newProfile ? 'ready' : 'broken');
+        if (newProfile) {onAvatarChange(newProfile.avatar);}
       })
       .catch(() => {
         if (isCurrent) {setStatus('offline');}
       });
     // Ignore a reply that arrives after the player has left the page
     return () => {isCurrent = false;};
-  }, [attempt]);
+  }, [attempt, onAvatarChange]);
 
   // When the picture picker closes, put the keyboard focus back on "Change picture"
   useEffect(() => {
@@ -241,6 +246,7 @@ function Profile({onLogout = () => {}}){
       const reply = await savePicture(avatar);
       if (reply && reply.ok === true && reply.avatar === avatar){
         setProfile({...profile, avatar});
+        onAvatarChange(avatar);
         setIsPicking(false);
         setPictureMessage({text: `Picture changed to ${avatarName(avatar)}.`, isError: false});
       } else {

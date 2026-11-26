@@ -1,6 +1,7 @@
 import {NavLink, useNavigate} from 'react-router-dom';
 import './Navbar.css';
 import { startTransition } from 'react';
+import {avatarPicture} from '../data/avatars.js';
 
 // TODO: change this to the god selection page's address once that page is in main.
 const TRAVEL_PAGE = '/travel';
@@ -8,8 +9,9 @@ const TRAVEL_PAGE = '/travel';
 /**
  * Top navigation bar shown on every page. NavLink highlights the page you're on.
  * isLoggedIn picks which links show; onLogout runs when Log out is clicked.
+ * avatar is the player's profile picture id (e.g. 'owl'), shown as the Profile link.
  */
-function Navbar({isLoggedIn, onLogout}){
+function Navbar({isLoggedIn, onLogout, avatar}){
   const navigate = useNavigate();
 
   // Navigate home before updating the login state
@@ -27,11 +29,8 @@ function Navbar({isLoggedIn, onLogout}){
         <div className="navbar-links">
           <NavLink to={TRAVEL_PAGE} className="navbar-link">Gods</NavLink>
           <NavLink to="/profile" className="navbar-link navbar-icon" aria-label="Profile">
-            {/* Simple person icon; aria-hidden because the link already says "Profile" */}
-            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-              <circle cx="12" cy="8" r="4"/>
-              <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>
-            </svg>
+            {/* The player's profile picture; alt="" because the link already says "Profile" */}
+            <img src={avatarPicture(avatar)} alt="" width="40" height="40"/>
           </NavLink>
           <button type="button" className="navbar-link navbar-button" onClick={handleLogout}>Log out</button>
         </div>

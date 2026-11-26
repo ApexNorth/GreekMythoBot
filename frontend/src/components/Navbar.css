@@ -60,19 +60,20 @@
   text-underline-offset: 6px;
 }
 
-/* Profile icon: a round button with a black outline, the icon drawn in black lines */
+/* Profile link: the player's round profile picture with a black outline */
 .navbar-icon {
   width: 44px;
   justify-content: center;
   padding: 0;
+  overflow: hidden;
   border-color: #1a1412;
 }
 
-.navbar-icon svg {
-  fill: none;
-  stroke: #1a1412;
-  stroke-width: 2.2;
-  stroke-linecap: round;
+.navbar-icon img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .navbar-icon.active {

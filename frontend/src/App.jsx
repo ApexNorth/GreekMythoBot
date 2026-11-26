@@ -11,6 +11,8 @@ import Profile from './routes/Profile.jsx';
 import Quiz from './routes/Quiz.jsx';
 import GodSelection from './components/GodSelection.jsx';
 import GodChat from './components/GodChat.jsx';
+import {DEFAULT_AVATAR} from './data/avatars.js';
+import {getProfile} from './utils/demoServer.js';
 import './App.css';
 
 function test(test){
@@ -21,15 +23,28 @@ function test(test){
 function App() {
   // TODO BACKEND: Check the user's login session when the app starts
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [avatar, setAvatar] = useState(DEFAULT_AVATAR);
+
+  // After logging in, show the player's profile picture in the navbar
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    // TODO BACKEND: the login reply should send the player's avatar; until then ask the pretend server
+    getProfile()
+      .then((reply) => {
+        if (reply && typeof reply.avatar === 'string') {setAvatar(reply.avatar);}
+      })
+      .catch(() => {});
+  };
 
   // TODO BACKEND: End the user's session on the server when logging out
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setAvatar(DEFAULT_AVATAR);
   };
 
   return (
     <BrowserRouter>
-      <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} avatar={avatar} />
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -37,12 +52,12 @@ function App() {
 
         <Route
           path="/registration"
-          element={<Registration onLogin={() => setIsLoggedIn(true)} />}
+          element={<Registration onLogin={handleLogin} />}
         />
 
         <Route
           path="/login"
-          element={<Login onLogin={() => setIsLoggedIn(true)} />}
+          element={<Login onLogin={handleLogin} />}
         />
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -66,7 +81,7 @@ function App() {
 
         <Route
           path="/profile"
-          element={isLoggedIn ? <Profile onLogout={handleLogout} /> : <Navigate to="/login" replace />}
+          element={isLoggedIn ? <Profile onLogout={handleLogout} onAvatarChange={setAvatar} /> : <Navigate to="/login" replace />}
         />
       </Routes>
     </BrowserRouter>
