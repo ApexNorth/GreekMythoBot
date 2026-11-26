@@ -1,6 +1,22 @@
 
 # Changelog
 
+## 26 November 2026: Quiz step 2c: the Quiz page in Nora's look (George)
+
+**Added**
+- `Quiz.css`: the Quiz page now looks like Nora's Gods page (navy card, gold border,
+  Georgia headings, gold pill buttons) on her background for the god's age, so the two
+  pages match. Answers are big rounded boxes that are easy to tap on phones.
+- The god's favour bar is gold on navy, under the god's name. It slides to its new size
+  after each answer (it just jumps if the player has turned on reduced motion, NFR-04).
+- The right answer gets a green border and the wrong pick a coral one, as well as the
+  words "Right answer" / "Your answer", so it doesn't rely on colour alone.
+
+**Tested**
+- All text on the card has a contrast of at least 5.3:1 (needs 4.5:1), with visible
+  focus rings on the answers and buttons.
+- No sideways scrolling at 360, 768, 1440 and 1920px. No errors in the console.
+
 ## 26 November 2026: Quiz step 2b: the Quiz page (George)
 
 **Added**

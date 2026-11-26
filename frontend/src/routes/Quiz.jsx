@@ -4,6 +4,7 @@ import SelectionParallax from '../components/SelectionParallax.jsx';
 import quizzes from '../data/quizzes.js';
 import {getFavour, sendAnswer} from '../utils/demoServer.js';
 import {describeRelationship} from '../utils/relationship.js';
+import './Quiz.css';
 
 // TODO BACKEND: set this to false once the favour and quiz answer routes work on the server.
 const USE_FAKE_SERVER = true;

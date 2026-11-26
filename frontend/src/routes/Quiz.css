@@ -1,0 +1,295 @@
+/* Quiz page: the god's world in the background (Nora's SelectionParallax), a navy card on top.
+   Colours and fonts copy Nora's Gods page so the two pages match. */
+.quiz-page {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  color-scheme: light;
+}
+
+/* The card, like Nora's god cards */
+.quiz-card {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  max-width: 560px;
+  padding: 28px 24px;
+  box-sizing: border-box;
+  background: rgba(59, 73, 97, 0.94);
+  border: 2px solid #b59b65;
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+  color: #f8eddb;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.quiz-card p {
+  margin: 0 0 16px;
+}
+
+.quiz-god {
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 8px;
+  object-fit: contain;
+}
+
+.quiz-card h1,
+.quiz-card h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #e9c56b;
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+
+.quiz-card h1 {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+}
+
+.quiz-card h2 {
+  font-size: 1.35rem;
+}
+
+/* Headings only get focus from the code (to keep the reader's place), not from Tab */
+.quiz-card h2:focus {
+  outline: none;
+}
+
+/* The god's favour: mood word, gold bar out of 100 and the number */
+.quiz-favour {
+  margin: 0 auto 20px;
+  max-width: 380px;
+  padding: 10px 16px;
+  border: 1px solid rgba(181, 155, 101, 0.6);
+  border-radius: 12px;
+  background: rgba(21, 26, 42, 0.55);
+}
+
+.quiz-card .quiz-favour p {
+  margin: 0;
+}
+
+.quiz-favour-word strong {
+  color: #e9c56b;
+}
+
+.quiz-favour-angry .quiz-favour-word strong {
+  color: #ffb4a8;
+}
+
+.quiz-card .quiz-favour .quiz-favour-level {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.quiz-favour-level meter {
+  flex: 1;
+  height: 14px;
+  appearance: none;
+  background: #151a2a;
+  border: 1px solid #b59b65;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.quiz-favour-level meter::-webkit-meter-bar {
+  background: #151a2a;
+  border: none;
+}
+
+.quiz-favour-level meter::-webkit-meter-optimum-value {
+  background: #e5b94c;
+  transition: width 0.4s ease;
+}
+
+.quiz-favour-level meter::-moz-meter-bar {
+  background: #e5b94c;
+}
+
+.quiz-favour-level span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.quiz-favour-note {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Reduced motion: the bar jumps to its new size instead of sliding (NFR-04) */
+@media (prefers-reduced-motion: reduce) {
+  .quiz-favour-level meter::-webkit-meter-optimum-value {
+    transition: none;
+  }
+}
+
+/* The question and its 3 answers */
+.quiz-question {
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.quiz-question legend {
+  padding: 0;
+  margin-bottom: 14px;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.quiz-choices {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.quiz-choice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  border: 2px solid rgba(248, 237, 219, 0.35);
+  border-radius: 12px;
+  background: rgba(21, 26, 42, 0.55);
+  cursor: pointer;
+}
+
+.quiz-question:not(:disabled) .quiz-choice:hover {
+  border-color: #f1ca70;
+}
+
+.quiz-choice:has(input:checked) {
+  border-color: #e5b94c;
+  background: rgba(229, 185, 76, 0.18);
+}
+
+.quiz-choice:has(input:focus-visible) {
+  outline: 3px solid #ffda77;
+  outline-offset: 2px;
+}
+
+.quiz-choice input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: #e5b94c;
+}
+
+/* After checking: the right answer and the wrong pick are marked with words, not only colour */
+.quiz-question:disabled .quiz-choice {
+  cursor: default;
+}
+
+.quiz-question:disabled .quiz-choice-right {
+  border-color: #9fe0a8;
+  background: rgba(159, 224, 168, 0.12);
+}
+
+.quiz-question:disabled .quiz-choice-wrong {
+  border-color: #ffb4a8;
+  background: rgba(255, 180, 168, 0.12);
+}
+
+.quiz-mark {
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.quiz-choice-right .quiz-mark {
+  color: #9fe0a8;
+}
+
+.quiz-choice-wrong .quiz-mark {
+  color: #ffb4a8;
+}
+
+.quiz-hint {
+  color: #ffb4a8;
+  font-weight: 600;
+}
+
+/* No hint showing: take no space (it stays on the page so screen readers hear it when it appears) */
+.quiz-hint:empty {
+  margin: 0;
+}
+
+.quiz-feedback {
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(21, 26, 42, 0.6);
+  text-align: left;
+}
+
+.quiz-feedback p:last-child {
+  margin-bottom: 0;
+}
+
+.quiz-feedback strong {
+  color: #e9c56b;
+  font-size: 1.15rem;
+}
+
+/* Gold pill button, like Nora's Chat button */
+.quiz-button {
+  display: inline-block;
+  min-height: 44px;
+  padding: 11px 28px;
+  box-sizing: border-box;
+  border: 1px solid #d4af37;
+  border-radius: 999px;
+  background: #e5b94c;
+  color: #1c2130;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.quiz-button:hover,
+.quiz-button:focus-visible {
+  background: #ffda77;
+  color: #1c2130;
+}
+
+.quiz-button:focus-visible {
+  outline: 3px solid #f8eddb;
+  outline-offset: 3px;
+}
+
+/* Phones: a little less padding so the answers have room */
+@media (max-width: 600px) {
+  .quiz-page {
+    padding: 24px 12px;
+  }
+
+  .quiz-card {
+    padding: 22px 16px;
+  }
+
+  .quiz-god {
+    width: 96px;
+    height: 96px;
+  }
+
+  .quiz-choice {
+    padding: 10px 12px;
+  }
+}
