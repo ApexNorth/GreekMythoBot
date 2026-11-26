@@ -1,6 +1,16 @@
 
 # Changelog
 
+## 26 November 2026: Pictures for all 43 gifts (George)
+
+**Added**
+- A picture for every gift in Alex's list (43, in `frontend/src/assets/gifts/`), drawn in
+  the same Greek pottery sticker style as the rest of the site. Each file is named after
+  the gift (e.g. "Worn Copper Coin" -> `worn-copper-coin.webp`), so Profile shows them
+  straight away and the quiz can use them when it starts giving gifts.
+- Shrunk to small WebP files (about 10 KB each, 408 KB in total instead of 44 MB) so
+  pages stay quick to load.
+
 ## 26 November 2026: Quiz step 2c: the Quiz page in Nora's look (George)
 
 **Added**
