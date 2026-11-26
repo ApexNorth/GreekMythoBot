@@ -1,6 +1,22 @@
 
 # Changelog
 
+## 26 November 2026: Quiz step 2a: quiz questions and favour rules (George)
+
+**Added**
+- Questions for Zeus, Ares and Hermes (`data/quizzes.js`): 4 each, 3 answers to choose
+  from, and a short "Did you know?" fact for after answering. The other 15 gods come in a
+  later step.
+- The pretend server can now give one god's favour and mark a quiz answer. A right
+  answer gives +5 favour and a wrong one takes 3 away, always staying between 0 and 100
+  (agreed 26 Nov). The new favour is saved, so Profile shows it too. With the real server,
+  marking the answer and saving the favour happen on the server (`TODO BACKEND`).
+
+**Changed**
+- The words for how a god feels about you ("Likes you", "Neutral", "Dislikes you",
+  "Angry") moved from the Profile page into `utils/relationship.js`, so the Quiz page
+  uses exactly the same words and limits.
+
 ## 26 November 2026: Quiz step 1: Profile joins Nora's branch, one pretend server (George)
 
 **Changed**

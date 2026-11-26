@@ -1,6 +1,7 @@
 import {useState, useEffect, startTransition} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {getProfile} from '../utils/demoServer.js';
+import {describeRelationship} from '../utils/relationship.js';
 import './Profile.css';
 
 // TODO BACKEND: set this to false once GET /api/profile works on the server.
@@ -22,18 +23,6 @@ const giftPictures = import.meta.glob('../assets/gifts/*.webp', {eager: true, im
 /** Turns a gift name into its picture's file name, e.g. "Worn Copper Coin" -> "worn-copper-coin". */
 function toFileName(name){
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
-
-/**
- * Turns a relationship level (0-100 in the ERD) into the words shown on the page.
- * 0 or less means the god is angry and won't talk (Gifts flowchart). No level = not met yet.
- */
-function describeRelationship(level){
-  if (level === undefined) {return {word: 'Not met yet', mood: 'new'};}
-  if (level <= 0) {return {word: "Angry: won't talk to you", mood: 'angry'};}
-  if (level <= 33) {return {word: 'Dislikes you', mood: 'dislike'};}
-  if (level <= 66) {return {word: 'Neutral', mood: 'neutral'};}
-  return {word: 'Likes you', mood: 'like'};
 }
 
 /**
