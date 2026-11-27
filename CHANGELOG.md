@@ -9,6 +9,18 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 27 November 2026: Testing log, batch 3 Navbar and Homepage (George)
+
+**Added**
+- Batch 3 of `docs/testing/testing-log.md`: 6 tests for the navbar and 7 for the
+  homepage, all passed, plus two screenshots. The navbar and homepage aren't in `main`
+  yet, so they were tested on `feature/profile-pictures` (commit `f7fdb03`), where they
+  sit with Nora's gods page, the quiz and profile pictures. The log says so.
+- Since the first run on 22 November, the navbar now shows your profile picture and the
+  quiz page is locked when logged out too, so those tests were updated. The gods page no
+  longer scrolls sideways on small phones.
+- Six of the tests (N2, N5, N6, H2, H3, H6) were also checked by hand on 27 November.
+
 ## 27 November 2026: Testing log, batch 2 Log in, Forgot and Reset password (George)
 
 **Added**

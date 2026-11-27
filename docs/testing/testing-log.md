@@ -31,10 +31,15 @@ Each test says which requirement it checks (the FE / NFR numbers from
 | Log in | 27 November 2026 | `main`, commit `3259205` | 12 | 12 | None |
 | Forgot password | 27 November 2026 | `main`, commit `3259205` | 5 | 4 | 1 (see F3) |
 | Reset password | 27 November 2026 | `main`, commit `3259205` | 5 | 5 | None |
+| Navbar | 27 November 2026 | `feature/profile-pictures`, commit `f7fdb03` | 6 | 6 | None |
+| Homepage | 27 November 2026 | `feature/profile-pictures`, commit `f7fdb03` | 7 | 7 | None |
 
 Registration was tested on the branch where all of George's pages are joined together
 with Nora's god selection and chat, so everything was tested working together. From
 24 November we test `main`, because the Log in pages have now been merged into it.
+The navbar and the homepage aren't in `main` yet (it still has the old row of links and an
+empty Home page), so on 27 November they were tested on `feature/profile-pictures`, the
+branch where they sit together with Nora's gods page, the quiz and profile pictures.
 
 ---
 
@@ -155,3 +160,38 @@ To be fixed and tested again.
 | P3 | Success | Typed a good password twice | "Saving..." on the button, then "Your password has been changed" with a Log in link | All of that | ✅ | ✅ 27 Nov |
 | P4 | Old link | Used `?token=expired` | The "expired" message with a link to ask for a new one | Exactly that | ✅ | |
 | P5 | NFR-06: server down | Used `?token=offline` | Friendly message | "We can't reach the server right now..." | ✅ | |
+
+---
+
+## Navbar (on every page)
+
+**Tested:** 27 November 2026
+
+![The navbar at 360 pixels wide while logged in: logo, Gods, your profile picture and Log out on one line](screenshots/nav-360.jpg)
+
+| ID | What we checked | What we did | What should happen | What happened | Result | By hand |
+|---|---|---|---|---|---|---|
+| N1 | NFR-08: the same navigation on every page (logged out) | Opened Log in while logged out | "The Descent" (home), "Log in" and "Register", with the page you're on marked | All three, and "Log in" marked as the page you're on | ✅ | |
+| N2 | Logged-in pages are locked | While logged out, typed the addresses of the gods page, a chat, a quiz and the profile | Each one sends you to Log in | All four did | ✅ | ✅ 27 Nov |
+| N3 | FE-04, FE-11, FE-31: logged-in links | Logged in and tried each link | "The Descent" and "Gods" go to the gods page, your profile picture goes to Profile, and there's a "Log out" button | All there and going to the right places | ✅ | |
+| N4 | NFR-01: fits on small phones | Logged in, checked at 360 and 1920 wide | Everything on one line, no menu button needed | One line at both sizes. The gods page didn't scroll sideways at 360 either | ✅ | |
+| N5 | NFR-03: keyboard | Pressed Tab from the top of a logged-in page | The Descent → Gods → Profile → Log out, each with a clear outline | Exactly that order, each with a 3-pixel dark outline | ✅ | ✅ 27 Nov |
+| N6 | FE-04: log out | Clicked "Log out" | Back to the homepage, the navbar shows Log in and Register again, and the gods page is locked again | All of that | ✅ | ✅ 27 Nov |
+
+---
+
+## Homepage (`/`)
+
+**Tested:** 27 November 2026
+
+![The top of the homepage on a phone](screenshots/home-top.jpg)
+
+| ID | What we checked | What we did | What should happen | What happened | Result | By hand |
+|---|---|---|---|---|---|---|
+| H1 | FE-05: an opening screen when the website loads | Opened the website | "The Descent" title and all the sections | Title plus "Meet the gods", "What you can do", "For parents and carers" and "Begin your descent" | ✅ | |
+| H2 | The Explore button | Clicked "Explore ↓" | Scrolls down to "Meet the gods" | Scrolled smoothly until "Meet the gods" was right at the top | ✅ | ✅ 27 Nov |
+| H3 | Sign-up and log-in buttons | Clicked "Sign up free", "Create your free account" and "Log in" | The first two go to Register, the last to Log in | All correct | ✅ | ✅ 27 Nov |
+| H4 | Accessibility: pictures described for screen readers | Checked every picture | Every picture has a description, or is marked as decoration | All 14 done: the 3 god pictures are described (for example "Zeus holding lightning bolts, with an eagle on his shoulder"), the other 11 are decoration. 13 only load when you scroll to them, so the page opens faster | ✅ | |
+| H5 | NFR-01: phones to big screens | Checked at 360, 768, 1440 and 1920 wide | No sideways scrolling | None | ✅ | |
+| H6 | NFR-04: "reduce motion" | Turned on "reduce motion" and clicked "Explore ↓" | Jumps straight to "Meet the gods" instead of scrolling smoothly | It jumped (without the setting, it scrolls smoothly) | ✅ | ✅ 27 Nov |
+| H7 | NFR-03: keyboard | Pressed Tab from the top | The Descent → Log in → Register → Explore ↓ → Sign up free | Exactly that order | ✅ | |
