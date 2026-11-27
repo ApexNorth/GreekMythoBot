@@ -1,6 +1,21 @@
 
 # Changelog
 
+## 27 November 2026: Quiz step 4b: questions for the Titans (George)
+
+**Added**
+- Quizzes for Atlas, Hyperion, Kronos, Prometheus, Rhea and Themis (4 questions each,
+  3 answers, a "Did you know?" fact after each), on the Titans' background. Plain English
+  for players aged 13 and up, from the best-known myths.
+
+**Changed**
+- Took out the line in the step 4a entry saying the Titans and Primordials would wait for
+  the team to decide which gods stay: we're writing quizzes for every god now.
+
+**Tested**
+- Took each quiz from its Quiz button: every right answer is marked right, and a good score
+  gives a gift from that god's group (e.g. Atlas: Relics, Themis: Incense).
+
 ## 27 November 2026: Quiz step 4a: questions for Aphrodite, Athena and Poseidon (George)
 
 **Added**
@@ -8,7 +23,6 @@
   fact after every answer), so all six Olympians now have a quiz. Written in plain English
   for players aged 13 and up, from the best-known myths. Each god gives gifts from their own
   gift group (Aphrodite: Gems, Athena: Scrolls, Poseidon: Pearls).
-- The Titans and Primordials come later, once the team has decided which gods stay.
 
 **Tested**
 - Took each quiz from its Quiz button on the Gods page: every right answer is marked right,

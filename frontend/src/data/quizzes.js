@@ -185,6 +185,185 @@ const quizzes = {
       },
     ],
   },
+  atlas: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'What punishment did Zeus give Atlas?',
+        choices: ['Holding up the sky', 'Rolling a rock uphill forever', 'Being chained to a mountain'],
+        answer: 0,
+        fact: 'Rolling a rock uphill was the punishment of a king called Sisyphus, and Prometheus was the one chained to a mountain.',
+      },
+      {
+        question: 'Which side did Atlas fight on in the war between the Titans and the gods?',
+        choices: ['The Olympian gods', 'The Titans', 'Neither side'],
+        answer: 1,
+        fact: 'He led the Titans in battle, which is why Zeus gave him such a heavy punishment.',
+      },
+      {
+        question: 'In famous statues, what does Atlas carry on his shoulders?',
+        choices: ['A mountain', 'A giant globe of the sky', 'A ship'],
+        answer: 1,
+        fact: 'The Farnese Atlas, a statue almost 2,000 years old, shows him holding the sky as a globe covered in stars.',
+      },
+      {
+        question: 'Which hero tricked Atlas into taking the sky back?',
+        choices: ['Heracles', 'Perseus', 'Jason'],
+        answer: 0,
+        fact: 'Atlas fetched the golden apples of the Hesperides for Heracles, who then tricked him into holding the sky again.',
+      },
+    ],
+  },
+
+  hyperion: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'What is Hyperion the Titan of?',
+        choices: ['The sea', 'Heavenly light', 'Sleep'],
+        answer: 1,
+        fact: 'His name means "the one who goes above", like the sun crossing the sky.',
+      },
+      {
+        question: "Who are Hyperion's children?",
+        choices: ['The Sun, the Moon and the Dawn', 'Apollo and Artemis', 'The nine Muses'],
+        answer: 0,
+        fact: 'Their names are Helios (the Sun), Selene (the Moon) and Eos (the Dawn).',
+      },
+      {
+        question: "Who were Hyperion's parents?",
+        choices: ['Kronos and Rhea', 'Zeus and Hera', 'Gaia and Ouranos'],
+        answer: 2,
+        fact: 'Like all twelve Titans, he was a child of the Earth (Gaia) and the Sky (Ouranos).',
+      },
+      {
+        question: 'Who was Hyperion married to?',
+        choices: ['Theia', 'Rhea', 'Hera'],
+        answer: 0,
+        fact: 'Theia was the Titan goddess of sight and shining light, a perfect match for him.',
+      },
+    ],
+  },
+
+  kronos: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'What did Kronos do to his children?',
+        choices: ['Hid them in a cave', 'Swallowed them', 'Sent them across the sea'],
+        answer: 1,
+        fact: 'A prophecy said one of his children would overthrow him, so he swallowed each one as soon as it was born.',
+      },
+      {
+        question: 'What did Rhea give Kronos to swallow instead of baby Zeus?',
+        choices: ['A stone wrapped in cloth', 'A golden apple', 'A loaf of bread'],
+        answer: 0,
+        fact: 'Years later, Zeus made Kronos cough up the stone and all of his brothers and sisters.',
+      },
+      {
+        question: 'What did Kronos use to overthrow his father Ouranos?',
+        choices: ['A trident', 'A bow', 'A sickle'],
+        answer: 2,
+        fact: 'His mother Gaia made the great sickle and gave it to him.',
+      },
+      {
+        question: 'What did the poet Hesiod call the time when Kronos ruled?',
+        choices: ['The Bronze Age', 'The Golden Age', 'The Iron Age'],
+        answer: 1,
+        fact: 'People in the Golden Age were said to live in peace, without hard work or illness.',
+      },
+    ],
+  },
+
+  prometheus: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'What did Prometheus steal from the gods to give to humans?',
+        choices: ['Fire', 'Gold', 'Ambrosia'],
+        answer: 0,
+        fact: 'He hid the fire inside a hollow fennel stalk to carry it down to people.',
+      },
+      {
+        question: 'How did Zeus punish Prometheus?',
+        choices: ['He turned him to stone', 'He chained him to a mountain, where an eagle visited every day', 'He sent him to the bottom of the sea'],
+        answer: 1,
+        fact: 'After many years, the hero Heracles shot the eagle and set Prometheus free.',
+      },
+      {
+        question: 'What does the name Prometheus mean?',
+        choices: ['Fire-bringer', 'Forethought', 'Strength'],
+        answer: 1,
+        fact: "His brother's name, Epimetheus, means \"afterthought\", because he always thought too late.",
+      },
+      {
+        question: 'In some myths, what did Prometheus make the first humans from?',
+        choices: ['Clay', 'Gold', 'Sea foam'],
+        answer: 0,
+        fact: 'In those stories, Athena breathed life into the clay figures he shaped.',
+      },
+    ],
+  },
+
+  rhea: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'Who is Rhea the mother of?',
+        choices: ['The Olympian gods', 'The Cyclopes', 'The Muses'],
+        answer: 0,
+        fact: 'Her children were Hestia, Demeter, Hera, Hades, Poseidon and Zeus.',
+      },
+      {
+        question: 'Where did Rhea hide baby Zeus?',
+        choices: ['Mount Olympus', 'The island of Crete', 'The Underworld'],
+        answer: 1,
+        fact: "Warriors called the Kouretes clashed their shields so Kronos wouldn't hear the baby cry.",
+      },
+      {
+        question: "Which animals are often shown with Rhea, sometimes pulling her chariot?",
+        choices: ['Horses', 'Peacocks', 'Lions'],
+        answer: 2,
+        fact: 'Lions showed her strength as a powerful mother goddess.',
+      },
+      {
+        question: 'Who was Rhea married to?',
+        choices: ['Kronos', 'Ouranos', 'Atlas'],
+        answer: 0,
+        fact: 'She tricked him into swallowing a stone instead of baby Zeus.',
+      },
+    ],
+  },
+
+  themis: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'What is Themis the goddess of?',
+        choices: ['Justice and fair laws', 'War', 'The harvest'],
+        answer: 0,
+        fact: 'She advised Zeus and helped keep order among the gods.',
+      },
+      {
+        question: 'What does Themis often hold in statues?',
+        choices: ['A bow and arrows', 'A pair of scales', 'A flaming torch'],
+        answer: 1,
+        fact: 'The statues of "Lady Justice" outside courts today come from her. The scales weigh up both sides of an argument.',
+      },
+      {
+        question: 'Which famous oracle did Themis look after before Apollo?',
+        choices: ['The oracle at Dodona', 'The oracle at Siwa', 'The oracle at Delphi'],
+        answer: 2,
+        fact: 'In one story she passed it to her sister Phoebe, who gave it to Apollo as a birthday present.',
+      },
+      {
+        question: 'Which goddesses of the seasons were Themis\'s daughters?',
+        choices: ['The Horae', 'The Muses', 'The Graces'],
+        answer: 0,
+        fact: 'In some stories, the three Fates were her daughters too.',
+      },
+    ],
+  },
 };
 
 export default quizzes;
