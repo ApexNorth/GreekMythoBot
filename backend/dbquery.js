@@ -334,8 +334,8 @@ export async function changePassword(details) {
 }
 
 export async function changeAvatar(details) {
-  // Changes a users password only if the email and current password is correct. 
-  // param details: object containing newPassword, userID and password.
+  // Changes a users avatar. 
+  // param details: object containing avatar, userID.
   try {
     const { avatar, userID } = details;
 
