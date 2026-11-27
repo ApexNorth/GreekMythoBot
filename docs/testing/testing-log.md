@@ -35,11 +35,12 @@ Each test says which requirement it checks (the FE / NFR numbers from
 | Homepage | 27 November 2026 | `feature/profile-pictures`, commit `f7fdb03` | 7 | 7 | None |
 | Profile | 27 November 2026 | `feature/profile-pictures`, commit `f7fdb03` | 13 | 13 | None |
 | Profile pictures | 27 November 2026 | `feature/profile-pictures`, commit `f7fdb03` | 8 | 8 | None |
+| Quiz | 27 November 2026 | `feature/profile-pictures`, commit `f7fdb03` | 22 | 22 | None |
 
 Registration was tested on the branch where all of George's pages are joined together
 with Nora's god selection and chat, so everything was tested working together. From
 24 November we test `main`, because the Log in pages have now been merged into it.
-The navbar, the homepage and the Profile page aren't in `main` yet (it still has the old
+The navbar, the homepage, the Profile page and the quiz aren't in `main` yet (it still has the old
 row of links and an empty Home page), so on 27 November they were tested on
 `feature/profile-pictures`, the branch where they sit together with Nora's gods page, the
 quiz and profile pictures.
@@ -65,6 +66,9 @@ by using these special test details:
 | Log in (on `feature/profile-pictures`) | Any email and password | Logs in as "Demo Player" |
 | Profile | Address ending `?test=offline` / `?test=junk` / `?test=new` | Server down / a broken reply / a brand new player |
 | Profile pictures | Saving while the address ends `?test=offline` / `?test=junk` | Server down / a broken reply |
+| Quiz | Address ending `?test=offline` / `?test=junk` | Server down / a broken reply |
+| Quiz | Hermes's quiz | Starts with both of today's tries used, to show "Come back tomorrow" |
+| Quiz | "Reset for demo" (under "Come back tomorrow") | Gives that god's 2 tries back. Only there while the pretend server is on |
 
 Anything else counts as "it worked". **These tests will need doing again once the real
 server is connected.**
@@ -248,3 +252,46 @@ quiz results show up on Profile.
 | PP6 | NFR-06: server down while saving | Saved with `?test=offline` | A friendly message, and the picker stays open to try again | "We can't reach the server right now...", picker still open | ✅ | |
 | PP7 | NFR-12: a broken reply while saving | Saved with `?test=junk` | A message, not a crash | "We couldn't save your picture. Please try again.", picker still open | ✅ | |
 | PP8 | NFR-01: phones to big screens | Opened the picker at 360 and 1440 wide | 3 pictures across on phones, 6 on big screens, no sideways scrolling | Exactly that | ✅ | |
+
+---
+
+## Quiz (`/quiz/<god>`)
+
+**Tested:** 27 November 2026
+
+![A quiz on a phone: Kronos's favour bar, question 1 of 4 and an answer picked](screenshots/quiz-phone.jpg)
+
+The pretend server starts with the same example gods as Profile (for example Zeus 64,
+Ares 0), and Hermes has already used both of today's tries. Each quiz has 4 questions with
+3 answers. A right answer gives +5 favour and a wrong one -3, always between 0 and 100.
+3 or more right earns a gift from that god's gift group, and each god can be quizzed twice a
+day.
+
+| ID | What we checked | What we did | What should happen | What happened | Result | By hand |
+|---|---|---|---|---|---|---|
+| Q1 | Getting to a quiz | Clicked "Quiz" on Zeus's card on the gods page | Zeus's quiz opens | It opened at `/quiz/zeus` | ✅ | |
+| Q2 | Every god has a quiz | Opened the quiz of each of the 18 gods | A quiz for every one, never "There's no quiz for ... yet" | All 18 have a quiz | ✅ | |
+| Q3 | The start screen | Looked at Zeus's start screen | The god's picture, their favour as a word, a bar and a number, what the quiz is, and today's tries | Zeus's picture, "Neutral 64 / 100", "How well do you know Zeus? Answer 4 questions to find out. Get 3 or more right to earn a gift!" and "Tries left today: 2 of 2" | ✅ | |
+| Q4 | An angry god can still be quizzed | Opened Ares's quiz (favour 0) | A warning that he's angry, and the quiz still works | "Ares is angry with you right now. Do well in the quiz to win back Ares's favour." and the quiz started | ✅ | ✅ 27 Nov |
+| Q5 | Checking without picking an answer | Clicked "Check answer" with nothing picked | A message asking for an answer | "Pick an answer first." | ✅ | |
+| Q6 | A right answer | Picked the right answer and clicked "Check answer" | "Checking...", then "Correct!", +5 favour, the right answer marked in words, a fact, and the bar moves | "Correct! +5 favour. Zeus now likes you!", "✓ Right answer", a "Did you know?" fact, and the bar went from 64 to 69 | ✅ | ✅ 27 Nov |
+| Q7 | A wrong answer | Picked a wrong answer | "Not quite.", -3 favour, your answer and the right one both marked in words | "Not quite. -3 favour. Zeus doesn't like you as much now.", "✗ Your answer" and "✓ Right answer" | ✅ | ✅ 27 Nov |
+| Q8 | Favour never goes below 0 | Answered wrong in Ares's quiz at 0, then right | It stays at 0 and says so; a right answer then lifts it | "Ares's favour can't go any lower.", then "Correct! +5 favour. Ares isn't angry with you any more." | ✅ | |
+| Q9 | The results | Finished Zeus's quiz with 3 out of 4 | The score, a short line, and how the favour changed | "You got 3 out of 4!", "Great work! Zeus is pleased with you." and "Zeus's favour went from 64 to 76." | ✅ | |
+| Q10 | A gift for 3 or more right | Same quiz | A gift from the god's gift group, with its picture | "Zeus gave you a gift: Gilded Laurel Wreath! You'll find it on your Profile." with the picture (Zeus gives Gold gifts) | ✅ | ✅ 27 Nov |
+| Q11 | No gift for fewer than 3 | Got 1 out of 4 | It says how to earn one | "Get 3 or more right to earn a gift from Zeus." | ✅ | |
+| Q12 | Every gift already owned | Won Zeus's quiz until all three of his gifts were owned | No duplicate gift, and it says so | Two more gifts, then "Zeus is pleased, but you already have every gift Zeus can give." | ✅ | |
+| Q13 | Two tries a day | Took Zeus's quiz twice, then opened it again | "1 more try", then "last try", then "Come back tomorrow" | "You have 1 more try at Zeus's quiz today.", "That was your last try for today. Come back tomorrow!", then the "Come back tomorrow" screen | ✅ | |
+| Q14 | "Come back tomorrow" and the demo reset | Opened Hermes's quiz, then clicked "Reset for demo" | The "Come back tomorrow" screen, and the reset gives 2 tries back | "Come back tomorrow" straight away; after the reset "Tries left today: 2 of 2", with the focus on "Start quiz" | ✅ | ✅ 27 Nov |
+| Q15 | NFR-06: server down at the start | Opened Athena's quiz with `?test=offline` and clicked Start | A friendly message, and no try used up | "We couldn't load Athena's favour right now.", then "Starting..." and "We can't reach the server right now..."; afterwards she still had both tries | ✅ | |
+| Q16 | NFR-06: server down during the quiz | Checked an answer, and later added up the score, with `?test=offline` | A friendly message, nothing lost, and trying again works | "We can't reach the server right now..." both times; the picked answer stayed picked, and both worked when tried again | ✅ | |
+| Q17 | NFR-12: a broken reply | Checked an answer with `?test=junk` | A message, not a crash | "Something went wrong checking your answer. Please try again." | ✅ | |
+| Q18 | NFR-03: keyboard only | Took Hyperion's whole quiz without the mouse | Tab, the arrow keys (or Space), and Enter are enough, and the focus follows | One Tab to "Start quiz"; Enter moved the focus to "Question 1 of 4"; arrows/Space picked, Enter checked and moved the focus to "Next question"; the results heading got the focus at the end | ✅ | ✅ 27 Nov |
+| Q19 | NFR-04: "reduce motion" | Checked the page's styles with and without "reduce motion" | The favour bar slides normally, but jumps when "reduce motion" is on | Normally it slides over 0.4 seconds; with "reduce motion" the slide is switched off | ✅ | ✅ 27 Nov |
+| Q20 | NFR-01: phones to big screens | Checked a question at 360, 768, 1440 and 1920 wide | No sideways scrolling, big answer boxes on phones | None at any size | ✅ | |
+| Q21 | NFR-02: contrast | Measured the quiz colours on the navy card | At least 4.5 to 1 | Text 7.8, gold headings 5.5, warnings 5.3, "Right answer" green 5.9, button text 8.7 | ✅ | |
+| Q22 | Going back and forth between quizzes | Answered a question in Zeus's quiz, moved to Rhea's, then pressed the browser's Back button | Each god starts fresh, nothing carried over | Rhea's start screen, then a fresh Zeus start screen (this was a bug found and fixed while building) | ✅ | |
+
+![After a right answer: the answer marked "✓ Right answer", +5 favour and a "Did you know?" fact](screenshots/quiz-right.jpg)
+
+![The results: 3 out of 4, the favour change and the gift Zeus gave](screenshots/quiz-results.jpg)

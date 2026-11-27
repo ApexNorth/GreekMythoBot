@@ -9,6 +9,18 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 27 November 2026: Testing log, quiz batch (George)
+
+**Added**
+- A quiz section in `docs/testing/testing-log.md`: 22 tests covering the whole quiz, from
+  the Quiz button to the gift: right and wrong answers, favour (including never going below
+  0), gifts, two tries a day, "Come back tomorrow" and the demo reset, the server being down
+  or sending something broken, keyboard only, reduced motion, screen sizes and contrast.
+  All passed. Plus three screenshots.
+- Tested on `feature/profile-pictures` (commit `f7fdb03`), because the quiz isn't in `main`
+  yet. The pretend-server table now lists the quiz test addresses, Hermes and the reset.
+- Seven of the tests (Q4, Q6, Q7, Q10, Q14, Q18, Q19) were also checked by hand on 27 November.
+
 ## 27 November 2026: Testing log, batch 4 Profile and profile pictures (George)
 
 **Added**
