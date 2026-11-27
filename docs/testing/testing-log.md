@@ -33,13 +33,16 @@ Each test says which requirement it checks (the FE / NFR numbers from
 | Reset password | 27 November 2026 | `main`, commit `3259205` | 5 | 5 | None |
 | Navbar | 27 November 2026 | `feature/profile-pictures`, commit `f7fdb03` | 6 | 6 | None |
 | Homepage | 27 November 2026 | `feature/profile-pictures`, commit `f7fdb03` | 7 | 7 | None |
+| Profile | 27 November 2026 | `feature/profile-pictures`, commit `f7fdb03` | 13 | 13 | None |
+| Profile pictures | 27 November 2026 | `feature/profile-pictures`, commit `f7fdb03` | 8 | 8 | None |
 
 Registration was tested on the branch where all of George's pages are joined together
 with Nora's god selection and chat, so everything was tested working together. From
 24 November we test `main`, because the Log in pages have now been merged into it.
-The navbar and the homepage aren't in `main` yet (it still has the old row of links and an
-empty Home page), so on 27 November they were tested on `feature/profile-pictures`, the
-branch where they sit together with Nora's gods page, the quiz and profile pictures.
+The navbar, the homepage and the Profile page aren't in `main` yet (it still has the old
+row of links and an empty Home page), so on 27 November they were tested on
+`feature/profile-pictures`, the branch where they sit together with Nora's gods page, the
+quiz and profile pictures.
 
 ---
 
@@ -59,6 +62,9 @@ by using these special test details:
 | Log in, Forgot password | Email `offline@example.com` | The test script acts like the server is down |
 | Reset password | Address ending `?token=expired` | Says the link has expired |
 | Reset password | Address ending `?token=offline` | Acts like the server is down |
+| Log in (on `feature/profile-pictures`) | Any email and password | Logs in as "Demo Player" |
+| Profile | Address ending `?test=offline` / `?test=junk` / `?test=new` | Server down / a broken reply / a brand new player |
+| Profile pictures | Saving while the address ends `?test=offline` / `?test=junk` | Server down / a broken reply |
 
 Anything else counts as "it worked". **These tests will need doing again once the real
 server is connected.**
@@ -195,3 +201,50 @@ To be fixed and tested again.
 | H5 | NFR-01: phones to big screens | Checked at 360, 768, 1440 and 1920 wide | No sideways scrolling | None | ✅ | |
 | H6 | NFR-04: "reduce motion" | Turned on "reduce motion" and clicked "Explore ↓" | Jumps straight to "Meet the gods" instead of scrolling smoothly | It jumped (without the setting, it scrolls smoothly) | ✅ | ✅ 27 Nov |
 | H7 | NFR-03: keyboard | Pressed Tab from the top | The Descent → Log in → Register → Explore ↓ → Sign up free | Exactly that order | ✅ | |
+
+---
+
+## Profile (`/profile`)
+
+**Tested:** 27 November 2026
+
+![The top of the Profile page on a phone: your picture, Change picture and the gods](screenshots/profile-top.jpg)
+
+The pretend server starts every player with the same example gods (Zeus 64, Athena 50,
+Hermes 45, Ares 0, Kronos 20, Gaia 90) and four gifts, and it's shared with the quiz, so
+quiz results show up on Profile.
+
+| ID | What we checked | What we did | What should happen | What happened | Result | By hand |
+|---|---|---|---|---|---|---|
+| PR1 | FE-31: a profile page for logged-in players | Logged in and clicked your picture in the navbar | "Loading your profile..." for a moment, then "Hello, Demo Player!" | Exactly that | ✅ | ✅ 27 Nov |
+| PR2 | The gods in their groups | Looked at the gods | All 18 gods in Olympians, Titans and Primordials | 18 gods in those 3 groups | ✅ | |
+| PR3 | FE-32: relationship with each god. Gifts flowchart: 0 means angry | Looked at the example levels | 67-100 "Likes you", 34-66 "Neutral", 1-33 "Dislikes you", 0 "Angry: won't talk to you", no level "Not met yet" | Gaia "Likes you (90 / 100)", Zeus "Neutral (64 / 100)", Kronos "Dislikes you (20 / 100)", Ares "Angry: won't talk to you (0 / 100)", Poseidon "Not met yet" | ✅ | ✅ 27 Nov |
+| PR4 | Gifts on the profile (ERD) | Looked at the Gifts section | Each gift with its picture, name and group | Worn Copper Coin (Coins), Faded Papyrus Note (Scrolls), Smooth River Pebble (Stones) and Frankincense Resin Bundle (Incense), all with their pictures | ✅ | |
+| PR5 | No Chat buttons on the profile (George's decision) | Looked at every god | No Chat buttons. You choose who to chat with on the gods page | None | ✅ | |
+| PR6 | A brand new player | Used `?test=new` | "You haven't met any gods yet" with a "Choose a god" link, "No gifts yet.", and the owl picture | All shown, and "Choose a god" goes to the gods page | ✅ | |
+| PR7 | NFR-06: server down | Used `?test=offline`, then clicked "Try again" | Friendly message and a Try again button that really asks again | "We can't reach the server right now...", and Try again showed "Loading..." and asked again | ✅ | |
+| PR8 | NFR-12: the server sends back something broken | Used `?test=junk` | A message, not a crash | "Something went wrong loading your profile. Please try again." | ✅ | |
+| PR9 | NFR-01: phones to big screens | Checked at 360, 768, 1440 and 1920 wide | No sideways scrolling. One column of gods on phones, two on big screens | No sideways scrolling, one column at 360 and 768, two at 1440 and 1920 | ✅ | |
+| PR10 | NFR-02: readable in dark mode | Turned on dark mode | All headings stay dark on the cream card | All headings dark | ✅ | |
+| PR11 | FE-04: log out from the profile | Clicked the Log out button at the bottom | Back to the homepage, logged out | It did | ✅ | ✅ 27 Nov |
+| PR12 | NFR-03: keyboard | Tabbed from the navbar into the page | Nothing to get stuck on, everything can be reached | After the navbar: "Change picture", then the page's Log out button | ✅ | |
+| PR13 | Quiz results show on Profile | Got 4 out of 4 in Zeus's quiz, then opened Profile | Zeus's new favour and the gift he gave are on Profile | Zeus "Likes you (84 / 100)" and the Gilded Laurel Wreath in the gifts | ✅ | |
+
+---
+
+## Profile pictures (on the Profile page)
+
+**Tested:** 27 November 2026
+
+![Choosing a new picture on a phone: six pictures, Phoenix picked with a tick and a thick outline](screenshots/profile-picker.jpg)
+
+| ID | What we checked | What we did | What should happen | What happened | Result | By hand |
+|---|---|---|---|---|---|---|
+| PP1 | New players start with the owl | Opened Profile as a new player | The owl on Profile and in the navbar, described for screen readers | "Your profile picture: Owl" on Profile, the owl in the navbar | ✅ | |
+| PP2 | Opening and closing the picker | Clicked "Change picture", then Cancel; opened it again and pressed Escape | "Choose your picture" with the 6 pictures named; Cancel and Escape close it without changing anything, and the focus goes back to "Change picture" | Owl, Pegasus, Cerberus pup, Dolphin, Hero helmet, Phoenix; both closed it, nothing changed, focus back on "Change picture" | ✅ | ✅ 27 Nov |
+| PP3 | Saving a new picture | Picked Phoenix and clicked "Save picture" | "Saving...", then "Picture changed to Phoenix." and the new picture on Profile | Exactly that | ✅ | ✅ 27 Nov |
+| PP4 | The navbar shows it too | Looked at the navbar after saving, then logged out and in again | The navbar picture changes straight away and is still there after logging in again | Phoenix in the navbar, and still Phoenix after logging in again | ✅ | ✅ 27 Nov |
+| PP5 | NFR-03: keyboard, and not just colour | Opened the picker and used the arrow keys | The arrow keys move between pictures; the picked one has a tick and a thick outline | The focus started on the current picture and moved with the arrows; the picked one showed "✓" and a dark outline | ✅ | ✅ 27 Nov |
+| PP6 | NFR-06: server down while saving | Saved with `?test=offline` | A friendly message, and the picker stays open to try again | "We can't reach the server right now...", picker still open | ✅ | |
+| PP7 | NFR-12: a broken reply while saving | Saved with `?test=junk` | A message, not a crash | "We couldn't save your picture. Please try again.", picker still open | ✅ | |
+| PP8 | NFR-01: phones to big screens | Opened the picker at 360 and 1440 wide | 3 pictures across on phones, 6 on big screens, no sideways scrolling | Exactly that | ✅ | |

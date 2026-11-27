@@ -9,6 +9,18 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 27 November 2026: Testing log, batch 4 Profile and profile pictures (George)
+
+**Added**
+- Batch 4 of `docs/testing/testing-log.md`: 13 tests for the Profile page and 8 for profile
+  pictures, all passed, plus two screenshots. Tested on `feature/profile-pictures` (commit
+  `f7fdb03`), because Profile isn't in `main` yet.
+- Since the first run on 22 November, Profile shares its pretend server with the quiz, every
+  gift has a picture, and players can change their profile picture, so the tests were
+  updated and new ones added (PR13: quiz results show on Profile, PP1-PP8: profile pictures).
+- The pretend-server table now lists the Profile test addresses and the demo log in.
+- Seven of the tests (PR1, PR3, PR11, PP2, PP3, PP4, PP5) were also checked by hand on 27 November.
+
 ## 27 November 2026: Testing log, batch 3 Navbar and Homepage (George)
 
 **Added**
