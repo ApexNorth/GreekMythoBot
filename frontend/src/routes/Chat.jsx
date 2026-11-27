@@ -1,6 +1,6 @@
-import {addGift, removeGift} from '../../../backend/dbquery.js';
+import {addMessage} from '../../../backend/dbquery.js';
 
-console.log(await removeGift({userID: 8, giftID: 3}));
+console.log(await addMessage({sender: "user", message: "msg", timestamp: "121212", userID: 8, godID: 3}));
 
 
 function  Chat(){

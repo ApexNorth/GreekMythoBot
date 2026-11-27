@@ -118,12 +118,11 @@ export async function addMessage(details) {
     const timestamp = details.timestamp;
     const userID = details.userID;
     const godID = details.godID;
-    const conversationState = details.conversationState;
 
     const res = await fetch('/api/user/addMessage', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sender, message, timestamp, userID, godID, conversationState })
+      body: JSON.stringify({ sender, message, timestamp, userID, godID })
     });
 
     const data = await res.json().catch(() => ({}));

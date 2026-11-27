@@ -112,8 +112,8 @@ router.get("/userHistory", (req, res) => {
 
 router.post("/addMessage", (req, res) => {
   try {
-    const { sender, message, timestamp, userID, godID, conversationState } = req.body;
-    const result = user.addMessage.run(sender, message, timestamp, userID, godID, conversationState);
+    const { sender, message, timestamp, userID, godID } = req.body;
+    const result = user.addMessage.run(sender, message, timestamp, userID, godID);
 
     return res.status(201).json({
       inserted: result.changes > 0,
@@ -122,8 +122,7 @@ router.post("/addMessage", (req, res) => {
       message,
       timestamp,
       userID,
-      godID,
-      conversationState
+      godID
     });
 
   } catch (error) {

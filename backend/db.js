@@ -62,8 +62,8 @@ FROM chatHistory AS ch
 WHERE userID = ? AND godID = ?;
 `),
   addMessage: db.prepare(`
-INSERT INTO chatHistory (sender, message, timestamp, userID, godID, conversationState)
-VALUES (? , ? , ? , ? , ?, ?);
+INSERT INTO chatHistory (sender, message, timestamp, userID, godID)
+VALUES (? , ? , ? , ? , ?);
 `),
   changeUsername: db.prepare(`
 UPDATE user SET username = ?
