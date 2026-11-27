@@ -2,6 +2,7 @@ import {useState, useEffect, startTransition} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {getProfile} from '../utils/demoServer.js';
 import {describeRelationship} from '../utils/relationship.js';
+import {giftPicture} from '../utils/giftPictures.js';
 import './Profile.css';
 
 // TODO BACKEND: set this to false once GET /api/profile works on the server.
@@ -16,14 +17,6 @@ const godGroups = [
   {name: 'Titans', gods: ['Atlas', 'Hyperion', 'Kronos', 'Prometheus', 'Rhea', 'Themis']},
   {name: 'Primordials', gods: ['Chaos', 'Chronos', 'Gaia', 'Nyx', 'Tartarus', 'Ouranos']},
 ];
-
-// Gift pictures (assets/gifts/worn-copper-coin.webp ...). Gifts without one get a gift box icon.
-const giftPictures = import.meta.glob('../assets/gifts/*.webp', {eager: true, import: 'default'});
-
-/** Turns a gift name into its picture's file name, e.g. "Worn Copper Coin" -> "worn-copper-coin". */
-function toFileName(name){
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
 
 /**
  * Asks the server for the logged-in player's profile. The server replies with
@@ -70,7 +63,7 @@ function readProfile(reply){
 
 /** One gift: its picture (or a gift box icon if we have no art for it), name and type. */
 function GiftItem({name, type}){
-  const picture = giftPictures[`../assets/gifts/${toFileName(name)}.webp`];
+  const picture = giftPicture(name);
 
   return (
     <li className="gift-item">

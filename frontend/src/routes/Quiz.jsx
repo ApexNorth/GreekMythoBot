@@ -2,12 +2,18 @@ import {useState, useEffect, useRef} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import SelectionParallax from '../components/SelectionParallax.jsx';
 import quizzes from '../data/quizzes.js';
-import {getFavour, sendAnswer} from '../utils/demoServer.js';
+import {getQuizInfo, sendAnswer, startQuiz, finishQuiz, resetQuizTries} from '../utils/demoServer.js';
 import {describeRelationship} from '../utils/relationship.js';
+import {giftPicture} from '../utils/giftPictures.js';
 import './Quiz.css';
 
-// TODO BACKEND: set this to false once the favour and quiz answer routes work on the server.
+// TODO BACKEND: set this to false once the quiz routes (info, start, answer, finish) work on the server.
 const USE_FAKE_SERVER = true;
+
+// Quiz rules (George, 26 Nov). The server checks them; the page only uses them for its messages.
+const TRIES_PER_DAY = 2;
+const GIFT_SCORE = 3;
+const CANT_REACH = "We can't reach the server right now. Please try again in a moment.";
 
 // Nora's god pictures (assets/gods/zeus.png ...), the same ones the Gods page shows
 const godPictures = import.meta.glob('../assets/gods/*.png', {eager: true, query: '?url', import: 'default'});
@@ -17,12 +23,25 @@ function toGodName(id){
   return id.charAt(0).toUpperCase() + id.slice(1);
 }
 
-/** Asks the server how much this god likes the player. Replies {ok, godName, favor}. */
-async function loadFavour(godName){
-  if (USE_FAKE_SERVER) {return getFavour(godName);}
+/** Asks the server how much this god likes the player and how many tries are left today: {ok, godName, favor, triesLeft}. */
+async function loadQuizInfo(godName){
+  if (USE_FAKE_SERVER) {return getQuizInfo(godName);}
 
-  // TODO BACKEND: GET one god's favour for the logged-in player (Alex's fetchRelationship gives {godName, favor})
-  const response = await fetch(`/api/favour?god=${encodeURIComponent(godName)}`);
+  // TODO BACKEND: GET the god's favour (Alex's fetchRelationship) + quiz tries left today (2 per god, new ones each day)
+  const response = await fetch(`/api/quiz/info?god=${encodeURIComponent(godName)}`);
+  return response.json();
+}
+
+/** Starts the quiz, using up one of today's tries: {ok: true, triesLeft} or {ok: false, error: 'no-tries'}. */
+async function startTry(godName){
+  if (USE_FAKE_SERVER) {return startQuiz(godName);}
+
+  // TODO BACKEND: POST /api/quiz/start { godName }, counts a try (refuse with 'no-tries' after 2 today)
+  const response = await fetch('/api/quiz/start', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({godName}),
+  });
   return response.json();
 }
 
@@ -37,6 +56,33 @@ async function checkAnswer(godName, questionNumber, choice){
     body: JSON.stringify({godName, questionNumber, choice}),
   });
   return response.json();
+}
+
+/**
+ * Ends the quiz. The server adds up the right answers itself (never trust the browser's score) and,
+ * for 3 or more, gives a gift from the god's gift group: {ok, score, gift: {giftName, groupName} or null, hasAllGifts}.
+ */
+async function finishTry(godName){
+  if (USE_FAKE_SERVER) {return finishQuiz(godName);}
+
+  // TODO BACKEND: POST /api/quiz/finish { godName }, saves the gift in the player's profile
+  const response = await fetch('/api/quiz/finish', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({godName}),
+  });
+  return response.json();
+}
+
+/** Tries left from the server (0, 1 or 2), or null if it isn't a sensible number (NFR-12). */
+function readTries(value){
+  return Number.isInteger(value) && value >= 0 ? Math.min(TRIES_PER_DAY, value) : null;
+}
+
+/** The gift from the server's reply as {name, group}, or null if there isn't a proper one. */
+function readGift(gift){
+  if (!gift || typeof gift.giftName !== 'string' || gift.giftName === '') {return null;}
+  return {name: gift.giftName, group: typeof gift.groupName === 'string' ? gift.groupName : ''};
 }
 
 /** A favour number from the server, kept between 0 and 100, or null if it isn't a number (NFR-12). */
@@ -89,10 +135,25 @@ function FavourBar({name, favour}){
   );
 }
 
-/** Quiz page: 4 questions about one god (/quiz/zeus), one at a time, then the score. */
-function Quiz(){
-  const {god = ''} = useParams();
-  const id = god.toLowerCase();
+/** The end of the quiz: the gift the god gave (picture + name), or how to earn one. */
+function QuizGift({name, score, reward}){
+  if (reward && reward.gift){
+    const picture = giftPicture(reward.gift.name);
+    return (
+      <div className="quiz-gift">
+        {/* Decorative: the gift's name is written right below */}
+        {picture && <img src={picture} alt="" width="96" height="96"/>}
+        <p>{name} gave you a gift: <strong>{reward.gift.name}</strong>! You&apos;ll find it on your Profile.</p>
+      </div>
+    );
+  }
+  if (reward && reward.hasAllGifts) {return <p>{name} is pleased, but you already have every gift {name} can give.</p>;}
+  if (score >= GIFT_SCORE) {return null;}
+  return <p>Get {GIFT_SCORE} or more right to earn a gift from {name}.</p>;
+}
+
+/** One god's quiz: 4 questions, one at a time, then the score and maybe a gift. id is e.g. 'zeus'. */
+function GodQuiz({id}){
   const name = toGodName(id);
   const quiz = quizzes[id];
   const picture = godPictures[`../assets/gods/${id}.png`];
@@ -107,24 +168,33 @@ function Quiz(){
   const [favour, setFavour] = useState(null);
   const [startFavour, setStartFavour] = useState(null);
   const [favourStatus, setFavourStatus] = useState('loading');
+  const [triesLeft, setTriesLeft] = useState(null);
+  const [isBusy, setIsBusy] = useState(false);
+  const [reward, setReward] = useState(null);
   const headingRef = useRef(null);
   const nextRef = useRef(null);
+  const startRef = useRef(null);
+  const focusStart = useRef(false);
 
   const isChecked = result !== null;
   const total = quiz ? quiz.questions.length : 0;
   const question = quiz ? quiz.questions[number] : null;
 
-  // Load how much the god likes the player when the page opens
+  // When the page opens, load how much the god likes the player and how many tries are left today
   useEffect(() => {
     if (!quiz) {return;}
     let isCurrent = true;
-    loadFavour(name)
+    loadQuizInfo(name)
       .then((reply) => {
         if (!isCurrent) {return;}
-        const level = reply && reply.ok === true ? readFavour(reply.favor) : null;
+        const isOk = reply && reply.ok === true;
+        const level = isOk ? readFavour(reply.favor) : null;
+        const tries = isOk ? readTries(reply.triesLeft) : null;
         setFavour(level);
         setStartFavour(level);
         setFavourStatus(level === null ? 'failed' : 'ready');
+        setTriesLeft(tries);
+        if (tries === 0) {setStage('no-tries');}
       })
       .catch(() => {
         if (isCurrent) {setFavourStatus('failed');}
@@ -135,10 +205,55 @@ function Quiz(){
 
   // Move the keyboard focus to whatever just changed, so keyboard and screen reader users keep their place
   useEffect(() => {
-    if (stage === 'intro') {return;}
+    if (stage === 'intro'){
+      // After "Reset for demo", go straight to the Start button
+      if (focusStart.current) {startRef.current?.focus();}
+      focusStart.current = false;
+      return;
+    }
     if (isChecked) {nextRef.current?.focus();}
     else {headingRef.current?.focus();}
   }, [stage, number, isChecked]);
+
+  // Start the quiz: the server uses up one of today's tries (or says there are none left)
+  const handleStart = async () => {
+    setHint('');
+    setIsBusy(true);
+    try {
+      const reply = await startTry(name);
+      if (reply && reply.ok === true){
+        setTriesLeft(readTries(reply.triesLeft));
+        setStage('question');
+      } else if (reply && reply.error === 'no-tries'){
+        setTriesLeft(0);
+        setStage('no-tries');
+      } else {
+        setHint('Something went wrong starting the quiz. Please try again.');
+      }
+    } catch {
+      setHint(CANT_REACH);
+    }
+    setIsBusy(false);
+  };
+
+  // Demo only: give the tries back so the quiz can be shown again
+  const handleReset = async () => {
+    setHint('');
+    setIsBusy(true);
+    try {
+      const reply = await resetQuizTries(name);
+      if (reply && reply.ok === true){
+        setTriesLeft(readTries(reply.triesLeft));
+        focusStart.current = true;
+        setStage('intro');
+      } else {
+        setHint('Something went wrong. Please try again.');
+      }
+    } catch {
+      setHint(CANT_REACH);
+    }
+    setIsBusy(false);
+  };
 
   // Send the picked answer; the server marks it and changes the god's favour
   const handleCheck = async (e) => {
@@ -162,17 +277,40 @@ function Quiz(){
         if (reply.correct) {setScore(score + 1);}
       }
     } catch {
-      setHint("We can't reach the server right now. Please try again in a moment.");
+      setHint(CANT_REACH);
     }
     setIsSending(false);
   };
 
-  // Go to the next question, or to the results after the last one
+  // After the last answer: the server adds up the score and decides the gift, then show the results
+  const handleFinish = async () => {
+    setHint('');
+    setIsBusy(true);
+    try {
+      const reply = await finishTry(name);
+      if (reply && reply.ok === true){
+        setReward({gift: readGift(reply.gift), hasAllGifts: reply.hasAllGifts === true});
+        setPicked(null);
+        setResult(null);
+        setStage('results');
+      } else {
+        setHint('Something went wrong adding up your score. Please try again.');
+      }
+    } catch {
+      setHint(CANT_REACH);
+    }
+    setIsBusy(false);
+  };
+
+  // Go to the next question, or finish after the last one
   const handleNext = () => {
-    setPicked(null);
-    setResult(null);
-    if (number + 1 < total) {setNumber(number + 1);}
-    else {setStage('results');}
+    if (number + 1 < total){
+      setPicked(null);
+      setResult(null);
+      setNumber(number + 1);
+    } else {
+      handleFinish();
+    }
   };
 
   return (
@@ -199,8 +337,33 @@ function Quiz(){
 
         {quiz && stage === 'intro' && (
           <>
-            <p>How well do you know {name}? Answer {total} questions to find out.</p>
-            <button type="button" className="quiz-button" onClick={() => setStage('question')}>Start quiz</button>
+            {favour === 0 && (
+              <p className="quiz-angry">{name} is angry with you right now. Do well in the quiz to win back {name}&apos;s favour.</p>
+            )}
+            <p>How well do you know {name}? Answer {total} questions to find out. Get {GIFT_SCORE} or more right to earn a gift!</p>
+            {triesLeft !== null && <p className="quiz-tries">Tries left today: {triesLeft} of {TRIES_PER_DAY}</p>}
+            <button type="button" ref={startRef} className="quiz-button" onClick={handleStart} disabled={isBusy}>
+              {isBusy ? 'Starting...' : 'Start quiz'}
+            </button>
+            <p className="quiz-hint quiz-hint-below" role="status">{hint}</p>
+          </>
+        )}
+
+        {/* Both of today's tries used */}
+        {quiz && stage === 'no-tries' && (
+          <>
+            <h2 ref={headingRef} tabIndex="-1">Come back tomorrow</h2>
+            <p>You&apos;ve used both of today&apos;s tries for {name}&apos;s quiz. {name} will be ready for you again tomorrow.</p>
+            <Link className="quiz-button" to="/travel">Back to the gods</Link>
+            {/* Demo only: this link disappears once the real server is used */}
+            {USE_FAKE_SERVER && (
+              <p className="quiz-demo">
+                <button type="button" className="quiz-link-button" onClick={handleReset} disabled={isBusy}>
+                  {isBusy ? 'Resetting...' : 'Reset for demo'}
+                </button>
+              </p>
+            )}
+            <p className="quiz-hint" role="status">{hint}</p>
           </>
         )}
 
@@ -240,8 +403,8 @@ function Quiz(){
                   <p><strong>{result.correct ? 'Correct!' : 'Not quite.'}</strong> {result.change}</p>
                   <p>Did you know? {question.fact}</p>
                 </div>
-                <button type="button" ref={nextRef} className="quiz-button" onClick={handleNext}>
-                  {number + 1 < total ? 'Next question' : 'See my score'}
+                <button type="button" ref={nextRef} className="quiz-button" onClick={handleNext} disabled={isBusy}>
+                  {number + 1 < total ? 'Next question' : isBusy ? 'Adding up...' : 'See my score'}
                 </button>
               </>
             ) : (
@@ -259,12 +422,22 @@ function Quiz(){
             {startFavour !== null && favour !== null && (
               <p>{name}&apos;s favour went from {startFavour} to {favour}.</p>
             )}
+            <QuizGift name={name} score={score} reward={reward}/>
+            {triesLeft === 1 && <p>You have 1 more try at {name}&apos;s quiz today.</p>}
+            {triesLeft === 0 && <p>That was your last try for today. Come back tomorrow!</p>}
             <Link className="quiz-button" to="/travel">Back to the gods</Link>
           </>
         )}
       </section>
     </main>
   );
+}
+
+/** Quiz page (/quiz/zeus). The key starts a fresh quiz if the address changes to another god. */
+function Quiz(){
+  const {god = ''} = useParams();
+  const id = god.toLowerCase();
+  return <GodQuiz key={id} id={id}/>;
 }
 
 export default Quiz;
