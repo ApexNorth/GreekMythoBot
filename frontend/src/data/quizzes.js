@@ -185,6 +185,366 @@ const quizzes = {
       },
     ],
   },
+  atlas: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'What punishment did Zeus give Atlas?',
+        choices: ['Holding up the sky', 'Rolling a rock uphill forever', 'Being chained to a mountain'],
+        answer: 0,
+        fact: 'Rolling a rock uphill was the punishment of a king called Sisyphus, and Prometheus was the one chained to a mountain.',
+      },
+      {
+        question: 'Which side did Atlas fight on in the war between the Titans and the gods?',
+        choices: ['The Olympian gods', 'The Titans', 'Neither side'],
+        answer: 1,
+        fact: 'He led the Titans in battle, which is why Zeus gave him such a heavy punishment.',
+      },
+      {
+        question: 'In famous statues, what does Atlas carry on his shoulders?',
+        choices: ['A mountain', 'A giant globe of the sky', 'A ship'],
+        answer: 1,
+        fact: 'The Farnese Atlas, a statue almost 2,000 years old, shows him holding the sky as a globe covered in stars.',
+      },
+      {
+        question: 'Which hero tricked Atlas into taking the sky back?',
+        choices: ['Heracles', 'Perseus', 'Jason'],
+        answer: 0,
+        fact: 'Atlas fetched the golden apples of the Hesperides for Heracles, who then tricked him into holding the sky again.',
+      },
+    ],
+  },
+
+  hyperion: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'What is Hyperion the Titan of?',
+        choices: ['The sea', 'Heavenly light', 'Sleep'],
+        answer: 1,
+        fact: 'His name means "the one who goes above", like the sun crossing the sky.',
+      },
+      {
+        question: "Who are Hyperion's children?",
+        choices: ['The Sun, the Moon and the Dawn', 'Apollo and Artemis', 'The nine Muses'],
+        answer: 0,
+        fact: 'Their names are Helios (the Sun), Selene (the Moon) and Eos (the Dawn).',
+      },
+      {
+        question: "Who were Hyperion's parents?",
+        choices: ['Kronos and Rhea', 'Zeus and Hera', 'Gaia and Ouranos'],
+        answer: 2,
+        fact: 'Like all twelve Titans, he was a child of the Earth (Gaia) and the Sky (Ouranos).',
+      },
+      {
+        question: 'Who was Hyperion married to?',
+        choices: ['Theia', 'Rhea', 'Hera'],
+        answer: 0,
+        fact: 'Theia was the Titan goddess of sight and shining light, a perfect match for him.',
+      },
+    ],
+  },
+
+  kronos: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'What did Kronos do to his children?',
+        choices: ['Hid them in a cave', 'Swallowed them', 'Sent them across the sea'],
+        answer: 1,
+        fact: 'A prophecy said one of his children would overthrow him, so he swallowed each one as soon as it was born.',
+      },
+      {
+        question: 'What did Rhea give Kronos to swallow instead of baby Zeus?',
+        choices: ['A stone wrapped in cloth', 'A golden apple', 'A loaf of bread'],
+        answer: 0,
+        fact: 'Years later, Zeus made Kronos cough up the stone and all of his brothers and sisters.',
+      },
+      {
+        question: 'What did Kronos use to overthrow his father Ouranos?',
+        choices: ['A trident', 'A bow', 'A sickle'],
+        answer: 2,
+        fact: 'His mother Gaia made the great sickle and gave it to him.',
+      },
+      {
+        question: 'What did the poet Hesiod call the time when Kronos ruled?',
+        choices: ['The Bronze Age', 'The Golden Age', 'The Iron Age'],
+        answer: 1,
+        fact: 'People in the Golden Age were said to live in peace, without hard work or illness.',
+      },
+    ],
+  },
+
+  prometheus: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'What did Prometheus steal from the gods to give to humans?',
+        choices: ['Fire', 'Gold', 'Ambrosia'],
+        answer: 0,
+        fact: 'He hid the fire inside a hollow fennel stalk to carry it down to people.',
+      },
+      {
+        question: 'How did Zeus punish Prometheus?',
+        choices: ['He turned him to stone', 'He chained him to a mountain, where an eagle visited every day', 'He sent him to the bottom of the sea'],
+        answer: 1,
+        fact: 'After many years, the hero Heracles shot the eagle and set Prometheus free.',
+      },
+      {
+        question: 'What does the name Prometheus mean?',
+        choices: ['Fire-bringer', 'Forethought', 'Strength'],
+        answer: 1,
+        fact: "His brother's name, Epimetheus, means \"afterthought\", because he always thought too late.",
+      },
+      {
+        question: 'In some myths, what did Prometheus make the first humans from?',
+        choices: ['Clay', 'Gold', 'Sea foam'],
+        answer: 0,
+        fact: 'In those stories, Athena breathed life into the clay figures he shaped.',
+      },
+    ],
+  },
+
+  rhea: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'Who is Rhea the mother of?',
+        choices: ['The Olympian gods', 'The Cyclopes', 'The Muses'],
+        answer: 0,
+        fact: 'Her children were Hestia, Demeter, Hera, Hades, Poseidon and Zeus.',
+      },
+      {
+        question: 'Where did Rhea hide baby Zeus?',
+        choices: ['Mount Olympus', 'The island of Crete', 'The Underworld'],
+        answer: 1,
+        fact: "Warriors called the Kouretes clashed their shields so Kronos wouldn't hear the baby cry.",
+      },
+      {
+        question: "Which animals are often shown with Rhea, sometimes pulling her chariot?",
+        choices: ['Horses', 'Peacocks', 'Lions'],
+        answer: 2,
+        fact: 'Lions showed her strength as a powerful mother goddess.',
+      },
+      {
+        question: 'Who was Rhea married to?',
+        choices: ['Kronos', 'Ouranos', 'Atlas'],
+        answer: 0,
+        fact: 'She tricked him into swallowing a stone instead of baby Zeus.',
+      },
+    ],
+  },
+
+  themis: {
+    era: 'Titans',
+    questions: [
+      {
+        question: 'What is Themis the goddess of?',
+        choices: ['Justice and fair laws', 'War', 'The harvest'],
+        answer: 0,
+        fact: 'She advised Zeus and helped keep order among the gods.',
+      },
+      {
+        question: 'What does Themis often hold in statues?',
+        choices: ['A bow and arrows', 'A pair of scales', 'A flaming torch'],
+        answer: 1,
+        fact: 'The statues of "Lady Justice" outside courts today come from her. The scales weigh up both sides of an argument.',
+      },
+      {
+        question: 'Which famous oracle did Themis look after before Apollo?',
+        choices: ['The oracle at Dodona', 'The oracle at Siwa', 'The oracle at Delphi'],
+        answer: 2,
+        fact: 'In one story she passed it to her sister Phoebe, who gave it to Apollo as a birthday present.',
+      },
+      {
+        question: 'Which goddesses of the seasons were Themis\'s daughters?',
+        choices: ['The Horae', 'The Muses', 'The Graces'],
+        answer: 0,
+        fact: 'In some stories, the three Fates were her daughters too.',
+      },
+    ],
+  },
+
+
+  chaos: {
+    era: 'Primordials',
+    questions: [
+      {
+        question: 'What was Chaos, according to the ancient Greeks?',
+        choices: ['The very first thing that existed', 'A sea monster', 'A god of storms'],
+        answer: 0,
+        fact: 'Chaos was a huge, empty gap, there before anything else in the universe.',
+      },
+      {
+        question: 'Which of these were children of Chaos?',
+        choices: ['Zeus and Hera', 'Night and Darkness', 'The Cyclopes'],
+        answer: 1,
+        fact: 'Their names were Nyx (Night) and Erebus (Darkness).',
+      },
+      {
+        question: 'What does the word "chaos" mean in English today?',
+        choices: ['Great calm', 'A kind of fire', 'Total confusion'],
+        answer: 2,
+        fact: 'To the Greeks it meant a yawning empty space, not a mess.',
+      },
+      {
+        question: 'Which poet wrote that Chaos came first, in a poem about how the gods were born?',
+        choices: ['Homer', 'Hesiod', 'Sappho'],
+        answer: 1,
+        fact: 'His poem is called the Theogony, which means "the birth of the gods".',
+      },
+    ],
+  },
+
+  chronos: {
+    era: 'Primordials',
+    questions: [
+      {
+        question: 'What is Chronos the god of?',
+        choices: ['Time', 'The harvest', 'The sea'],
+        answer: 0,
+        fact: 'Words like "chronological" and "chronic" come from his name.',
+      },
+      {
+        question: 'Chronos is often mixed up with which Titan, because their names sound alike?',
+        choices: ['Atlas', 'Kronos', 'Hyperion'],
+        answer: 1,
+        fact: "Kronos was Zeus's father. Chronos is a much older god: time itself.",
+      },
+      {
+        question: 'In some old poems, what did Chronos look like?',
+        choices: ['A winged horse', 'A giant bird', 'A serpent with three heads'],
+        answer: 2,
+        fact: 'The poems describe a snake with the heads of a bull, a lion and a god.',
+      },
+      {
+        question: 'Which goddess of fate and necessity was Chronos\'s partner?',
+        choices: ['Hera', 'Ananke', 'Athena'],
+        answer: 1,
+        fact: 'Together, Chronos and Ananke wrapped around the world and set the universe in motion.',
+      },
+    ],
+  },
+
+  gaia: {
+    era: 'Primordials',
+    questions: [
+      {
+        question: 'What is Gaia the goddess of?',
+        choices: ['The sky', 'The Earth', 'The sea'],
+        answer: 1,
+        fact: 'Gaia is the Earth itself, the mother of all life.',
+      },
+      {
+        question: 'Who did Gaia create to be her husband?',
+        choices: ['Zeus', 'Ouranos, the Sky', 'Poseidon'],
+        answer: 1,
+        fact: 'Ouranos is the starry sky that covers the Earth on every side.',
+      },
+      {
+        question: 'Which children of Gaia had fifty heads and a hundred arms each?',
+        choices: ['The Cyclopes', 'The Titans', 'The Hundred-Handed Ones'],
+        answer: 2,
+        fact: 'They later helped Zeus win the war against the Titans by throwing huge rocks.',
+      },
+      {
+        question: 'Which modern idea is named after Gaia?',
+        choices: ['That the Earth works like one living thing', 'That the Earth is flat', 'That the Earth is the centre of the universe'],
+        answer: 0,
+        fact: 'Scientists call it the Gaia hypothesis, named after her because she is the Earth as a living mother.',
+      },
+    ],
+  },
+
+  nyx: {
+    era: 'Primordials',
+    questions: [
+      {
+        question: 'What is Nyx the goddess of?',
+        choices: ['Night', 'The Moon', 'Dreams'],
+        answer: 0,
+        fact: 'She was one of the very first beings, born from Chaos.',
+      },
+      {
+        question: 'Which god was careful never to upset Nyx?',
+        choices: ['Poseidon', 'Zeus', 'Ares'],
+        answer: 1,
+        fact: 'In the Iliad, even Zeus holds back his anger because he does not want to displease Night.',
+      },
+      {
+        question: 'Which of these was a son of Nyx?',
+        choices: ['Apollo', 'Heracles', 'Hypnos, the god of sleep'],
+        answer: 2,
+        fact: 'The word "hypnosis" comes from his name.',
+      },
+      {
+        question: 'Where does Nyx live?',
+        choices: ['On Mount Olympus', 'Under the sea', 'In a dark house at the edge of Tartarus'],
+        answer: 2,
+        fact: 'Night and her daughter Day take turns leaving the house, so they are never home together.',
+      },
+    ],
+  },
+
+  tartarus: {
+    era: 'Primordials',
+    questions: [
+      {
+        question: 'What is Tartarus?',
+        choices: ['A mountain', 'A deep, dark pit far below the Underworld', 'A river'],
+        answer: 1,
+        fact: 'The poet Hesiod said a bronze anvil dropped from the earth would fall for nine days before reaching it.',
+      },
+      {
+        question: 'Who did Zeus lock away in Tartarus after the great war?',
+        choices: ['The Muses', 'The Titans', 'The Cyclopes'],
+        answer: 1,
+        fact: 'The Hundred-Handed Ones stood guard at its bronze gates.',
+      },
+      {
+        question: 'Which monster was a son of Tartarus and Gaia?',
+        choices: ['Medusa', 'The Minotaur', 'Typhon'],
+        answer: 2,
+        fact: 'Typhon was so huge and frightening that even the gods ran from him.',
+      },
+      {
+        question: 'Which king was punished in Tartarus by standing in water he could never drink?',
+        choices: ['Tantalus', 'Midas', 'Minos'],
+        answer: 0,
+        fact: 'The word "tantalise" comes from his name.',
+      },
+    ],
+  },
+
+  ouranos: {
+    era: 'Primordials',
+    questions: [
+      {
+        question: 'What is Ouranos the god of?',
+        choices: ['The sea', 'The sky', 'The Underworld'],
+        answer: 1,
+        fact: 'His name means "sky" in Greek. The planet Uranus is named after him.',
+      },
+      {
+        question: 'Who was the mother of Ouranos?',
+        choices: ['Gaia', 'Rhea', 'Nyx'],
+        answer: 0,
+        fact: 'Gaia, the Earth, gave birth to the Sky and then married him.',
+      },
+      {
+        question: 'Who overthrew Ouranos?',
+        choices: ['Zeus', 'Prometheus', 'His son Kronos'],
+        answer: 2,
+        fact: 'Kronos used a sickle that his mother Gaia had made.',
+      },
+      {
+        question: 'Which goddess was born from the sea foam after Ouranos was defeated?',
+        choices: ['Aphrodite', 'Athena', 'Hera'],
+        answer: 0,
+        fact: 'That is why some stories call Ouranos the father of Aphrodite.',
+      },
+    ],
+  },
 };
 
 export default quizzes;
