@@ -9,6 +9,22 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 27 November 2026: Testing log, batch 2 Log in, Forgot and Reset password (George)
+
+**Added**
+- Batch 2 of `docs/testing/testing-log.md`: 22 tests for the Log in, Forgot password
+  and Reset password pages, run on `main` (commit `3259205`) now that these pages are
+  merged. 21 passed. One failed: Forgot password now gives a different message when an
+  email has no account, so it needs fixing and testing again. Plus two screenshots.
+  First run on 24 November, run again on 27 November before uploading (same results);
+  the six checks marked "By hand" were done by hand on 27 November.
+- A "Front end only" note in "How we test": the log checks what the pages do in the
+  browser, not the server or database, so it's clear what the results cover.
+
+**Changed**
+- The pretend-server table now explains that Log in and Forgot password are connected to
+  the server code, so the test script answers in the server's place for those tests.
+
 ## 22 November 2026: Testing log, batch 1 Registration (George)
 
 **Added**

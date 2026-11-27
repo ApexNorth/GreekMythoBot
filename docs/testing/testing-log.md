@@ -16,6 +16,8 @@ Each test says which requirement it checks (the FE / NFR numbers from
   normal browser window. The "By hand" column shows which ones.
 - **Phone size first:** tests use a phone-sized window (390 × 844) unless they say
   otherwise, because most of our players will be on phones.
+- **Front end only:** these tests check what the pages do in the browser. Testing the
+  server and the database themselves is not part of this log.
 
 **Key:** ✅ passed · ❌ failed · ⚠️ found a problem somewhere else
 
@@ -26,9 +28,13 @@ Each test says which requirement it checks (the FE / NFR numbers from
 | Page | Date tested | Version tested | Tests | Passed | Problems found |
 |---|---|---|---|---|---|
 | Registration | 22 November 2026 | `feature/profile`, commit `9d9b81d` | 19 | 19 | None |
+| Log in | 27 November 2026 | `main`, commit `3259205` | 12 | 12 | None |
+| Forgot password | 27 November 2026 | `main`, commit `3259205` | 5 | 4 | 1 (see F3) |
+| Reset password | 27 November 2026 | `main`, commit `3259205` | 5 | 5 | None |
 
-The version tested is the branch where all of George's pages are joined together with
-Nora's god selection and chat, so everything is tested working together.
+Registration was tested on the branch where all of George's pages are joined together
+with Nora's god selection and chat, so everything was tested working together. From
+24 November we test `main`, because the Log in pages have now been merged into it.
 
 ---
 
@@ -38,14 +44,24 @@ The backend isn't finished yet, so the pages use a **pretend server** that answe
 the real one would. That means we can test every kind of reply, including the error ones,
 by using these special test details:
 
-| Page | Type this | What the pretend server does |
+| Page | Type this | What happens |
 |---|---|---|
 | Registration | Email `taken@example.com` | Says the email already has an account |
 | Registration | Email `offline@example.com` | Acts like the server is down |
 | Registration | Any captcha except `2s1` | Says the captcha is wrong |
+| Log in | Email `wrong@example.com` | The test script answers "no match" |
+| Forgot password | Email `unknown@example.com` | The test script answers "no account with that email" |
+| Log in, Forgot password | Email `offline@example.com` | The test script acts like the server is down |
+| Reset password | Address ending `?token=expired` | Says the link has expired |
+| Reset password | Address ending `?token=offline` | Acts like the server is down |
 
 Anything else counts as "it worked". **These tests will need doing again once the real
 server is connected.**
+
+**Log in and Forgot password (from 23 November):** these two pages are now connected to
+the team's server code, so they no longer have a pretend server built in. To test just
+the pages, the test script answers in the server's place, with the same kind of reply
+the real server sends. Reset password still has its pretend server.
 
 ---
 
@@ -81,3 +97,61 @@ server is connected.**
 the page: the test didn't wait long enough for the clouds to finish (R13), and in Chrome,
 Tab moves through the day, month and year parts of a date box before leaving it (R15).
 We fixed the tests, ran everything again and all 19 passed.
+
+---
+
+## Log in (`/login`)
+
+**Tested:** 27 November 2026
+
+![The Log in form after clicking Log in with both boxes empty: a message under each box](screenshots/login-errors.jpg)
+
+| ID | What we checked | What we did | What should happen | What happened | Result | By hand |
+|---|---|---|---|---|---|---|
+| L1 | FE-02: there is a log in form | Opened the page | Email and Password boxes with labels, password hidden | As expected | ✅ | |
+| L2 | FE-03: clear message when log in fails | Clicked Log in with both boxes empty | A message under each box, cursor on Email | "Please enter your email." and "Please enter your password.", cursor moved to Email | ✅ | ✅ 27 Nov |
+| L3 | FE-03: email check | Typed `zeus.example.com` | "That doesn't look like an email..." | Exactly that | ✅ | |
+| L4 | Login flowchart: wrong details | Used `wrong@example.com` | "That email or password isn't right." It doesn't say which one, so nobody can use it to find out who has an account | Exactly that | ✅ | |
+| L5 | NFR-09: button feedback | Looked at the button while logging in | "Logging in..." and can't be clicked twice | Both true | ✅ | |
+| L6 | NFR-06: server down | Used `offline@example.com` | Friendly message, no blank page, the form keeps what you typed | "We can't reach the server right now..." and the email was still there | ✅ | ✅ 27 Nov |
+| L7 | Login flowchart: success. NFR-03: Enter works | Typed the details and pressed Enter instead of clicking | The clouds open with a welcome message. (Moving on to the gods page comes with the navbar update, which isn't in `main` yet) | The clouds opened and "Welcome back!" appeared | ✅ | |
+| L8 | NFR-14: passwords never saved in the browser | Looked in the browser's storage after logging in | Empty | Completely empty | ✅ | |
+| L9 | NFR-10: what people type is shown as plain text only | Logged in as `<b>zeus</b>@example.com` (code hidden in the email) | Nothing on the page turns into real page code | Nothing went bold, the welcome just said "Welcome back!" | ✅ | |
+| L10 | Getting around | Clicked "Forgot your password?" and "Create an account" | They go to Forgot password and Register | Both did | ✅ | ✅ 27 Nov |
+| L11 | Easy to tap on a phone | Measured the "Forgot your password?" link | At least 24 pixels tall | 31 pixels | ✅ | |
+| L12 | NFR-01: phones to big screens | Checked at 360, 768, 1440 and 1920 pixels wide | No sideways scrolling | None at any size | ✅ | |
+
+---
+
+## Forgot password (`/forgot-password`)
+
+**Tested:** 27 November 2026
+
+![The message you get after asking for a reset link](screenshots/forgot-sent.jpg)
+
+| ID | What we checked | What we did | What should happen | What happened | Result | By hand |
+|---|---|---|---|---|---|---|
+| F1 | Empty email | Clicked "Send reset link" with nothing typed | "Please enter your email.", cursor on Email | Exactly that | ✅ | ✅ 27 Nov |
+| F2 | Email check | Typed `nope` | "That doesn't look like an email..." | Exactly that | ✅ | |
+| F3 | Privacy: it can't be used to find out who has an account | Asked for a link for an email that has an account and for `unknown@example.com` | The same reply both times | Different replies: "If ... has an account, we've sent it a link..." for the first, "Something went wrong. Please try again." for the second | ❌ | |
+| F4 | NFR-06: server down | Used `offline@example.com` | Friendly message | "We can't reach the server right now..." | ✅ | |
+| F5 | Getting around | Clicked "Back to log in" | Goes to Log in | It did | ✅ | |
+
+**About F3:** this passed before the page was connected to the server code on
+23 November. The page now shows a different message when the email has no account.
+The fix is for the page to show the "If ... has an account" message whatever the reply.
+To be fixed and tested again.
+
+---
+
+## Reset password (`/reset-password`, the page the email link opens)
+
+**Tested:** 27 November 2026 (still uses its pretend server)
+
+| ID | What we checked | What we did | What should happen | What happened | Result | By hand |
+|---|---|---|---|---|---|---|
+| P1 | Broken link | Opened the page without the code from the email | A message saying the link isn't complete, with a link to ask for a new one | "This link has expired or isn't complete. Ask for a new one", and the link goes to Forgot password | ✅ | |
+| P2 | Password rules | Tried empty boxes, a password with no capital, and two different passwords | The same rules and messages as Register | "Please choose a password.", "Add at least one capital letter (A-Z).", "The passwords don't match." | ✅ | ✅ 27 Nov |
+| P3 | Success | Typed a good password twice | "Saving..." on the button, then "Your password has been changed" with a Log in link | All of that | ✅ | ✅ 27 Nov |
+| P4 | Old link | Used `?token=expired` | The "expired" message with a link to ask for a new one | Exactly that | ✅ | |
+| P5 | NFR-06: server down | Used `?token=offline` | Friendly message | "We can't reach the server right now..." | ✅ | |
