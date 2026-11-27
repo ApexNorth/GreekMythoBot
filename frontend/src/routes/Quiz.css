@@ -274,6 +274,88 @@
   outline-offset: 3px;
 }
 
+/* Buttons that can't be clicked while the server is answering */
+.quiz-button:disabled {
+  cursor: default;
+  opacity: 0.75;
+}
+
+.quiz-button:disabled:hover {
+  background: #e5b94c;
+}
+
+/* Intro: an angry god's warning, and today's tries */
+.quiz-angry {
+  padding: 10px 14px;
+  border: 1px solid #ffb4a8;
+  border-radius: 12px;
+  color: #ffb4a8;
+  font-weight: 600;
+}
+
+.quiz-tries {
+  font-weight: 700;
+  color: #e9c56b;
+}
+
+/* A hint under the Start button needs a gap above it */
+.quiz-hint-below:not(:empty) {
+  margin-top: 16px;
+}
+
+/* The gift the god gave, with its picture */
+.quiz-gift {
+  margin: 0 auto 18px;
+  max-width: 380px;
+  padding: 14px 16px;
+  border: 2px solid #b59b65;
+  border-radius: 12px;
+  background: rgba(21, 26, 42, 0.6);
+}
+
+.quiz-gift img {
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 8px;
+}
+
+.quiz-card .quiz-gift p {
+  margin: 0;
+}
+
+.quiz-gift strong {
+  color: #e9c56b;
+}
+
+/* "Reset for demo": a small underlined text button under Back to the gods */
+.quiz-card .quiz-demo {
+  margin: 16px 0 0;
+}
+
+.quiz-link-button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  color: #f8eddb;
+  font: inherit;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.quiz-link-button:hover {
+  color: #ffda77;
+}
+
+.quiz-link-button:focus-visible {
+  outline: 3px solid #ffda77;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
 /* Phones: a little less padding so the answers have room */
 @media (max-width: 600px) {
   .quiz-page {

@@ -1,6 +1,18 @@
 
 # Changelog
 
+## 27 November 2026: Quiz step 3b: styles for tries and gifts (George)
+
+**Added**
+- Styles for the new quiz parts, in Nora's look: the angry-god warning in a coral outline,
+  "Tries left today" in gold, the gift in a gold-bordered box with its picture, and
+  "Reset for demo" as a small underlined link under "Back to the gods".
+- Buttons look faded and can't be clicked while the server is answering (NFR-09).
+
+**Tested**
+- Contrast at least 4.5:1 on the new text (the coral warning has no tinted background,
+  which would have dropped it to about 4.4:1). No sideways scrolling at 360 or 1920px.
+
 ## 27 November 2026: Quiz step 3a: tries, scoring and gifts (George)
 
 **Added**
