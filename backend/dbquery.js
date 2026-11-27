@@ -284,3 +284,26 @@ export async function changePassword(details) {
     return false;
   }
 }
+
+export async function changeAvatar(details) {
+  // Changes a users password only if the email and current password is correct. 
+  // param details: object containing newPassword, userID and password.
+  try {
+    const { avatar, userID } = details;
+
+    const res = await fetch('/api/user/changeAvatar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ avatar, userID })
+    });
+    
+
+    const data = await res.json().catch(() => ({}));
+    console.log('changeAvatar response:', res.status, data);
+
+    return Boolean(data.inserted);
+  } catch (error) {
+    console.error('Error changing avatar', error);
+    return false;
+  }
+}

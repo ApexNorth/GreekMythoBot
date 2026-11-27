@@ -76,6 +76,9 @@ WHERE userID = ? AND userPassword = ?
   changePassword: db.prepare(`
 UPDATE user SET userPassword = ?
 WHERE userID = ? AND userPassword = ?
+`),
+  changeAvatar: db.prepare(`
+UPDATE profile SET avatar = ? WHERE userID = ?
 `)
 };
 

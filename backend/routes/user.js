@@ -254,4 +254,33 @@ router.post("/changePassword", (req, res) => {
   }
 });
 
+router.post("/changeAvatar", (req, res) => {
+  try {
+    const { avatar, userID } = req.body;
+
+    const result = user.changeAvatar.run(avatar, userID);
+    const updated = result.changes > 0;
+
+    if (!updated) {
+      return res.status(404).json({
+        updated: false,
+        error: "No user matched that userID"
+      });
+    }
+
+    return res.status(200).json({
+      updated: true,
+      userID,
+      avatar
+    });
+  } catch (error) {
+
+    console.error("Update failed:", error);
+    return res.status(500).json({
+      updated: false,
+      error: error.message
+    });
+  }
+});
+
 module.exports = router;
