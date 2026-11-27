@@ -1,6 +1,47 @@
 
 # Changelog
 
+## 27 November 2026: Quiz step 3b: styles for tries and gifts (George)
+
+**Added**
+- Styles for the new quiz parts, in Nora's look: the angry-god warning in a coral outline,
+  "Tries left today" in gold, the gift in a gold-bordered box with its picture, and
+  "Reset for demo" as a small underlined link under "Back to the gods".
+- Buttons look faded and can't be clicked while the server is answering (NFR-09).
+
+**Tested**
+- Contrast at least 4.5:1 on the new text (the coral warning has no tinted background,
+  which would have dropped it to about 4.4:1). No sideways scrolling at 360 or 1920px.
+
+## 27 November 2026: Quiz step 3a: tries, scoring and gifts (George)
+
+**Added**
+- Gifts: get 3 or more of the 4 questions right and the god gives you a gift from their own
+  gift group (Alex's list, e.g. Zeus gives Gold, Ares gives Weapons), picked at random from
+  the ones you don't have yet. The results show its picture and name, and it appears on
+  your Profile. If you already have them all, the results say so.
+- 2 tries per god per day (George's rule). A try counts when you press "Start quiz", so
+  quitting halfway doesn't give a free retry. The start screen says how many are left,
+  and after 2 tries the page says "Come back tomorrow".
+- "Reset for demo" under "Come back tomorrow", so all of this can be shown in a demo. It
+  only appears while the pretend server is on and goes away with the real server.
+- Angry gods (favour 0) can still be quizzed: the start screen says the god is angry and
+  that doing well is how to win back their favour.
+- The score is added up by the server, not the browser, and each question only counts
+  once (so nobody can farm favour). Where the real server goes: `TODO BACKEND` notes for
+  `GET /api/quiz/info`, `POST /api/quiz/start` and `POST /api/quiz/finish`.
+- `data/gifts.js` (which gift group each god likes, and the gifts in each group, copied
+  from the database) and `utils/giftPictures.js` (finds a gift's picture by its name,
+  now shared by Profile and the Quiz instead of living in Profile).
+
+**Fixed**
+- Going straight from one god's quiz to another (e.g. with the browser's Back button)
+  kept the first quiz's answers and score. Each god now starts a fresh quiz.
+
+**Tested**
+- Every case with the pretend server: winning gifts, owning every gift, a low score, an
+  angry god, no tries left + reset, a god without a quiz yet, and the server being
+  unreachable at the start and at the end (the player can try again).
 ## 26 November 2026: Profile pictures step 3: your picture in the navbar (George)
 
 **Changed**
