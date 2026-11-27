@@ -1,6 +1,17 @@
 
 # Changelog
 
+## 27 November 2026: Quiz step 4c: questions for the Primordials (George)
+
+**Added**
+- Quizzes for Chaos, Chronos, Gaia, Nyx, Tartarus and Ouranos (4 questions each, 3 answers,
+  a "Did you know?" fact after each), on the Primordials' night-sky background. With this,
+  every god on the Gods page has a quiz, so no player sees "There's no quiz for ... yet".
+
+**Tested**
+- Took each quiz from its Quiz button: every right answer is marked right, and a good score
+  gives a gift from that god's group (e.g. Gaia: Stones, Nyx: Obsidian).
+
 ## 27 November 2026: Quiz step 4b: questions for the Titans (George)
 
 **Added**
