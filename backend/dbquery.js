@@ -1,4 +1,6 @@
 //Helper function to query database
+// When passing data into these functions they MUST be in the correct order with the EXACT same name.
+// So if URLSearchParams state {email, password} this is the order and names you must use.
 
 export async function fetchEmail(email){
   const params = new URLSearchParams({email});
@@ -33,11 +35,12 @@ export async function addUser(details) {
     const pass = details.password;
     const email = details.email;
     const dob = details.dateOfBirth;
+    const date = details.date;
 
     const res = await fetch('/api/user/addUser', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, pass, email, dob })
+      body: JSON.stringify({ username, pass, email, dob, date })
     });
 
     const data = await res.json().catch(() => ({}));
@@ -115,11 +118,12 @@ export async function addMessage(details) {
     const timestamp = details.timestamp;
     const userID = details.userID;
     const godID = details.godID;
+    const conversationState = details.conversationState;
 
     const res = await fetch('/api/user/addMessage', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sender, message, timestamp, userID, godID })
+      body: JSON.stringify({ sender, message, timestamp, userID, godID, conversationState })
     });
 
     const data = await res.json().catch(() => ({}));
@@ -213,4 +217,70 @@ export async function fetchGiftGroup(groupID){
   }
 
   return await res.json();
+}
+
+export async function changeUsername(details) {
+  // Changes a users username only if the email and password is correct. 
+  // param details: object containing newUsername, userID and password.
+  try {
+    const { newUsername, userID, password } = details;
+
+    const res = await fetch('/api/user/changeUsername', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ newUsername, userID, password })
+    });
+
+    const data = await res.json().catch(() => ({}));
+    console.log('changeUsername response:', res.status, data);
+
+    return Boolean(data.inserted);
+  } catch (error) {
+    console.error('Error adding user', error);
+    return false;
+  }
+}
+
+export async function changeEmail(details) {
+  // Changes a users email only if the email and password is correct. 
+  // param details: object containing newEmail, userID and password.
+  try {
+    const { newEmail, userID, password } = details;
+
+    const res = await fetch('/api/user/changeEmail', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ newEmail, userID, password })
+    });
+
+    const data = await res.json().catch(() => ({}));
+    console.log('changeEmail response:', res.status, data);
+
+    return Boolean(data.inserted);
+  } catch (error) {
+    console.error('Error adding user', error);
+    return false;
+  }
+}
+
+export async function changePassword(details) {
+  // Changes a users password only if the email and current password is correct. 
+  // param details: object containing newPassword, userID and password.
+  try {
+    const { newPassword, userID, password } = details;
+
+    const res = await fetch('/api/user/changePassword', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ newPassword, userID, password })
+    });
+
+    const data = await res.json().catch(() => ({}));
+    console.log('changeEmail response:', res.status, data);
+
+    return Boolean(data.inserted);
+  } catch (error) {
+    console.error('Error adding user', error);
+    return false;
+  }
 }

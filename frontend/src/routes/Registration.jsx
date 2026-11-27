@@ -94,6 +94,7 @@ function checkCaptcha(value){
  * Sends the new account to the server. The server replies with
  */
 async function sendRegistration(details){
+  console.log("time test", details);
   return await addUser(details)
 }
 
@@ -139,7 +140,8 @@ function Registration(){
     setIsSending(true);
     try {
       // TODO BACKEND: POST /api/register also sends dateOfBirth as 'YYYY-MM-DD' (needs a date_of_birth column in USER)
-      const reply = await sendRegistration({ email, username, dateOfBirth, password, captcha });
+
+      const reply = await sendRegistration({ email, username, dateOfBirth, password, date: todayAsText() });
       if (reply) {
         setIsOpen(true);
         // TODO: go to the Travel screen after the clouds open (that page isn't built yet).

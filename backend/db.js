@@ -21,8 +21,8 @@ const user = {
 ) AS matched;
 `),
   addUser: db.prepare(`
-INSERT INTO user (username, userPassword, userEmail, dateOfBirth) VALUES
-(?, ?, ?, ?);
+INSERT INTO user (username, userPassword, userEmail, dateOfBirth, created) VALUES
+(?, ?, ?, ?, ?);
 `),
   userRelationship: db.prepare(`
 SELECT godName, favor
@@ -45,14 +45,37 @@ JOIN gifts AS g
 ON g.giftID = p.giftID
 WHERE p.userID = ?;
 `),
+  userFullProfile: db.prepare(`
+SELECT g.giftName, god.godName, ur.favor, avatar
+FROM profile AS p
+JOIN gifts AS g
+ON g.giftID = p.giftID
+JOIN userRelationship AS ur
+ON ur.userID = p.userID
+JOIN god
+ON god.godID = ur.godID
+WHERE p.userID = ?;
+`),
   userHistory: db.prepare(`
 SELECT sender, message, timestamp
 FROM chatHistory AS ch
 WHERE userID = ? AND godID = ?;
 `),
   addMessage: db.prepare(`
-INSERT INTO chatHistory (sender, message, timestamp, userID, godID)
-VALUES (? , ? , ? , ? , ?);
+INSERT INTO chatHistory (sender, message, timestamp, userID, godID, conversationState)
+VALUES (? , ? , ? , ? , ?, ?);
+`),
+  changeUsername: db.prepare(`
+UPDATE user SET username = ?
+WHERE userID = ? AND userPassword = ?
+`),
+  changeEmail: db.prepare(`
+UPDATE user SET userEmail = ?
+WHERE userID = ? AND userPassword = ?
+`),
+  changePassword: db.prepare(`
+UPDATE user SET userPassword = ?
+WHERE userID = ? AND userPassword = ?
 `)
 };
 

@@ -31,15 +31,16 @@ router.get("/userInfo", (req, res) => {
 //Adds a user to the database.
 router.post("/addUser", (req, res) => {
   try {
-    const { username, pass, email, dob } = req.body;
-    const result = user.addUser.run(username, pass, email, dob);
+    const { username, pass, email, dob, date } = req.body;
+    const result = user.addUser.run(username, pass, email, dob, date);
 
     return res.status(201).json({
       inserted: result.changes > 0,
       id: result.lastInsertRowid,
       username,
       email,
-      dob
+      dob,
+      date
     });
   } catch (error) {
     if (error.code === "SQLITE_CONSTRAINT_UNIQUE") {
@@ -111,8 +112,8 @@ router.get("/userHistory", (req, res) => {
 
 router.post("/addMessage", (req, res) => {
   try {
-    const { sender, message, timestamp, userID, godID } = req.body;
-    const result = user.addMessage.run(sender, message, timestamp, userID, godID);
+    const { sender, message, timestamp, userID, godID, conversationState } = req.body;
+    const result = user.addMessage.run(sender, message, timestamp, userID, godID, conversationState);
 
     return res.status(201).json({
       inserted: result.changes > 0,
@@ -121,13 +122,133 @@ router.post("/addMessage", (req, res) => {
       message,
       timestamp,
       userID,
-      godID
+      godID,
+      conversationState
     });
 
   } catch (error) {
     console.error("Insert failed", error);
     return res.status(500).json({
       inserted: false,
+      error: error.message
+    });
+  }
+});
+
+router.post("/changeUsername", (req, res) => {
+  try {
+    const { newUsername, userID, password } = req.body;
+
+    if (!newUsername || !userID || !password) {
+      return res.status(400).json({
+        updated: false,
+        error: "newUsername, userID, and password are required"
+      });
+    }
+
+    const result = user.changeUsername.run(newUsername, userID, password);
+    const updated = result.changes > 0;
+
+    if (!updated) {
+      return res.status(404).json({
+        updated: false,
+        error: "No user matched that userID and password"
+      });
+    }
+
+    return res.status(200).json({
+      updated: true,
+      newUsername,
+      userID
+    });
+  } catch (error) {
+    if (error.code === "SQLITE_CONSTRAINT_UNIQUE") {
+      return res.status(409).json({
+        updated: false,
+        error: "That username is already taken"
+      });
+    }
+
+    console.error("Update failed:", error);
+    return res.status(500).json({
+      updated: false,
+      error: error.message
+    });
+  }
+});
+
+router.post("/changeEmail", (req, res) => {
+  try {
+    const { newEmail, userID, password } = req.body;
+
+    if (!newEmail || !userID || !password) {
+      return res.status(400).json({
+        updated: false,
+        error: "newEmail, userID, and password are required"
+      });
+    }
+
+    const result = user.changeEmail.run(newEmail, userID, password);
+    const updated = result.changes > 0;
+
+    if (!updated) {
+      return res.status(404).json({
+        updated: false,
+        error: "No user matched that userID and password"
+      });
+    }
+
+    return res.status(200).json({
+      updated: true,
+      newEmail,
+      userID
+    });
+  } catch (error) {
+    if (error.code === "SQLITE_CONSTRAINT_UNIQUE") {
+      return res.status(409).json({
+        updated: false,
+        error: "That email is already taken"
+      });
+    }
+
+    console.error("Update failed:", error);
+    return res.status(500).json({
+      updated: false,
+      error: error.message
+    });
+  }
+});
+
+router.post("/changePassword", (req, res) => {
+  try {
+    const { newPassword, userID, password } = req.body;
+
+    if (!newPassword || !userID || !password) {
+      return res.status(400).json({
+        updated: false,
+        error: "newPassword, userID, and password are required"
+      });
+    }
+
+    const result = user.changePassword.run(newPassword, userID, password);
+    const updated = result.changes > 0;
+
+    if (!updated) {
+      return res.status(404).json({
+        updated: false,
+        error: "No user matched that userID and password"
+      });
+    }
+
+    return res.status(200).json({
+      updated: true,
+      userID
+    });
+  } catch (error) {
+
+    console.error("Update failed:", error);
+    return res.status(500).json({
+      updated: false,
       error: error.message
     });
   }
