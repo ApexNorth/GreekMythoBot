@@ -52,4 +52,60 @@ router.get("/giftGroup", (req, res) => {
   }
 })
 
+router.post("/addGift", (req, res) => {
+  try {
+    const { userID, giftID } = req.body;
+    const result = gift.addGift.run(userID, giftID);
+
+    return res.status(201).json({
+      inserted: result.changes > 0,
+      id: result.lastInsertRowid,
+      userID,
+      giftID
+    });
+  } catch (error) {
+    console.error("Insert failed", error);
+    return res.status(500).json({
+      inserted: false,
+      error: error.message
+    });
+  }
+});
+
+router.post("/deleteGift", (req, res) => {
+  try {
+    const { userID, giftID } = req.body;
+
+    if (!userID || !giftID) {
+      return res.status(400).json({
+        deleted: false,
+        error: "userID and giftID are required"
+      });
+    }
+
+    const result = gift.removeGift.run(userID, giftID);
+    const deleted = result.changes > 0;
+
+    if (!deleted) {
+      return res.status(404).json({
+        deleted: false,
+        error: "No matching gift row found to delete"
+      });
+    }
+
+    return res.status(200).json({
+      deleted: true,
+      changes: result.changes,
+      userID,
+      giftID
+    });
+  } catch (error) {
+    console.error("Delete failed:", error);
+    return res.status(500).json({
+      deleted: false,
+      error: error.message
+    });
+  }
+});
+
 module.exports = router;

@@ -46,7 +46,7 @@ ON g.giftID = p.giftID
 WHERE p.userID = ?;
 `),
   userFullProfile: db.prepare(`
-SELECT g.giftName, god.godName, ur.favor, avatar
+SELECT g.giftName, god.godName, ur.favor
 FROM profile AS p
 JOIN gifts AS g
 ON g.giftID = p.giftID
@@ -78,7 +78,7 @@ UPDATE user SET userPassword = ?
 WHERE userID = ? AND userPassword = ?
 `),
   changeAvatar: db.prepare(`
-UPDATE profile SET avatar = ? WHERE userID = ?
+UPDATE user SET avatar = ? WHERE userID = ?
 `)
 };
 
@@ -124,6 +124,18 @@ FROM giftGroup;
 SELECT groupName
 FROM giftGroup
 WHERE groupID = ?;
+`),
+  addGift: db.prepare(`
+INSERT INTO profile VALUES
+(?, ?)
+`),
+  removeGift: db.prepare(`
+DELETE FROM profile
+WHERE rowid = (
+	SELECT rowid FROM gifts
+	WHERE userID = ? AND giftID = ?
+	LIMIT 1
+);
 `)
 }
 

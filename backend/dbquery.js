@@ -219,6 +219,54 @@ export async function fetchGiftGroup(groupID){
   return await res.json();
 }
 
+export async function addGift(details) {
+  // Adds a user to the database and return if it was successful or not.
+  // param details - object containing username, password, email and dateOfBirth.
+  try {
+    const userID = details.userID;
+    const giftID = details.giftID;
+
+
+    const res = await fetch('/api/gift/addGift', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userID, giftID })
+    });
+
+    const data = await res.json().catch(() => ({}));
+    console.log('addGift response:', res.status, data);
+
+    return Boolean(data.inserted);
+  } catch (error) {
+    console.error('Error adding user', error);
+    return false;
+  }
+}
+
+export async function removeGift(details) {
+  // Adds a user to the database and return if it was successful or not.
+  // param details - object containing username, password, email and dateOfBirth.
+  try {
+    const userID = details.userID;
+    const giftID = details.giftID;
+
+
+    const res = await fetch('/api/gift/deleteGift', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userID, giftID })
+    });
+
+    const data = await res.json().catch(() => ({}));
+    console.log('removeGift response:', res.status, data);
+
+    return Boolean(data.deleted);
+  } catch (error) {
+    console.error('Error adding user', error);
+    return false;
+  }
+}
+
 export async function changeUsername(details) {
   // Changes a users username only if the email and password is correct. 
   // param details: object containing newUsername, userID and password.
