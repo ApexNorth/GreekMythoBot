@@ -1,6 +1,19 @@
 
 # Changelog
 
+## 27 November 2026: Quiz step 4a: questions for Aphrodite, Athena and Poseidon (George)
+
+**Added**
+- Quizzes for Aphrodite, Athena and Poseidon (4 questions each, 3 answers, a "Did you know?"
+  fact after every answer), so all six Olympians now have a quiz. Written in plain English
+  for players aged 13 and up, from the best-known myths. Each god gives gifts from their own
+  gift group (Aphrodite: Gems, Athena: Scrolls, Poseidon: Pearls).
+- The Titans and Primordials come later, once the team has decided which gods stay.
+
+**Tested**
+- Took each quiz from its Quiz button on the Gods page: every right answer is marked right,
+  and a good score gives a gift from that god's group.
+
 ## 27 November 2026: Quiz step 3b: styles for tries and gifts (George)
 
 **Added**

@@ -6,6 +6,66 @@
  * can't look them up in the browser; the server marks them (Nick's quiz tables).
  */
 const quizzes = {
+  aphrodite: {
+    era: 'Olympians',
+    questions: [
+      {
+        question: 'What is Aphrodite the goddess of?',
+        choices: ['War', 'Love and beauty', 'The harvest'],
+        answer: 1,
+        fact: 'The Romans called her Venus, and the planet Venus is named after her.',
+      },
+      {
+        question: 'How was Aphrodite born?',
+        choices: ['From the foam of the sea', "From Zeus's head", 'From a golden egg'],
+        answer: 0,
+        fact: 'Many stories say she came ashore on the island of Cyprus. A famous painting shows her standing on a giant seashell.',
+      },
+      {
+        question: 'Which bird is special to Aphrodite?',
+        choices: ['The eagle', 'The owl', 'The dove'],
+        answer: 2,
+        fact: 'Doves were her birds, and she was often shown with roses too.',
+      },
+      {
+        question: 'What prize did Aphrodite win in a contest that led to the Trojan War?',
+        choices: ['A golden apple', 'A silver crown', 'A magic sword'],
+        answer: 0,
+        fact: 'Paris, a prince of Troy, gave her the apple after she promised him Helen, the most beautiful woman in the world.',
+      },
+    ],
+  },
+
+  athena: {
+    era: 'Olympians',
+    questions: [
+      {
+        question: 'What is Athena the goddess of?',
+        choices: ['Wisdom and clever planning', 'The sea', 'The Underworld'],
+        answer: 0,
+        fact: 'She was also the goddess of crafts like weaving, and of war won with clever plans.',
+      },
+      {
+        question: 'How was Athena born?',
+        choices: ['She hatched from an egg', "She sprang from Zeus's head", 'She rose from the sea'],
+        answer: 1,
+        fact: 'She came out fully grown and wearing armour, after Zeus had a terrible headache.',
+      },
+      {
+        question: 'Which city is named after Athena?',
+        choices: ['Sparta', 'Troy', 'Athens'],
+        answer: 2,
+        fact: "She won the city by giving its people an olive tree. Poseidon's gift was a saltwater spring.",
+      },
+      {
+        question: "Which animal is Athena's symbol?",
+        choices: ['The owl', 'The swan', 'The raven'],
+        answer: 0,
+        fact: 'Because of her, the owl became a symbol of wisdom. Coins from ancient Athens had an owl on them.',
+      },
+    ],
+  },
+
   zeus: {
     era: 'Olympians',
     questions: [
@@ -92,6 +152,36 @@ const quizzes = {
         choices: ['The aegis', 'The caduceus', 'The trident'],
         answer: 1,
         fact: 'The aegis is the shield of Zeus and Athena, and the trident belongs to Poseidon.',
+      },
+    ],
+  },
+
+  poseidon: {
+    era: 'Olympians',
+    questions: [
+      {
+        question: 'What is Poseidon the god of?',
+        choices: ['The sky', 'The sea', 'The sun'],
+        answer: 1,
+        fact: 'He was also the god of earthquakes and horses. The Romans called him Neptune.',
+      },
+      {
+        question: 'What does Poseidon carry?',
+        choices: ['A bow and arrows', 'A thunderbolt', 'A trident'],
+        answer: 2,
+        fact: "A trident is a spear with three points. The Cyclopes made it for him, just as they made Zeus's thunderbolts.",
+      },
+      {
+        question: 'Which land animal is Poseidon linked with?',
+        choices: ['The horse', 'The cat', 'The bear'],
+        answer: 0,
+        fact: 'Some stories say he made the first horse, and he rode a chariot pulled by horses across the waves.',
+      },
+      {
+        question: 'Which hero did Poseidon stop from getting home for ten years?',
+        choices: ['Heracles', 'Odysseus', 'Perseus'],
+        answer: 1,
+        fact: "Odysseus blinded Poseidon's son, the Cyclops Polyphemus, so Poseidon sent storms to wreck his ships.",
       },
     ],
   },
