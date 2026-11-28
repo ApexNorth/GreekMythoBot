@@ -1,12 +1,12 @@
 import {useState, useEffect, useRef, startTransition} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {getProfile, saveAvatar} from '../utils/demoServer.js';
-import {DEFAULT_AVATAR, avatars, isAvatar, avatarPicture, avatarName} from '../data/avatars.js';
+import {avatars, avatarPicture, avatarName, avatarToNumber, avatarFromNumber} from '../data/avatars.js';
 import {describeRelationship} from '../utils/relationship.js';
 import {giftPicture} from '../utils/giftPictures.js';
 import './Profile.css';
 
-// TODO BACKEND: set this to false once GET /api/profile and POST /api/user/avatar work on the server.
+// TODO BACKEND: set this to false once GET /api/profile and POST /api/user/changeAvatar work on the server.
 const USE_FAKE_SERVER = true;
 
 // Small round pictures of each god (assets/profile/zeus.webp ...), found by god id
@@ -21,7 +21,7 @@ const godGroups = [
 
 /**
  * Asks the server for the logged-in player's profile. The server replies with
- * {ok: true, username, avatar, relationships: [{godName, favor}], gifts: [{giftName, groupName}]}.
+ * {ok: true, username, avatar (a number, 0 = owl), relationships: [{godName, favor}], gifts: [{giftName, groupName}]}.
  * Throws an error if the server can't be reached.
  */
 async function loadProfile(){
@@ -34,12 +34,15 @@ async function loadProfile(){
   return response.json();
 }
 
-/** Saves the player's new profile picture (one of the 6 ids). The server replies {ok: true, avatar}. */
+/**
+ * Saves the player's new profile picture. avatar is the picture's number (0-5), as the database stores it.
+ * Alex's route replies {updated: true, userID, avatar} or {updated: false, error}.
+ */
 async function savePicture(avatar){
   if (USE_FAKE_SERVER) {return saveAvatar(avatar);}
 
-  // TODO BACKEND: POST /api/user/avatar { avatar } for the logged-in player (saved in the user table)
-  const response = await fetch('/api/user/avatar', {
+  // TODO BACKEND: Alex's route also needs the player's userID, which the login doesn't give us yet (login session)
+  const response = await fetch('/api/user/changeAvatar', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({avatar}),
@@ -70,7 +73,7 @@ function readProfile(reply){
 
   return {
     username: typeof reply.username === 'string' ? reply.username : '',
-    avatar: isAvatar(reply.avatar) ? reply.avatar : DEFAULT_AVATAR,
+    avatar: avatarFromNumber(reply.avatar),
     levels,
     gifts,
   };
@@ -236,8 +239,8 @@ function Profile({onLogout = () => {}, onAvatarChange = doNothing}){
     setPictureMessage({text: '', isError: false});
     setIsSaving(true);
     try {
-      const reply = await savePicture(avatar);
-      if (reply && reply.ok === true && reply.avatar === avatar){
+      const reply = await savePicture(avatarToNumber(avatar));
+      if (reply && reply.updated === true && avatarFromNumber(reply.avatar) === avatar){
         setProfile({...profile, avatar});
         onAvatarChange(avatar);
         setIsPicking(false);

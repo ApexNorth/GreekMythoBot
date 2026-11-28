@@ -1,6 +1,22 @@
 
 # Changelog
 
+## 28 November 2026: Profile pictures saved as numbers, like the database (George)
+
+**Changed**
+- Alex's database stores the profile picture as a number (`user.avatar`, starting at 0), so
+  the pages now turn each picture into its number when talking to the server: 0 owl,
+  1 pegasus, 2 Cerberus pup, 3 dolphin, 4 hero helmet, 5 phoenix. Inside the pages the
+  pictures keep their names, so nothing looks different.
+- Saving now goes to Alex's route, `POST /api/user/changeAvatar`, and understands its reply
+  (`{updated: true, avatar}`). The pretend server replies the same way. Until the login
+  gives the page a userID, the real route can't be used yet (`TODO BACKEND` note).
+- A number the server doesn't know shows the owl instead of breaking the page (NFR-12).
+
+**Tested**
+- Saving a new picture, the navbar picture, logging out and in again (the saved number comes
+  back as the right picture), and the "couldn't save" messages.
+
 ## 27 November 2026: Quiz step 4c: questions for the Primordials (George)
 
 **Added**

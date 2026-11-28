@@ -6,7 +6,7 @@
  */
 import {godGiftGroups, giftGroups} from '../data/gifts.js';
 import quizzes from '../data/quizzes.js';
-import {DEFAULT_AVATAR, isAvatar} from '../data/avatars.js';
+import {avatars} from '../data/avatars.js';
 
 // Quiz favour rules (George, 26 Nov): right answer +5, wrong answer -3, always 0-100
 const RIGHT_ANSWER_FAVOUR = 5;
@@ -21,7 +21,7 @@ const GIFT_SCORE = 3;
 // and Hermes has already used both of today's quiz tries (to show "Come back tomorrow")
 const demo = {
   username: 'Demo Player',
-  avatar: DEFAULT_AVATAR,
+  avatar: 0, // like user.avatar in the database: a number, 0 = owl
   favour: {Zeus: 64, Athena: 50, Hermes: 45, Ares: 0, Kronos: 20, Gaia: 90},
   gifts: [
     {giftName: 'Worn Copper Coin', groupName: 'Coins'},
@@ -129,7 +129,7 @@ export function getProfile(){
   return reply((test) => ({
     ok: true,
     username: demo.username,
-    avatar: test === 'new' ? DEFAULT_AVATAR : demo.avatar,
+    avatar: test === 'new' ? 0 : demo.avatar,
     relationships: test === 'new'
       ? []
       : Object.entries(demo.favour).map(([godName, favor]) => ({godName, favor})),
@@ -137,11 +137,14 @@ export function getProfile(){
   }));
 }
 
-/** Pretend POST /api/user/avatar: saves the player's profile picture if it's one of the 6. Replies {ok, avatar}. */
+/**
+ * Pretend POST /api/user/changeAvatar (Alex's route): saves the picture's number (0-5).
+ * Replies like the real route: {updated: true, avatar} or {updated: false, error}.
+ */
 export function saveAvatar(avatar){
   return reply(() => {
-    if (!isAvatar(avatar)) {return {ok: false};}
+    if (!avatars.some((item) => item.number === avatar)) {return {updated: false, error: 'Not one of the pictures'};}
     demo.avatar = avatar;
-    return {ok: true, avatar};
+    return {updated: true, avatar};
   }, 600);
 }

@@ -11,7 +11,7 @@ import Profile from './routes/Profile.jsx';
 import Quiz from './routes/Quiz.jsx';
 import GodSelection from './components/GodSelection.jsx';
 import GodChat from './components/GodChat.jsx';
-import {DEFAULT_AVATAR} from './data/avatars.js';
+import {DEFAULT_AVATAR, avatarFromNumber} from './data/avatars.js';
 import {getProfile} from './utils/demoServer.js';
 import './App.css';
 
@@ -31,7 +31,7 @@ function App() {
     // TODO BACKEND: the login reply should send the player's avatar; until then ask the pretend server
     getProfile()
       .then((reply) => {
-        if (reply && typeof reply.avatar === 'string') {setAvatar(reply.avatar);}
+        if (reply && reply.ok === true) {setAvatar(avatarFromNumber(reply.avatar));}
       })
       .catch(() => {});
   };
