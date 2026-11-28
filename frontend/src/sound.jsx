@@ -8,7 +8,7 @@ export const sound_lib = {
   "test": "test_sound.mp3"
 }
 
-export async function playSound(sound_to_play, bLoop = false) {
+export async function playSound(sound_to_play,  bLoop = false, volume = 1.0) {
   /// Plays the desired sound or warns if the sound cannot be played.
   // param sound_to_play: Sound filename.
   // param bLoop: Should the sound loop?
@@ -20,6 +20,7 @@ export async function playSound(sound_to_play, bLoop = false) {
 
   const beat = new Audio(`/sound/${sound_lib[sound_to_play]}`);
   beat.loop = bLoop;
+  beat.volume = volume;
   
   try {
     await beat.play();

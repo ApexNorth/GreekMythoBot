@@ -10,16 +10,133 @@ const db = new Database(dbPath, { fileMustExist: true });
 console.log(dbPath);
 
 const user = {
+  userEmail: db.prepare(`
+  SELECT EXISTS(
+    SELECT 1 FROM user WHERE userEmail = ?
+) AS matched;
+`),
   userInfo: db.prepare(`
   SELECT EXISTS(
 	  SELECT 1 FROM user WHERE userEmail = ? AND userPassword = ?
 ) AS matched;
 `),
   addUser: db.prepare(`
-INSERT INTO user (username, userPassword, userEmail, dateOfBirth) VALUES
-(?, ?, ?, ?);
+INSERT INTO user (username, userPassword, userEmail, dateOfBirth, created) VALUES
+(?, ?, ?, ?, ?);
 `),
- getUserInfo(email, password) {return this.userInfo.all(email, password);}
+  userRelationship: db.prepare(`
+SELECT godName, favor
+FROM userRelationship AS ur
+JOIN god AS g
+ON g.godID = ur.godID
+WHERE ur.userID = ? AND ur.godID = ?;
+`),
+  userRelationships: db.prepare(`
+SELECT godName, favor
+FROM userRelationship AS ur
+JOIN god as g
+ON g.godID = ur.godID
+WHERE ur.userID = ?;
+`),
+  userProfile: db.prepare(`
+SELECT g.giftName 
+FROM profile AS p
+JOIN gifts AS g
+ON g.giftID = p.giftID
+WHERE p.userID = ?;
+`),
+  userFullProfile: db.prepare(`
+SELECT g.giftName, god.godName, ur.favor
+FROM profile AS p
+JOIN gifts AS g
+ON g.giftID = p.giftID
+JOIN userRelationship AS ur
+ON ur.userID = p.userID
+JOIN god
+ON god.godID = ur.godID
+WHERE p.userID = ?;
+`),
+  userHistory: db.prepare(`
+SELECT sender, message, timestamp
+FROM chatHistory AS ch
+WHERE userID = ? AND godID = ?;
+`),
+  addMessage: db.prepare(`
+INSERT INTO chatHistory (sender, message, timestamp, userID, godID)
+VALUES (? , ? , ? , ? , ?);
+`),
+  changeUsername: db.prepare(`
+UPDATE user SET username = ?
+WHERE userID = ? AND userPassword = ?
+`),
+  changeEmail: db.prepare(`
+UPDATE user SET userEmail = ?
+WHERE userID = ? AND userPassword = ?
+`),
+  changePassword: db.prepare(`
+UPDATE user SET userPassword = ?
+WHERE userID = ? AND userPassword = ?
+`),
+  changeAvatar: db.prepare(`
+UPDATE user SET avatar = ? WHERE userID = ?
+`)
 };
 
-module.exports = {user};
+const god = {
+  godNames: db.prepare(`
+SELECT godName
+FROM god;
+`),
+  godInfo: db.prepare(`
+SELECT godID, godName, godDesc, godPersonality, godDomain, godTolerance, groupName 
+FROM god
+JOIN giftGroup AS gg
+ON gg.groupID = god.giftGroupID;
+`),
+  getGod: db.prepare(`
+SELECT godID, godName, godDesc, godPersonality, godDomain, godTolerance, groupName 
+FROM god
+JOIN giftGroup AS gg
+ON gg.groupID = god.giftGroupID
+WHERE god.godID = ?;
+`)
+}
+
+const gift = {
+  gifts: db.prepare(`
+SELECT g.giftName, g.giftValue, gg.groupName 
+FROM gifts AS g
+JOIN giftGroup AS gg
+ON gg.groupID = g.giftGroupID
+`),
+  gift: db.prepare(`
+SELECT g.giftName, g.giftValue, gg.groupName 
+FROM gifts AS g
+JOIN giftGroup AS gg
+ON gg.groupID = g.giftGroupID
+WHERE giftID = ?;
+`),
+  giftGroups: db.prepare(`
+SELECT groupName
+FROM giftGroup;
+`),
+  giftGroup: db.prepare(`
+SELECT groupName
+FROM giftGroup
+WHERE groupID = ?;
+`),
+  addGift: db.prepare(`
+INSERT INTO profile VALUES
+(?, ?)
+`),
+  removeGift: db.prepare(`
+DELETE FROM profile
+WHERE rowid = (
+	SELECT rowid FROM gifts
+	WHERE userID = ? AND giftID = ?
+	LIMIT 1
+);
+`)
+}
+
+module.exports = {user, god, gift};
