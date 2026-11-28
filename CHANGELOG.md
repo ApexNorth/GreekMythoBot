@@ -9,6 +9,20 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 27 November 2026: User flow diagrams (George)
+
+**Added**
+- `Documentation/Graphs/User flow/`: five user flow diagrams (PDF) showing how a player moves
+  around the website, for the report and so everyone on the team can see the whole journey:
+  1. Whole website overview (logged out and logged in)
+  2. Signing up
+  3. Logging in and forgotten password
+  4. Once you're logged in (Gods page, Chat, Quiz, Profile, profile pictures, navbar)
+  5. Taking a quiz (tries, questions, favour, gifts, come back tomorrow)
+- They were checked against the code on 27 November: every page, button and message in them
+  matches the site (quiz and profile pictures as on `feature/quiz` and
+  `feature/profile-pictures`).
+
 ## 22 November 2026: Registration page, captcha (Alex)
 
 **Added**
