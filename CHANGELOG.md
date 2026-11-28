@@ -9,6 +9,58 @@ Headings to use under each date: **Added** (new things), **Changed**
 
 ---
 
+## 27 November 2026: Testing log, quiz batch (George)
+
+**Added**
+- A quiz section in `docs/testing/testing-log.md`: 22 tests covering the whole quiz, from
+  the Quiz button to the gift: right and wrong answers, favour (including never going below
+  0), gifts, two tries a day, "Come back tomorrow" and the demo reset, the server being down
+  or sending something broken, keyboard only, reduced motion, screen sizes and contrast.
+  All passed. Plus three screenshots.
+- Tested on `feature/profile-pictures` (commit `f7fdb03`), because the quiz isn't in `main`
+  yet. The pretend-server table now lists the quiz test addresses, Hermes and the reset.
+- Seven of the tests (Q4, Q6, Q7, Q10, Q14, Q18, Q19) were also checked by hand on 27 November.
+
+## 27 November 2026: Testing log, batch 4 Profile and profile pictures (George)
+
+**Added**
+- Batch 4 of `docs/testing/testing-log.md`: 13 tests for the Profile page and 8 for profile
+  pictures, all passed, plus two screenshots. Tested on `feature/profile-pictures` (commit
+  `f7fdb03`), because Profile isn't in `main` yet.
+- Since the first run on 22 November, Profile shares its pretend server with the quiz, every
+  gift has a picture, and players can change their profile picture, so the tests were
+  updated and new ones added (PR13: quiz results show on Profile, PP1-PP8: profile pictures).
+- The pretend-server table now lists the Profile test addresses and the demo log in.
+- Seven of the tests (PR1, PR3, PR11, PP2, PP3, PP4, PP5) were also checked by hand on 27 November.
+
+## 27 November 2026: Testing log, batch 3 Navbar and Homepage (George)
+
+**Added**
+- Batch 3 of `docs/testing/testing-log.md`: 6 tests for the navbar and 7 for the
+  homepage, all passed, plus two screenshots. The navbar and homepage aren't in `main`
+  yet, so they were tested on `feature/profile-pictures` (commit `f7fdb03`), where they
+  sit with Nora's gods page, the quiz and profile pictures. The log says so.
+- Since the first run on 22 November, the navbar now shows your profile picture and the
+  quiz page is locked when logged out too, so those tests were updated. The gods page no
+  longer scrolls sideways on small phones.
+- Six of the tests (N2, N5, N6, H2, H3, H6) were also checked by hand on 27 November.
+
+## 27 November 2026: Testing log, batch 2 Log in, Forgot and Reset password (George)
+
+**Added**
+- Batch 2 of `docs/testing/testing-log.md`: 22 tests for the Log in, Forgot password
+  and Reset password pages, run on `main` (commit `3259205`) now that these pages are
+  merged. 21 passed. One failed: Forgot password now gives a different message when an
+  email has no account, so it needs fixing and testing again. Plus two screenshots.
+  First run on 24 November, run again on 27 November before uploading (same results);
+  the six checks marked "By hand" were done by hand on 27 November.
+- A "Front end only" note in "How we test": the log checks what the pages do in the
+  browser, not the server or database, so it's clear what the results cover.
+
+**Changed**
+- The pretend-server table now explains that Log in and Forgot password are connected to
+  the server code, so the test script answers in the server's place for those tests.
+
 ## 27 November 2026: User flow diagrams (George)
 
 **Added**
@@ -22,6 +74,15 @@ Headings to use under each date: **Added** (new things), **Changed**
 - They were checked against the code on 27 November: every page, button and message in them
   matches the site (quiz and profile pictures as on `feature/quiz` and
   `feature/profile-pictures`).
+
+## 22 November 2026: Testing log, batch 1 Registration (George)
+
+**Added**
+- `docs/testing/testing-log.md`, a record of how George's pages are tested
+  against the requirements (FE / NFR numbers), plus a screenshot. This first batch
+  covers the Registration page: 19 tests, all passed, 6 of them also checked by
+  hand. The other pages will be added in later batches, so the testing can be
+  followed step by step and each batch is tested on the day it goes up.
 
 ## 22 November 2026: Registration page, captcha (Alex)
 
